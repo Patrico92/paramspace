@@ -1,15 +1,52 @@
-%% LyX 2.0.2 created this file.  For more info, see http://www.lyx.org/.
-%% Do not edit unless you really know what you are doing.
-\documentclass[english]{IEEEtran}
+\documentclass[final,journal,letterpaper]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{balance}
+\usepackage{float}
+\usepackage{threeparttable}
+
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{textcomp}
 \usepackage{mathrsfs}
 \usepackage{amsthm}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{graphicx}
 
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+
+\usepackage{listings}
+\usepackage{listings}
+
+\lstset{
+   language=C,
+   basicstyle=\small,
+   keywordstyle=\bfseries,
+   identifierstyle=\ttfamily,
+   stringstyle=\ttfamily,
+   numbers=left,
+   numberstyle=\tiny,
+   stepnumber=1,
+   numbersep=-5pt,
+   showstringspaces=false
+%   frame=single %trbl%
+}
+
+\usepackage[normalem]{ulem}
+
+%------------------------------------------------------------------------------
+
+\newcommand{\etal}{\emph{et al.}}
+\newcommand{\eg}{\emph{e.g.}}
+\newcommand{\ie}{\emph{i.e.}}
+\newcommand{\etc}{\emph{etc.}}
+\renewcommand{\baselinestretch}{0.98}\normalsize
+%------------------------------------------------------------------------------
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
 \theoremstyle{plain}
@@ -21,7 +58,7 @@
 
 \makeatother
 
-\usepackage{babel}
+%\usepackage{babel}
 \providecommand{\definitionname}{Definition}
 \providecommand{\remarkname}{Remark}
 \providecommand{\theoremname}{Theorem}
@@ -41,9 +78,16 @@ Elettrica, Elettronica ed Informatica, Universit\`a di Catania, Italy
 
 \maketitle
 \begin{abstract}
-qualcosa blah blah blah
+In this paper ...
 \end{abstract}
 
+%------------------------------------------------------------------------------
+%\IEEEkeywords{...}
+
+\begin{IEEEkeywords}
+Nanotechnology, DNA, Self-assembly, Routing
+\end{IEEEkeywords}
+%------------------------------------------------------------------------------
 \section{Introduction}
 
 The design of an embedded system requires several objectives (energy
@@ -68,7 +112,7 @@ to a large extend, intuition lies behind them.
 
 
 The result of every design space exploration is a subset of the configurations
-called Pareto Set (\cite{key-8}). Roughly speaking, it is a set of
+called Pareto Set (\cite{pareto}). Roughly speaking, it is a set of
 configurations such that there are no other configurations, among
 the simulated ones, that have all the objectives, at the same time,
 better fulfilled. If all possible configurations were evaluated, the
@@ -102,7 +146,7 @@ algorithm $1$ is said to be faster than algorithm $2$, iff $n_{1}<n_{2}$.
 There are a number of design space exploration algorithms proposed
 in literature.
 
-The ``Dependency analysis'' proposed in \cite{key-3}, is meant
+The ``Dependency analysis'' proposed in \cite{givargis_tvlsi02}, is meant
 to take advantage of the dependency among the parameters in a multiobjective
 optimization problem. It is required that the designer knows, prior
 to the exploration, if a parameter X is dependent from a parameter
@@ -120,7 +164,7 @@ parameters. This may lead to the need of an exhaustive search through
 almost all the possible configurations. ii) A designer may not have
 a precise and complete picture of the dependencies among parameters;
 for this reason the need of ``automated approaches for computing
-{[}...{]} interdependencies'' is declared in \cite{key-3}. iii)
+{[}...{]} interdependencies'' is declared in the same paper. iii)
 There may be some ``local dependencies'', i.e. dependencies that
 emerge only if parameter values are bounded to certain ranges.
 
@@ -132,7 +176,7 @@ no a-priori knowledge of dependencies is required as they are discovered
 during exploration. Moreover, recognizing regions offers the capability
 to capture local dependencies.
 
-Abraham, Rau and Schreiber proposed in \cite{key-1} to decompose
+Abraham, Rau and Schreiber proposed in \cite{santosh_hptr00} to decompose
 the system to be evaluated into components that interact minimally
 with each other. ``Alternative designs for each component are evaluated
 in isolation to determine the best designs for individual components.
@@ -140,28 +184,28 @@ Combinations of these designs are then put together to build the complete
 system design''. Pareto sets for each component are found and, provided
 that ``monotonicity'' exists, the complete Pareto set is computed
 merging the component Pareto sets. Roughly speaking (see section 4
-of \cite{key-1} for more details), monotonicity property guarantees
+of the same paper for more details), monotonicity property guarantees
 that the best system can be obtained as a composition of the best
 components. This approach would perfectly work if all the components
 were perfectly isolated, i.e., if there were no dependencies among
 different components (in a sense similar (but not necesarily equal)
 to the one of Dependency analisys). But real scenarios seldom if ever
 expose monotonicity property. This leads to some ``inaccuracies''
-(as stated in section 4.6.1 of \cite{key-1}).
+(as stated in section 4.6.1 of the same paper).
 
 Other approaches take into account the concept of ``sensitivity''.
 The sensitivity of an objective with the respect to a parameter is
 a measure of how much the objective varies when varying that parameter.
-A ``sensitivity analysis'' was used in \cite{key-5} in an optimization
+A ``sensitivity analysis'' was used in \cite{fornaciari_codes01} in an optimization
 problem with only one objective (the power-delay product of an electronic
-device). This method was extended in \cite{key-7} to a multiobjective
-optimization. In \cite{key-7}, the sensitivity of objectives with
+device). This method was extended in \cite{palesi_iwsoc02} to a multiobjective
+optimization. In that work the sensitivity of objectives with
 the respect to each parameter is measured, and parameters are ordered
 on the base on these sensitivity measures. Then, a first Pareto set
 is obtained varying the first parameter, having fixed to arbitrary
 values all other parameters. The Pareto set is then refined varying,
 in a similar way, the other parameters, one by one. Experimental results
-(see section 4.2 of \cite{key-7}) show that this method is not of
+(see section 4.2 of the same work) show that this method is not of
 good ``quality'' (as broadly defined in the introduction). The reason
 can be found in the very limited and rigid exploration of the parameter
 space: after computing the first Pareto set, there are no more chances
@@ -187,7 +231,7 @@ and the ``combined sensitivity limitation'' stated above for the
 sensitivity analysis.
 
 Many studies focus on genetic approaches to resolve multiobjective
-optimization problems (\cite{key-11,key-7} and others). Genetic approaches
+optimization problems (\cite{} and others). Genetic approaches
 have many advantages: they have proved good quality (as broadly defined
 in the introduction), they are customizable, they are very general
 and require no a-priori knowledge to the designer. Genetic algorithms
@@ -793,33 +837,13 @@ other portions to be minutely scanned.
 
 
 \section{Conclusions}
-\begin{thebibliography}{References}
-\bibitem{key-8}V. Pareto. ``Cours d\textquoteright{}E\textasciiacute{}conomie
-Politique, volume 1''. F. Rouge \& Cie., Lausanne, Switzerland, 1896.
+This is the end
 
-\bibitem{key-2} Ewa Gajda-Zagórska - ``Recognizing Sets in Evolutionary
-Multiobjective Optimization'' 
+\balance
 
-\bibitem{key-3}Tony Givargis, Frank Vahid, and Jörg Henkel - ``System-Level
-Exploration for Pareto-Optimal Configurations in Parameterized System-on-a-Chip''
-(2002)
+\bibliographystyle{IEEEtran} 
+\bibliography{bibliography}
 
-\bibitem{key-1} Santosh G. Abraham, B. Ramakrishna Rau, Robert Schreiber
-- ``Fast Design Space Exploration Through Validity and Quality Filtering
-of Subsystem Designs'' 
-
-\bibitem{key-5}W. Fornaciari, D. Sciuto, C. Silvano, and V. Zaccaria
-- \textquotedblleft{}A design framework to efficiently explore energy-delay
-tradeoffs\textquotedblright{}, 9th. International Symposium on Hardware/Software
-Co-Design, Copenhagen, Denmark, Apr. 25-27 2001, pp. 260-265.
-
-\bibitem{key-7}G. Ascia, V. Catania, M. Palesi - ``Tuning methodologies
-for parameterized systems design'', IEEE International workshop on
-system-on-Chip for Real-Time Applications IWSOC, 2002.
-
-\bibitem{key-11}Ascia, G., Catania, V. and Palesi, M. - ``A GA based
-design space exploration framework for parameterized system-on-a-chip
-platforms''. IEEE Transactions on Evolutionary Computation. v8 i4.
-329-346.\end{thebibliography}
+% TODO: G2012 bib not used ?
 
 \end{document}
