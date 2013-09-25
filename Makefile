@@ -6,7 +6,7 @@ paper.pdf: paper.ps
 paper.ps: paper.dvi
 	dvips -t a4 -G0 paper.dvi -o paper.ps
 
-paper.dvi: paper.tex bibliography.bib
+paper.dvi: paper.tex introduction.tex concepts.tex algorithm.tex experiments.tex bibliography.bib
 	latex paper
 	bibtex paper
 	latex paper
