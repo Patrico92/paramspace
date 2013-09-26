@@ -13,17 +13,15 @@ $P_{1}\times\dots\times P_{n}$ is divided
 $K$ is a parameter that must be set before the algorithm runs.
 
 
-\paragraph{START CONDITION}
-\begin{itemize}
-\item $\mathcal{R}_{0}=\left\{ P_{1}\times\dots\times P_{n}\right\} $,
+\subsection{Start Condition}
+$\mathcal{R}_{0}=\left\{ P_{1}\times\dots\times P_{n}\right\} $,
 i.e. era $0$ has only one region that is the whole parameter space.
 A random set $test_{0}$ of $K$ configurations is evaluated. The
 Pareto set $\mathscr{P}_{0}=\mathscr{P}\left(test_{0}\right)$ is
 calculated (see def \ref{pers02.def:Pareto-set} for the definition
 of the operator $\mathscr{P}_{i}$ over a set)
-\end{itemize}
 
-\paragraph{ITERATION RULES}
+\subsection{Iteration Rules}
 
 For $era_{i}$ with $i>0$ the following operations must be performed.
 \begin{enumerate}
@@ -101,8 +99,8 @@ They are not changed.
 \[
 \mathcal{R}_{i,n}=\left\{ \left.R\in\mathcal{R}_{i}\right|is\left(R\right)=0\right\} 
 \]
-
 \end{enumerate}
+
 \item Disjoint couples of contiguous regions $\left(R_{1},R_{2}\right)$,
 with $R_{1},R_{2}\in\mathcal{R}_{i,n}$ are selected. The set of this
 couples is indicated as $\mathcal{C}$. The couples of regions are
@@ -128,14 +126,13 @@ as:
 
 \end{enumerate}
 
-\paragraph{TERMINATION CONDITION}
-\begin{itemize}
-\item The algorithm terminates at step $k$ if
+\subsection{Termination Condition}
+The algorithm terminates at step $k$ if
 \[
 is_{TOT,k},is_{TOT,k-1},\dots,is_{TOT,k-\beta}\le\gamma\cdot is_{TOT,k-\left(\beta-1\right)}
 \]
  where $\beta$ and $\gamma$ are selected by the experimenter (see
-remark \ref{rem:termination}).\end{itemize}
+remark \ref{rem:termination}).
 \begin{rem}
 \label{pers02.rem:smaller_regions}The rule \ref{pers02.enu:K} of
 the iteration rules says that the smaller is a region, the more ``crowded''
