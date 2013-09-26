@@ -1,81 +1,61 @@
 
-\section{Preliminaries}
+\section{Preliminary Concepts}
 
-\subsection{Representation}
-\begin{defn}
-\emph{Configuration}
+\subsection{Formulation of the Problem}
 
-Let $p_{1},\dots,p_{n}$ be the parameters and $P_{i}$ the domain
-of $p_{i}$, i.e. the set of values $v\in P_{i}$ that parameter $p_{i}$
-may assume. A configuration is a vector
-\[
-\mathbf{p}=\left(v_{1},\dots,v_{n}\right)\in P_{1}\times\dots\times P_{n}
-\]
+\label{sec:statement_of_the_problem}\index{DSE}
 
-\end{defn}
+Let $S$ be a parameterized system with $n$ parameters. The generic
+parameter $p_i, \ i \in \{1,2,\ldots,n\}$ can take any value in
+the set $V_i$. A {\em configuration} $\mathbf{c}$ of the system
+$S$ is a $n$-tuple $\langle v_1,v_2,\ldots,v_n \rangle$ in which
+$v_i \in V_i$ is the value fixed for the parameter $p_i$. The {\em
+configuration space} (or {\em design space}) of $S$ [which we will
+indicate as $\mathcal{C}(S)$] is the complete range of possible
+configurations [$\mathcal{C}(S) = V_1 \times V_2 \times \ldots
+\times V_n$]. Naturally not all the configurations of
+$\mathcal{C}(S)$ can really be mapped on $S$. We will call the set
+of configurations that can be physically mapped on $S$ the {\em
+feasible configuration space} of $S$ [and indicate it as
+$\mathcal{C}^*(S)$].
 
-\begin{defn}
-\emph{Objective function}
+Let $m$ be the number of objectives to be optimized (e.g. power,
+cost, performance, etc.). An {\em evaluation function}
+$E:\mathcal{C}^*(S)\times \mathcal{B} \longrightarrow \Re^m$ is a
+function that associates each feasible configuration of $S$ with
+an $m$-tuple of values corresponding to the objectives to be
+optimized when any application belonging to the set of benchmarks
+$\mathcal{B}$ is executed.
 
-Let $o_{1},\dots,o_{m}$ be the objectives and $O_{i}$ the set of
-values that $o_{i}$ may assume. Let $O_{i}$ have a ``better than''
-operator $\vartriangleright$ defined so that, taking $o_{i},q_{i}\in O_{i}$,
-we can always say:
-\[
-o_{i}\vartriangleright q_{i}\mbox{ (}o_{i}\mbox{ is better than }q_{i}\mbox{)}
-\]
- or
-\[
-o_{i}\vartriangleleft q_{i}\mbox{ (}o_{i}\mbox{ is worse than }q_{i}\mbox{)}
-\]
- or
-\[
-o_{i}\bowtie q_{i}\mbox{ (}o_{i}\mbox{ is neither better nor worse than }q_{i}\mbox{)}
-\]
+Given a system $S$, an application $b \in \mathcal{B}$ and two
+configurations $\mathbf{c}', \mathbf{c}'' \in \mathcal{C}^*(S)$,
+$\mathbf{c}'$ is said to {\em dominate} (or {\em eclipse})
+$\mathbf{c}''$, and is indicated as $\mathbf{c}' \succ
+\mathbf{c}''$, if given $\mathbf{o}'=E(\mathbf{c}', b)$ and
+$\mathbf{o}''=E(\mathbf{c}'', b)$ it results that $\mathbf{o}'
+\leq \mathbf{o}''$ and $\mathbf{o}' \neq \mathbf{o}''$. Where
+vector comparisons are interpreted component-wise and are true
+only if all of the individual comparisons are true ($o'_i \leq
+o''_i \ \forall \ i = 1,2,\ldots,m$).
 
+The {\em Pareto-optimal set} of $S$ for the application $b$ is the
+set:
+\[ \mathcal{P}(S,b) = \{ \mathbf{c} \in \mathcal{C}^*(S) \ : \nexists \ \mathbf{c}' \in \mathcal{C}^*(S), \mathbf{c}' \succ \mathbf{c} \} \]
+that is, the set of configurations $\mathbf{c} \in
+\mathcal{C}^*(S)$ not dominated by any other configuration.
+Pareto-optimal configurations are configurations belonging to the
+Pareto-optimal set and the {\em Pareto-optimal front} is the image
+of the Pareto-optimal configurations, i.e. the set:
+\[ \mathcal{P}_{F}(S,b) = \{ \mathbf{o} : \mathbf{o} = E(\mathbf{c},b), \mathbf{c} \in \mathcal{P}(S,b) \} \]
 
-$o_{i}$ can be viewed as a function
-\[
-o_{i}:\mathbf{p}\rightarrow o_{i}\left(\mathbf{p}\right)\in O_{i},\ \forall\mathbf{p}\in P_{1}\times\dots\times P_{n}
-\]
- To take into account all of the objectives, the following function
-is defined:
-\[
-\mathbf{o}:\mathbf{p}\rightarrow\left(o_{1}\left(\mathbf{p}\right),\dots,o_{m}\left(\mathbf{p}\right)\right),\ \forall\mathbf{p}\in P_{1}\times\dots\times P_{n}
-\]
+The aim of a Design Space Exploration (DSE) strategy is to give a
+good approximation of the Pareto-optimal front for a system $S$ and an
+application $b$, simulating as few configurations as possible.
 
-\end{defn}
-
-%{[}BISOGNEREBBE INTRODURRE IL CONCETTO DI FEASIBILITY{]}
-\begin{defn}
-\emph{\label{pers02.def:Pareto-set}Pareto set}
-
-Let $U\subseteq P_{1}\times\dots\times P_{n}$. The set of its dominated
-configurations is:
-\[
-Dom\left(U\right)=\left\{ \left.\mathbf{p}\in U\right|\exists\mathbf{x}\in U:o_{i}\left(\mathbf{x}\right)\vartriangleright o_{i}\left(\mathbf{p}\right),\mbox{for }i=1,\dots m\right\} 
-\]
+%----------------------------------------------------------------
 
 
-Its Pareto set is defined as:
-\[
-\mathscr{P}\left(U\right)=U\setminus Dom\left(U\right)
-\]
 
-
-When there is no ambiguity, $\mathscr{P}$ is written instead of $\mathscr{P}\left(U\right)$.
-\end{defn}
-
-\begin{defn}
-\emph{Pareto front}
-
-The Pareto front is the representation in the objective space of the
-Pareto set, i.e.:
-\[
-\mathbf{o}\left(\mathscr{P}\right)\in O_{1}\times\dots\times O_{m}
-\]
-
-\end{defn}
 On the contrary, we call ``parameter space representation'' of the
 Pareto set the representation in which each configuration $\mathbf{p}$
 is simply represented as a point of $P_{1}\times\dots\times P_{n}$
@@ -94,7 +74,7 @@ and Pareto front (``objective space representation'')}
 
 \end{figure}
 
-\subsection{Regions}
+\subsection{Required Definitions and Concepts}
 
 In the design process, there are often a lot of ``local decisions''
 in which the designer can take advantage of well-known results or
