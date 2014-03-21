@@ -67,14 +67,11 @@ of its parameter space representation.
 
 \begin{figure}[h]
 \includegraphics[width=0.9\columnwidth]{img/Pareto_set_and_front}
-
 \caption{Relation between Pareto set (its ``parameter space representation'')
 and Pareto front (``objective space representation'')}
-
-
 \end{figure}
 
-\subsection{Required Definitions and Concepts}
+\subsection{Sketch of the Idea}
 
 In the design process, there are often a lot of ``local decisions''
 in which the designer can take advantage of well-known results or
@@ -121,13 +118,9 @@ fulfilled in a completely different way from what he already found
 during exploration. So a region will be evaluated ineresting as much
 as how different are its added Pareto front points from the ones already
 found.
-\begin{rem}
-We will consider only parameters $p_{i}$ with ordering, i.e. such
-that, if $P_{i}$ is a domain, $\forall a,b\in P_{i}$ it is possible
-to say $a<b$ or $a=b$ or $a>b$.
-\end{rem}
-%TODO: DESCRIVERE COME SI PENSA DI TRATTARE GLI SCENARI IN CUI ESISTONO
-%PARAMETRI SENZA ORDINAMENTO{]}
+
+%TODO: sync name of values with formulation
+\subsection{Required Definitions}
 \begin{defn}
 \emph{Parameter interval}
 
@@ -140,6 +133,13 @@ A $p_{i}$- interval is
 is the set of values of $P_{i}$ lying in $\left[a_{i},b_{i}\right]$)
 \end{defn}
 
+\begin{rem}
+We will consider only parameters $p_{i}$ with ordering, i.e. such
+that, if $P_{i}$ is a domain, $\forall a,b\in P_{i}$ it is possible
+to say $a<b$ or $a=b$ or $a>b$.
+\end{rem}
+%TODO: DESCRIVERE COME SI PENSA DI TRATTARE GLI SCENARI IN CUI ESISTONO
+%PARAMETRI SENZA ORDINAMENTO{]}
 \begin{defn}
 \emph{\label{pers02.def:Contiguous-intervals}Contiguous intervals}
 
