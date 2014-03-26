@@ -1,0 +1,14 @@
+
+% ----------------------------------------------
+% Epic Explorer simulation file - created on Tue Mar 25 12:47:14 2014
+
+% Objectives: Average Power, Execution Time
+% Benchmark: hyper
+% Compiler: tcc_region, max_unroll_allowed, regroup_only, do_classic_opti, do_prepass_scalar_scheduling, do_postpass_scalar_scheduling, do_modulo_scheduling, memvr_profiled
+
+% Area(cm^2)  Power(W)     Time(ms)   / MHz / cl / I F B M / gpr fpr pr cr btr / L1D(CBA) / L1I(CBA) / L2U(CBA) / Compiler
+% ----------------------------------------------
+0.745571021  135876643255548.156250000  0.004415000 %/ 200 / 1 / 6 5 1 2 / 128 64 32 64 64 / 1024 32 2 / 4096 64 4 / 262144 256 2 / 2 8 1 1 1 1 1 1  
+0.852778453  119572101341722.968750000  0.005025000 %/ 200 / 2 / 6 5 1 2 / 128 64 32 64 64 / 1024 32 2 / 4096 64 4 / 262144 256 4 / 2 8 2 1 2 2 1 2  
+0.795614986  113294571002030.015625000  0.005295000 %/ 200 / 2 / 5 5 1 2 / 16 64 32 64 64 / 1024 32 2 / 4096 64 4 / 262144 256 4 / 2 8 1 2 1 2 2 2  
+1.264273482  2.389005748  0.005635000 %/ 200 / 1 / 6 3 4 4 / 128 16 64 128 16 / 16384 64 2 / 4096 64 4 / 524288 128 8 / 2 8 1 1 2 1 1 1  
