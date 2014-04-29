@@ -1,30 +1,31 @@
 \section{A Case Study: VLIW Hardware/Software Design Space}
 \label{sec:ee}
-In this subsection we evaluating the behavior of the proposed approach
-using a parameterized Very Long Instruction
-Word (VLIW) architecture~\cite{kathail_tr00} as a testbed. The same philosophy
-behind a VLIW system makes it a natural choice for several reasons:
+In order to evaluate the behavior of the proposed approach
+we will be using a parameterized Very Long Instruction
+Word (VLIW) architecture~\cite{kathail_tr00} as testbed. The same philosophy
+behind a VLIW system makes this a natural choice for several reasons:
 \begin{itemize}
-\item{Multi-Objective trade-offs}: these architectures let designers
+\item{Multi-Objective trade-offs}: VLIW architectures let designers
 easily trade between power, energy and performances~\cite{}, leading
-to Pareto sets whose extension is an ideal ground for testing the
-proposed Parameters space representation.
+to Pareto sets whose extension is an ideal ground for our testing
+purposes focused on parameter-space space representation of Paretos.
 \item{Compiler awareness}: Instruction Level Parallelism (ILP)
-constitutes the key feature to enable the multi-objective trade-offs
+constitutes the key feature to enable the multi-objective trade offs
 of the point above. It is statically obtained by the compiler which
 performs code trasformations being aware of the underlying hardware
 configuration.  This tight hardware/software dependence, makes the
-VLIW scenario more suitable for investigating hardly predictable
+VLIW scenario well suitable for investigating hardly predictable
 hardware/software interactions, especially when compared to
-architectures where, in order to preserve binary compatibility,
-software generation processes are independent from the hardware that
+architectures that, in order to preserve binary compatibility,
+separate software generation processes from the hardware that
 will execute it.
 
 System parameters can be classified in three main categories:
-\emph{processor}, \emph{memory sub-system} and \emph{compiling options}. 
+\emph{processor}, \emph{memory sub-system} and \emph{compiler}. 
 The first is directly related to the VLIW core and includes the size
 of the register files and the number of functional
-units for each type of opera. In particular, five different types of register files can be identified:
+units for each type. In particular, five different types of register
+files are supported:
 GPR (32-bit registers for integers), FPR (64-bit registers for
 floating point values) PR (1-bit registers used to store the Boolean
 values of predicated instructions), BTR (64-bit registers containing
@@ -39,7 +40,7 @@ include \emph{size}, \emph{associativity} and
 (L1D), first-level instruction cache (L1I) and second-level unified
 cache (L2U).
 
-Further, a set of the most impacting compilation parameters has been
+Next, a set of the most impacting code compilation parameters has been
 selected and included in the configuration space:
 \begin{itemize}
 \item{tcc\_region}: Specifies the scope of action of the compiler and the type
@@ -63,16 +64,16 @@ adpted Multi-objective Genetic Algorithm~\cite{}. At best of our
 knowledge, genetic approaches
 still represent the best compromise between efficiency (i.e. time
 required for exploration) and accuracy of the reported Paret Sets. Of
-course mono-objective approaches have been
+course, mono-objective approaches have been
 deliberately excluded from this analysis. Other
 approaches~\cite{dep} that make use of some a-priori knowledge about the
 role and meaning of each parameter have been also excluded, since our
-aim is evaluate the capacity of the strategy to focus on interesting
+aim is evaluate the capacity of focusing on interesting
 parameter regions without any external judgement or help based on
 euristics.  Finally, it should be pointed
-out that in this introductory work we explicitly focus on TODO
-remainding to works like~\cite{} for a detailed analysis of other
-similar multi-objective strategies.
+out that in this introductory work we will explicitly use the TODO
+variant of MOGA, remainding to works like~\cite{} for a detailed
+analysis on how it differs and what could be expected from similar multi-objective strategies.
 
 The class of benchmark being considered is representative of some common
 frequently running application kernels in an embedded multimedia
@@ -89,24 +90,20 @@ chosen along with a brief description.
 	Alloca\_test & Memory array allocation test \\
 	Bmm & Matrices multiplication and elements sum \\
 	Fir\_int & Finite impulse response \\
-	Fib & Fibonacci series \\
 	Mm & Floating point matrices multiplication \\
+	Sha256 & Cryptocurrency header Hashing \\
 	Wave & Wavefront computation \\
 	\hline
 	\end{tabular}
 \end{table}
 %------------------------------------------------------------------------------
 
-\section{Results}
+\subsection{Results}
 
-Each data set is obtained evaluation a 1,000 randomly chosen point of
-the configuration space. In particular, two different scenarios have
-been considered: the first one, referred as \emph{Variable Compilation
-Profile (VCP)}, includes all compilation parameters described
-in the Table~\ref{tab:compiler}; a second scenario, \emph{Fixed
-Compilation Profile (FCP)}, which excludes any of those parameters
-exploring all the remaining hardware aspects of the architecture as
-described in Section~\ref{subsec:arch}.
+Set of Figures~\ref{fig:pareto_fronts_100}
+and~\ref{fig:pareto_fronts} show the resultig pareto fronts for two
+different scenarios of 100 and 500 simulations budget.
+
 
 Figures~\ref{fig:pareto_fronts_100} and~\ref{fig:pareto_fronts}
 respectively show the visited configurations and the
@@ -138,8 +135,8 @@ space as compared to those found for the FCP case.
   \label{fig:pareto_fronts}
 \end{figure}
 
-Let us now analyse the Pareto fronts from a quantitative viewpoint. We
-consider two metrics, namely, the \emph{variation range} and the
+In order to evaluate the Paretos from a quantitative point-of-view we
+will consider two metrics, namely, the \emph{variation range} and the
 \emph{average normalised absolute dispersion error}. For a given
 objective, the variation range represents the ratio between the
 maximum and the minimum value observed for that objective. A
@@ -156,8 +153,8 @@ respectively.
     \includegraphics[width=0.7\textwidth]{pictures/variation_power.eps} \\
     \includegraphics[width=0.7\textwidth]{pictures/variation_etime.eps}
   \end{tabular}
-  \caption{Variation range for different benchmarks between a FCP and
-    a VCP exploration for power dissipation and execution time.}
+  \caption{Variation range for different benchmarks between PS and GA
+  exploration for power dissipation and execution time.}
   \label{fig:variation_range}
 \end{figure}
 
