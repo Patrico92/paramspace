@@ -53,7 +53,7 @@ such as common expression removal
 \item{do\_prepass\_scalar\_scheduling}: Performs a schedule before
 forming regions 
 \item{do\_postpass\_scalar\_scheduling}: Performs a schedule after the region formation 
-do\_modulo\_scheduling & Modular scheduling 
+do\_modulo\_scheduling  Modular scheduling 
 \item{memvr\_profiled}: Performs a memory-dependencies profiling 
 \end{itemize}
 
@@ -63,11 +63,11 @@ The results presented in the next section compare PS against a widely
 adpted Multi-objective Genetic Algorithm~\cite{}. At best of our
 knowledge, genetic approaches
 still represent the best compromise between efficiency (i.e. time
-required for exploration) and accuracy of the reported Paret Sets. Of
-course, mono-objective approaches have been
-deliberately excluded from this analysis. Other
-approaches~\cite{dep} that make use of some a-priori knowledge about the
-role and meaning of each parameter have been also excluded, since our
+required for exploration) and accuracy of the reported Paret Sets.
+Note that for the reasons described above, mono-objective approaches have been
+explicitly excluded from this analysis. Same decision has been taken
+for other approaches (e.g. dependecy based~\cite{dep}) that make use of some a-priori knowledge about the
+role and meaning of each parameter, since our
 aim is evaluate the capacity of focusing on interesting
 parameter regions without any external judgement or help based on
 euristics.  Finally, it should be pointed
@@ -104,7 +104,33 @@ Set of Figures~\ref{fig:pareto_fronts_100}
 and~\ref{fig:pareto_fronts} show the resultig pareto fronts for two
 different scenarios of 100 and 500 simulations budget.
 
+\begin{table*}
+  \centering
+  \begin{tabular}{ccc}
+    \includegraphics[width=0.32\textwidth]{pictures/alloca_100.eps} &
+    \includegraphics[width=0.32\textwidth]{pictures/bmm_100.eps} & 
+    \includegraphics[width=0.32\textwidth]{pictures/fir_int100.eps} \\
+    \includegraphics[width=0.32\textwidth]{pictures/mm_100.eps} &
+    \includegraphics[width=0.32\textwidth]{pictures/sha_100.eps} &
+    \includegraphics[width=0.32\textwidth]{pictures/wave_100.eps} 
+  \end{tabular}
+  \caption{Pareto fronts found by PS and GA for a fixed budget of 100 configurations.}
+  \label{fig:pareto_fronts_100}
+\end{table*}
 
+\begin{table*}
+  \centering
+  \begin{tabular}{ccc}
+    \includegraphics[width=0.32\textwidth]{pictures/alloca_500.eps} &
+    \includegraphics[width=0.32\textwidth]{pictures/bmm_500.eps} & 
+    \includegraphics[width=0.32\textwidth]{pictures/fir_int500.eps} \\
+    \includegraphics[width=0.32\textwidth]{pictures/mm_500.eps} &
+    \includegraphics[width=0.32\textwidth]{pictures/sha_500.eps} &
+    \includegraphics[width=0.32\textwidth]{pictures/wave_500.eps} 
+  \end{tabular}
+  \caption{Pareto fronts found by PS and GA for a fixed budget of 500 configurations.}
+  \label{fig:pareto_fronts_100}
+\end{table*}
 Figures~\ref{fig:pareto_fronts_100} and~\ref{fig:pareto_fronts}
 respectively show the visited configurations and the
 Pareto fronts found for both FCP and VCP scenarios for different
@@ -113,27 +139,7 @@ are on average  more widely and evenly distributed over the objective
 space as compared to those found for the FCP case.
 
 
-\begin{figure}
-  \centering
-  \begin{tabular}{cc}
-    \includegraphics[width=0.45\textwidth]{pictures/100bmm.eps} & \includegraphics[width=0.45\textwidth]{pictures/100fir_int.eps} \\
-    \includegraphics[width=0.45\textwidth]{pictures/100mm.eps} & \includegraphics[width=0.45\textwidth]{pictures/100fib.eps} \\
-    \includegraphics[width=0.45\textwidth]{pictures/100alloca_test.eps} & \includegraphics[width=0.45\textwidth]{pictures/100wave.eps}
-  \end{tabular}
-  \caption{Pareto fronts found by PS and GA for a fixed budget of 100 configurations.}
-  \label{fig:pareto_fronts_100}
-\end{figure}
 
-\begin{figure}
-  \centering
-  \begin{tabular}{cc}
-    \includegraphics[width=0.45\textwidth]{pictures/bmm.eps} & \includegraphics[width=0.45\textwidth]{pictures/fir_int.eps} \\
-    \includegraphics[width=0.45\textwidth]{pictures/mm.eps} & \includegraphics[width=0.45\textwidth]{pictures/fib.eps} \\
-    \includegraphics[width=0.45\textwidth]{pictures/alloca_test.eps} & \includegraphics[width=0.45\textwidth]{pictures/wave.eps}
-  \end{tabular}
-  \caption{Pareto fronts found by PS and GA for a fixed budget of 500 configurations.}
-  \label{fig:pareto_fronts}
-\end{figure}
 
 In order to evaluate the Paretos from a quantitative point-of-view we
 will consider two metrics, namely, the \emph{variation range} and the
