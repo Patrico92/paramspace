@@ -101,18 +101,18 @@ chosen along with a brief description.
 \subsection{Results}
 
 Set of Figures~\ref{fig:pareto_fronts_100}
-and~\ref{fig:pareto_fronts} show the resultig pareto fronts for two
+and~\ref{fig:pareto_fronts_500} show the resultig pareto fronts for two
 different scenarios of 100 and 500 simulations budget.
 
 \begin{table*}
   \centering
   \begin{tabular}{ccc}
-    \includegraphics[width=0.32\textwidth]{pictures/alloca_100.eps} &
-    \includegraphics[width=0.32\textwidth]{pictures/bmm_100.eps} & 
-    \includegraphics[width=0.32\textwidth]{pictures/fir_int100.eps} \\
-    \includegraphics[width=0.32\textwidth]{pictures/mm_100.eps} &
-    \includegraphics[width=0.32\textwidth]{pictures/sha_100.eps} &
-    \includegraphics[width=0.32\textwidth]{pictures/wave_100.eps} 
+    \includegraphics[width=0.30\textwidth]{pictures/alloca_100.eps} &
+    \includegraphics[width=0.30\textwidth]{pictures/bmm_100.eps} & 
+    \includegraphics[width=0.30\textwidth]{pictures/fir_int100.eps} \\
+    \includegraphics[width=0.30\textwidth]{pictures/mm_100.eps} &
+    \includegraphics[width=0.30\textwidth]{pictures/sha_100.eps} &
+    \includegraphics[width=0.30\textwidth]{pictures/wave_100.eps} 
   \end{tabular}
   \caption{Pareto fronts found by PS and GA for a fixed budget of 100 configurations.}
   \label{fig:pareto_fronts_100}
@@ -121,24 +121,18 @@ different scenarios of 100 and 500 simulations budget.
 \begin{table*}
   \centering
   \begin{tabular}{ccc}
-    \includegraphics[width=0.32\textwidth]{pictures/alloca_500.eps} &
-    \includegraphics[width=0.32\textwidth]{pictures/bmm_500.eps} & 
-    \includegraphics[width=0.32\textwidth]{pictures/fir_int500.eps} \\
-    \includegraphics[width=0.32\textwidth]{pictures/mm_500.eps} &
-    \includegraphics[width=0.32\textwidth]{pictures/sha_500.eps} &
-    \includegraphics[width=0.32\textwidth]{pictures/wave_500.eps} 
+    \includegraphics[width=0.30\textwidth]{pictures/alloca_500.eps} &
+    \includegraphics[width=0.30\textwidth]{pictures/bmm_500.eps} & 
+    \includegraphics[width=0.30\textwidth]{pictures/fir_int500.eps} \\
+    \includegraphics[width=0.30\textwidth]{pictures/mm_500.eps} &
+    \includegraphics[width=0.30\textwidth]{pictures/sha_500.eps} &
+    \includegraphics[width=0.30\textwidth]{pictures/wave_500.eps} 
   \end{tabular}
   \caption{Pareto fronts found by PS and GA for a fixed budget of 500 configurations.}
-  \label{fig:pareto_fronts_100}
+  \label{fig:pareto_fronts_500}
 \end{table*}
-Figures~\ref{fig:pareto_fronts_100} and~\ref{fig:pareto_fronts}
-respectively show the visited configurations and the
-Pareto fronts found for both FCP and VCP scenarios for different
-application benchmarks. How it can be observed, VCP solutions
-are on average  more widely and evenly distributed over the objective
-space as compared to those found for the FCP case.
 
-
+As can be seen TODO...
 
 
 In order to evaluate the Paretos from a quantitative point-of-view we
@@ -153,16 +147,20 @@ be observed, the VCP exploration provides solutions which fall on a
 range that is, on average, 23\% and 40\% wider than that provided by a
 FCP exploration for power dissipation and execution time,
 respectively.
-\begin{figure}
+\begin{table}
   \centering
   \begin{tabular}{c}
-    \includegraphics[width=0.7\textwidth]{pictures/variation_power.eps} \\
-    \includegraphics[width=0.7\textwidth]{pictures/variation_etime.eps}
+    \includegraphics[width=0.4\textwidth]{pictures/variation_power.eps} \\
+    (a) \\
+    \includegraphics[width=0.4\textwidth]{pictures/variation_etime.eps}
+    (b) \\
+    \includegraphics[width=0.4\textwidth]{pictures/dispersion.eps} \\
+    (c) 
   \end{tabular}
-  \caption{Variation range for different benchmarks between PS and GA
-  exploration for power dissipation and execution time.}
-  \label{fig:variation_range}
-\end{figure}
+  \caption{(a)(b) Variation range for different benchmarks between PS and GA
+  and average dispersion absolute dispersion (c)}
+  \label{fig:dispersion}
+\end{table}
 
 
 The average normalised absolute dispersion error measures
@@ -191,14 +189,7 @@ case in which all the solutions fall in a single tile:
 \[ E_{max} = \frac{(M_x M_y - 1) \overline{N} + |\overline{N} -
     |O|| }{M_x M_y}. \] 
 
-Fig.~\ref{fig:dispersion} shows the average normalised absolute
+Fig.~\ref{fig:dispersion}(c) shows the average normalised absolute
 dispersion errors for different benchmarks for FCP and VCP
 exploration. As it can be observed, VCP exploration reduces the
 dispersion error on average by 20\% as compared to a FCP exporation.
-\begin{figure}
-  \centering
-  \includegraphics[width=0.7\textwidth]{pictures/dispersion.eps} \\
-  \caption{Average normalised absolute dispersion errors for different
-    benchmarks for FCP and VCP exploration.}
-  \label{fig:dispersion}
-\end{figure}
