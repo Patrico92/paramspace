@@ -1,13 +1,14 @@
 \section{A Case Study: VLIW Hardware/Software Design Space}
 \label{sec:ee}
+\subsection{Motivation}
 In order to evaluate the behavior of the proposed approach
 we will be using a parameterized Very Long Instruction
 Word (VLIW) architecture~\cite{kathail_tr00} as testbed. The same philosophy
 behind a VLIW system makes this a natural choice for several reasons:
 \begin{itemize}
 \item{Multi-Objective trade-offs}: VLIW architectures let designers
-easily trade between power, energy and performances~\cite{}, leading
-to Pareto sets whose extension is an ideal ground for our testing
+easily trade between power, energy and performances~\cite{}, resulting
+in Pareto sets whose extension is an ideal ground for our testing
 purposes focused on parameter-space space representation of Paretos.
 \item{Compiler awareness}: Instruction Level Parallelism (ILP)
 constitutes the key feature to enable the multi-objective trade offs
@@ -19,7 +20,9 @@ hardware/software interactions, especially when compared to
 architectures that, in order to preserve binary compatibility,
 separate software generation processes from the hardware that
 will execute it.
+\end{itemize}
 
+\subsection{Parameter Space}
 System parameters can be classified in three main categories:
 \emph{processor}, \emph{memory sub-system} and \emph{compiler}. 
 The first is directly related to the VLIW core and includes the size
@@ -57,28 +60,10 @@ do\_modulo\_scheduling  Modular scheduling
 \item{memvr\_profiled}: Performs a memory-dependencies profiling 
 \end{itemize}
 
-\subsection{Evaluation Metrics}
-
-The results presented in the next section compare PS against a widely
-adpted Multi-objective Genetic Algorithm~\cite{}. At best of our
-knowledge, genetic approaches
-still represent the best compromise between efficiency (i.e. time
-required for exploration) and accuracy of the reported Paret Sets.
-Note that for the reasons described above, mono-objective approaches have been
-explicitly excluded from this analysis. Same decision has been taken
-for other approaches (e.g. dependecy based~\cite{dep}) that make use of some a-priori knowledge about the
-role and meaning of each parameter, since our
-aim is evaluate the capacity of focusing on interesting
-parameter regions without any external judgement or help based on
-euristics.  Finally, it should be pointed
-out that in this introductory work we will explicitly use the TODO
-variant of MOGA, remainding to works like~\cite{} for a detailed
-analysis on how it differs and what could be expected from similar multi-objective strategies.
-
-The class of benchmark being considered is representative of some common
-frequently running application kernels in an embedded multimedia
-environment. Table~\ref{tab:bench} shows the set of applications
-chosen along with a brief description.
+As regards the class of benchmark being considered, a set applications representative of some common
+frequently running code kernels in an embedded multimedia
+environment has been chosen. Table~\ref{tab:bench} shows the set of applications
+along with a brief description.
 \begin{table}
 	\centering
 	\caption{Benchmarks}
@@ -96,6 +81,27 @@ chosen along with a brief description.
 	\hline
 	\end{tabular}
 \end{table}
+
+\subsection{Evaluation Metrics}
+
+The results presented in the next section compare PS against one
+widely adopted Multi-objective Genetic
+Algorithm~\cite{knowles_techrep06}. At best of our knowledge, genetic
+approaches in general still represent the best compromise between
+efficiency (i.e. time required for exploration) and accuracy of the
+reported Paret Sets.  Note that for the reasons described above,
+mono-objective approaches have been explicitly excluded from this
+analysis. Same decision has been taken for other approaches (e.g.
+dependecy based~\cite{givargis_tvlsi02}) that make use of some
+a-priori knowledge about the role and meaning of each parameter, since
+our aim is evaluate the capacity of focusing on interesting parameter
+regions without any external judgement or help based on euristics.
+Finally, it should be pointed out that in this introductory work we
+will explicitly use the SPEA~\cite{zitzler_eurogen01} variant of MOGA,
+remainding to works like~\cite{zitzler_ec00}~\cite{zitzler_tec03} for
+a detailed analysis on how it differs and what could be expected from
+similar multi-objective strategies.
+
 %------------------------------------------------------------------------------
 
 \subsection{Results}
@@ -142,7 +148,8 @@ objective, the variation range represents the ratio between the
 maximum and the minimum value observed for that objective. A
 comparison between the variation range for different benchmarks
 between a FCP and a VCP exploration for both power dissipation and
-execution time is shown in Fig.~\ref{fig:variation_range}. As it can
+execution time is shown in Fig.~\ref{fig:dispersion}(a) and (b)
+respectively. As it can
 be observed, the VCP exploration provides solutions which fall on a
 range that is, on average, 23\% and 40\% wider than that provided by a
 FCP exploration for power dissipation and execution time,
