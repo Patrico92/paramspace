@@ -1,36 +1,32 @@
 
 \section{Introduction}
 
-The design of an embedded system requires several objectives (energy
-consumption, area occupation, ...) to be fulfilled. The fulfilling
-of these objectives depends on several parameters and in the real
-cases no analytical results are known to show the relation between
-configurations (combination of parameters) and objectives. Therefore
-the simulation is the only way to have a picture of how parameters
-impact on the objectives. The problem is that the number of parameters
-and the number of values that each of them may take lead to an enormous
-number of possible configurations, such that simulating all of them
-is an unfeasible activity. Therefore there is the need for the ``Design
-Space Exploration'', i.e. a methodology to select a subset of all
-possible configurations and simulate only this subset.
+The design of an embedded system requires different conflicting
+objectives (energy consumption, performance, area) to be fulfilled.
+Several factors are involved in this goal and real cases show how
+often no analytical results are known to predict the relation between
+system configurations and objectives. In such cases an high level
+system simulation is the only way to have a picture of how system
+parameters impact on the objectives.  The key problem is that the size
+of the design space to be simulated grows with the product of
+cardinalities of parameters, easily yelding an untractable number
+of simulations. In order to address such task a ``Design Space
+Exploration'' strategy is required, i.e. a methodology to evaluate
+only a small subset of all possible configurations while maintaining a
+good level of efficiency and accuracy.
 
-Many different design space exploration algorithms have been proposed.
-A design space exploration algorithm is typically not based on precise
-/ analytical / mathematical evidences. The motivations of an exploration
-algorithm are rather heuristic, have some form of arbitrariness and,
-to a large extend, intuition lies behind them.
+The final result of every design space exploration is a subset of the
+configurations called Pareto Set (\cite{pareto}). Roughly speaking, it
+is a set of configurations representing the trade-offs between
+objectives: for each of configuration of the Pareto Set there is no
+other configuration performing better for all the objectives
+considered. Of course this is an high level estimation so in a
+subsequent step of the design flow these few promising configurations
+can be more accurately evaluated using detailed low level simulations.
 
-
-
-The result of every design space exploration is a subset of the configurations
-called Pareto Set (\cite{pareto}). Roughly speaking, it is a set of
-configurations such that there are no other configurations, among
-the simulated ones, that have all the objectives, at the same time,
-better fulfilled. If all possible configurations were evaluated, the
-ideal Pareto set (the ``true'' Pareto set) could be calculated.
-But, as stated above, evaluating all the configurations is not feasable.
-Therefore the Pareto set returned by an exploration algorithm is an
-approximation of the ``true'' Pareto set.
+In this work we present PS, a multiobjective design exploration
+strategy which introduce the concept of Parameter Space representation
+of Pareto Set. The main idea is to ....
 
 Many exploration algorithms form the resulting Pareto set in an incremental
 way. The algorithm adds and removes configurations in Pareto set while
@@ -40,24 +36,15 @@ Pareto set shaping can be seen as the ``behavior'' of the algorithm.
 This behavior tells us how the Pareto set ``converges'' towards
 the final Pareto set. 
 
-The ``quality'' of an exploration algorithm involves two aspects:
-\begin{itemize}
-\item how much the Pareto set returned by the exploration algorithm is similar
-to the ``true'' Pareto set (notice that this cannot be evaluated
-because the true Pareto set is unknown - it is only an ``ideal''
-quality factor)
-\item how fast the Pareto set converges towards the final one. If algorithm
-$1$ returns the final Pareto set after simulating $n_{1}$ configurations
-and algorithm $2$ returns its final Pareto set after $n_{2}$ simulations,
-algorithm $1$ is said to be faster than algorithm $2$, iff $n_{1}<n_{2}$.
-\end{itemize}
-
 \section{\label{sec:Related-work}Related work}
 % TODO: short, remove descriptions
 % SPEA2 as choice, comparison of it agains other GA is available 
 
-There are a number of design space exploration algorithms proposed
-in literature.
+Many different design space exploration algorithms have been proposed.
+A design space exploration algorithm is typically not based on precise
+/ analytical / mathematical evidences. The motivations of an exploration
+algorithm are rather heuristic, have some form of arbitrariness and,
+to a large extend, intuition lies behind them.
 
 The ``Dependency analysis'' proposed in \cite{givargis_tvlsi02}, is meant
 to take advantage of the dependency among the parameters in a multiobjective

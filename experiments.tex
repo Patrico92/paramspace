@@ -7,23 +7,19 @@ Word (VLIW) architecture~\cite{kathail_tr00} as testbed. The same philosophy
 behind a VLIW system makes this a natural choice for several reasons:
 \begin{itemize}
 \item{Multi-Objective trade-offs}: VLIW architectures let designers
-easily trade between power, energy and performances~\cite{}, resulting
-in Pareto sets whose extension is an ideal ground for our testing
-purposes focused on parameter-space space representation of Paretos.
+easily trade between power, energy and performances, resulting
+in extended Pareto sets which are an ideal ground for our testing
+purposes focused on parameter-space space representation
 \item{Compiler awareness}: Instruction Level Parallelism (ILP)
-constitutes the key feature to enable the multi-objective trade offs
-of the point above. It is statically obtained by the compiler which
+is statically obtained by the compiler which
 performs code trasformations being aware of the underlying hardware
 configuration.  This tight hardware/software dependence, makes the
-VLIW scenario well suitable for investigating hardly predictable
-hardware/software interactions, especially when compared to
-architectures that, in order to preserve binary compatibility,
-separate software generation processes from the hardware that
-will execute it.
+VLIW scenario perfectly suitable for investigating hardly predictable
+hardware/software interactions.
 \end{itemize}
 
 \subsection{Parameter Space}
-System parameters can be classified in three main categories:
+In general, system parameters can be classified in three main categories:
 \emph{processor}, \emph{memory sub-system} and \emph{compiler}. 
 The first is directly related to the VLIW core and includes the size
 of the register files and the number of functional
@@ -61,8 +57,7 @@ do\_modulo\_scheduling  Modular scheduling
 \end{itemize}
 
 As regards the class of benchmark being considered, a set applications representative of some common
-frequently running code kernels in an embedded multimedia
-environment has been chosen. Table~\ref{tab:bench} shows the set of applications
+frequently running code kernels has been selected. Table~\ref{tab:bench} shows the set of applications
 along with a brief description.
 \begin{table}
 	\centering
@@ -107,8 +102,15 @@ similar multi-objective strategies.
 \subsection{Results}
 
 Set of Figures~\ref{fig:pareto_fronts_100}
-and~\ref{fig:pareto_fronts_500} show the resultig pareto fronts for two
-different scenarios of 100 and 500 simulations budget.
+and~\ref{fig:pareto_fronts_500} show the resulting pareto fronts for two
+different scenarios of 100 and 500 simulations budget. When possible,
+similar algorithm parameters have been adopted. In particular a
+population size of 30 has been chosen for GA, corresponding to the
+same value for the $K$ of PS. The number of generations (or era)
+has been chosen so that the only the given amount of simulations is
+actually performed. Thus, when accounting these simulations only unique simulations
+has been considered, removing repeations and unfeasibile
+configurations.
 
 \begin{table*}
   \centering
@@ -138,8 +140,24 @@ different scenarios of 100 and 500 simulations budget.
   \label{fig:pareto_fronts_500}
 \end{table*}
 
-As can be seen TODO...
-
+Low budget Pareto sets are shown in
+Figure~\ref{fig:pareto_fronts_100}. With a so small number of
+configuration being investigated the two sets are often overlapping,
+being also strongly depended upon the application being considered.
+These results are obtained in about 5 eras, and the main aim was
+demonstrating that with a so limited budget PS still can competer with
+genetic approach while even discovering very different Pareto fronts.
+Continuing with a more extendent simulation budget as depicted in
+Figure~\ref{fig:pareto_fronts_500}, we can qualitatively observe that
+even if PS does not stricly outperforms genetic in terms of dominance, it shows in
+some cases largely Pareto in terms of extension. We can intuitively
+relate this to the ``novelty-based'' score system, so that instead of
+focusing on getting better points inside a given range it tries to
+enlarge the range itself, resulting in less dense but more extended
+Paretos. Of course we cannot classify this different behavior as
+``better'' or ``worse'' as compared to the genetic one, it depends on
+various design factors such as desired results granularity, prefixed objective
+range constraints, estimated error of the models used etc~\ldots.
 
 In order to evaluate the Paretos from a quantitative point-of-view we
 will consider two metrics, namely, the \emph{variation range} and the
@@ -149,17 +167,15 @@ maximum and the minimum value observed for that objective. A
 comparison between the variation range for different benchmarks
 between a FCP and a VCP exploration for both power dissipation and
 execution time is shown in Fig.~\ref{fig:dispersion}(a) and (b)
-respectively. As it can
-be observed, the VCP exploration provides solutions which fall on a
-range that is, on average, 23\% and 40\% wider than that provided by a
-FCP exploration for power dissipation and execution time,
-respectively.
+respectively. As it can be observed, the PS exploration provides solutions which fall on a
+range that is, on average, wider than that provided by a
+MOGA exploration for power dissipation and execution time, respectively.
 \begin{table}
   \centering
   \begin{tabular}{c}
     \includegraphics[width=0.4\textwidth]{pictures/variation_power.eps} \\
     (a) \\
-    \includegraphics[width=0.4\textwidth]{pictures/variation_etime.eps}
+    \includegraphics[width=0.4\textwidth]{pictures/variation_etime.eps} \\
     (b) \\
     \includegraphics[width=0.4\textwidth]{pictures/dispersion.eps} \\
     (c) 
@@ -168,7 +184,6 @@ respectively.
   and average dispersion absolute dispersion (c)}
   \label{fig:dispersion}
 \end{table}
-
 
 The average normalised absolute dispersion error measures
 the average absolute difference between the distribution of points in
@@ -197,6 +212,10 @@ case in which all the solutions fall in a single tile:
     |O|| }{M_x M_y}. \] 
 
 Fig.~\ref{fig:dispersion}(c) shows the average normalised absolute
-dispersion errors for different benchmarks for FCP and VCP
-exploration. As it can be observed, VCP exploration reduces the
-dispersion error on average by 20\% as compared to a FCP exporation.
+dispersion errors for different benchmarks for PS and MOGA
+exploration. As it can be observed, MOGA still shows a tendency in
+discovering more uniformly dispersed points (i.e. higher values). These results,
+together with the variation ranges of Fig.~\ref{fig:dispersion}(a) and
+(b) confirm the the availability of density vs extension trade-offs
+when comparing PS and multi-objective genetic approaches.
+
