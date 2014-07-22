@@ -1,57 +1,46 @@
 
-\section{Introduction}
+\section{Introduction and Motivation}
 
 The design of an embedded system requires different conflicting
 objectives (energy consumption, performance, area) to be fulfilled.
 Several factors are involved in this goal and real cases show how
 often no analytical results are known to predict the relation between
 system configurations and objectives. In such cases an high level
-system simulation is the only way to have a picture of how system
-parameters impact on the objectives.  The key problem is that the size
+system simulation is often the only way to have a picture of how system
+parameters impact on the objectives.  A key problem is that the size
 of the design space to be simulated grows with the product of
-cardinalities of parameters, easily yelding an untractable number
-of simulations. In order to address such task a ``Design Space
+cardinalities of each parameter, easily resulting in an untractable number
+of simulations. In these cases a ``Design Space
 Exploration'' strategy is required, i.e. a methodology to evaluate
 only a small subset of all possible configurations while maintaining a
-good level of efficiency and accuracy.
+good level of efficiency and accuracy~\cite{surviving_soc}.
 
-The final result of every design space exploration is a subset of the
-configurations called Pareto Set (\cite{pareto}). Roughly speaking, it
-is a set of configurations representing the trade-offs between
-objectives: for each of configuration of the Pareto Set there is no
+The final result of a design space exploration is a subset of the
+configurations called Pareto Set (\cite{pareto}) (See also Definition
+\ref{pers02.def:Pareto-set}. It represents the trade-offs between
+objectives, so that for each of configuration of the Pareto Set there is no
 other configuration performing better for all the objectives
-considered. Of course this is an high level estimation so in a
-subsequent step of the design flow these few promising configurations
-can be more accurately evaluated using detailed low level simulations.
+considered. Once these few promising configurations have been obtained, a
+subsequent step of the design flow can eventually afford a more
+accurate low level simulation.
 
 In this work we present PS, a multiobjective design exploration
-strategy which introduce the concept of Parameter Space representation
-of Pareto Set. The main idea is to ....
+strategy that introduces the concept of Parameter Space Representation
+of Pareto Set. The main idea is focusing on the ``innovation''
+introduced in the Pareto sets and then accordingly distribuiting the
+exploration effort in regions created in the multidimensional space of
+system parameters.
 
-Many exploration algorithms form the resulting Pareto set in an incremental
-way. The algorithm adds and removes configurations in Pareto set while
-choosing the configurations to evaluate and simulating them. So Pareto
-set ``evolves'' towards the final one. The dynamical view of the
-Pareto set shaping can be seen as the ``behavior'' of the algorithm.
-This behavior tells us how the Pareto set ``converges'' towards
-the final Pareto set. 
-
-\section{\label{sec:Related-work}Related work}
-% TODO: short, remove descriptions
-% SPEA2 as choice, comparison of it agains other GA is available 
-
-Many different design space exploration algorithms have been proposed.
-A design space exploration algorithm is typically not based on precise
-/ analytical / mathematical evidences. The motivations of an exploration
+Many different design space exploration algorithms have been proposed
+in literature.  The motivations of an exploration
 algorithm are rather heuristic, have some form of arbitrariness and,
 to a large extend, intuition lies behind them.
 
+Some exploration strategies assume some kind of ``knowledge'' about
+the system parameters, their meaning and impact on design objectives.
 The ``Dependency analysis'' proposed in \cite{givargis_tvlsi02}, is meant
 to take advantage of the dependency among the parameters in a multiobjective
-optimization problem. It is required that the designer knows, prior
-to the exploration, if a parameter X is dependent from a parameter
-Y, i.e. changing the value of Y ``impacts the optimal parameter value''
-for X. With this a-priori knowledge, the designer can construct a
+optimization problem.  With this a-priori knowledge, the designer can construct a
 ``dependency graph'' and recognize clusters, i.e. subsets of strongly
 dependency-connected parameters. Each cluster is exhaustively evaluated
 and its ``local Pareto set'' is found. Then, all local Pareto sets
@@ -63,25 +52,20 @@ because there may be interdependencies among a very large number of
 parameters. This may lead to the need of an exhaustive search through
 almost all the possible configurations. ii) A designer may not have
 a precise and complete picture of the dependencies among parameters;
-for this reason the need of ``automated approaches for computing
-{[}...{]} interdependencies'' is declared in the same paper. iii)
-There may be some ``local dependencies'', i.e. dependencies that
-emerge only if parameter values are bounded to certain ranges.
-
-These drawbacks are not present in our solution. The algorithm presented
+for this reason the need of ``automated approaches for computing interdependencies'' is declared in the same paper. 
+These drawbacks are not present in our contribution. The algorithm presented
 here is also meant to take advantage of dependency but is not directly
 based on dependency itself, but rather it ``catches'' dependencies
 in terms of ``interesting or uninteresting regions''; as a consequence
 no a-priori knowledge of dependencies is required as they are discovered
 during exploration. Moreover, recognizing regions offers the capability
-to capture local dependencies.
+to capture local dependencies,  i.e. dependencies that
+emerge only if parameter values are bounded to certain ranges.
+
 
 Abraham, Rau and Schreiber proposed in \cite{santosh_hptr00} to decompose
 the system to be evaluated into components that interact minimally
-with each other. ``Alternative designs for each component are evaluated
-in isolation to determine the best designs for individual components.
-Combinations of these designs are then put together to build the complete
-system design''. Pareto sets for each component are found and, provided
+with each other. Pareto sets for each component are found and, provided
 that ``monotonicity'' exists, the complete Pareto set is computed
 merging the component Pareto sets. Roughly speaking (see section 4
 of the same paper for more details), monotonicity property guarantees
@@ -131,21 +115,24 @@ and the ``combined sensitivity limitation'' stated above for the
 sensitivity analysis.
 
 Many studies focus on genetic approaches to resolve multiobjective
-optimization problems (\cite{} and others). Genetic approaches
+optimization problems (\cite{coello_easmop} and others). Genetic approaches
 have many advantages: they have proved good quality (as broadly defined
 in the introduction), they are customizable, they are very general
-and require no a-priori knowledge to the designer. Genetic algorithms
-run in subsequent iterations. Configurations are represented as chromosomes.
-In each iteration a ``population'' of configurations is evaluated.
-Some configurations are discarded. Each selected configuration is
-combined with the preceding population and then ``mutated'' (i.e.
-the resulting configuration is varied a little). Iterating this operations,
-populations are expected to become ``better and better''. The strong
+and require no a-priori knowledge to the designer.  The strong
 point of genetic approaches can be summarized saying that they consist
 in a broad exploration (the mutation permits to make the exploration
 not rigidly restricted to limited parts of parameter space), although
 this exploration is not random but is guided by the performances of
 the already evaluated configurations. Therefore, the exploration is
 neither too much constrained nor too much random. We claim that the
-approach presented in this paper has all the benefits of the genetic
+approach presented in this paper has most of the benefits of the genetic
 approaches, although the rational is completely different.
+
+The paper is organized as follows: in
+Section~\ref{sec:statement_of_the_problem} we formally introduce the
+main concepts and the definitions required to apply the proposed strategy. Next in
+Section~\ref{sec:algorithm} we present the PS algorithm in detail.
+Finally in Section~\ref{sec:ee} we show a case study involving the
+exploration of the hardware/software parameters of a VLIW
+architecture, performing a qualitative and quantitative comparison of
+PS agains the state-of-art of multiobjective genetic based approaches.
