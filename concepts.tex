@@ -13,10 +13,10 @@ $v_i \in V_i$ is the value fixed for the parameter $p_i$. The {\em
 configuration space} (or {\em design space}) of $S$ [which we will
 indicate as $\mathcal{C}(S)$] is the complete range of possible
 configurations [$\mathcal{C}(S) = V_1 \times V_2 \times \ldots
-\times V_n$]. Naturally not all the configurations of
-$\mathcal{C}(S)$ can really be mapped on $S$. We will call the set
-of configurations that can be physically mapped on $S$ the {\em
-feasible configuration space} of $S$ [and indicate it as
+\times V_n$]. Naturally, not all the configurations of
+$\mathcal{C}(S)$ can really be mapped on $S$, but only a subset 
+is feasible. We call this subset {\em
+feasible configuration space} $S$ and indicate it as
 $\mathcal{C}^*(S)$].
 
 Let $m$ be the number of objectives to be optimized (e.g. power,
@@ -30,26 +30,26 @@ $\mathcal{B}$ is executed.
 Given a system $S$, an application $b \in \mathcal{B}$ and two
 configurations $\mathbf{c}', \mathbf{c}'' \in \mathcal{C}^*(S)$,
 $\mathbf{c}'$ is said to {\em dominate} (or {\em eclipse})
-$\mathbf{c}''$, and is indicated as $\mathbf{c}' \succ
-\mathbf{c}''$, if given $\mathbf{o}'=E(\mathbf{c}', b)$ and
-$\mathbf{o}''=E(\mathbf{c}'', b)$ it results that $\mathbf{o}'
-\leq \mathbf{o}''$ and $\mathbf{o}' \neq \mathbf{o}''$. Where
+$\mathbf{c}''$, if, given $\mathbf{o}'=E(\mathbf{c}', b)$ and
+$\mathbf{o}''=E(\mathbf{c}'', b)$, it results that $\mathbf{o}'
+\leq \mathbf{o}''$ and $\mathbf{o}' \neq \mathbf{o}''$, where
 vector comparisons are interpreted component-wise and are true
 only if all of the individual comparisons are true ($o'_i \leq
-o''_i \ \forall \ i = 1,2,\ldots,m$).
+o''_i \ \forall \ i = 1,2,\ldots,m$). To indicate that 
+$\mathbf{c}'$ dominates $\mathbf{c}''$, we use the notation
+$\mathbf{c}' \succ \mathbf{c}''$.
 
 \begin{definition}[Pareto Set]
 \label{pers02.def:Pareto-set}
 The {\em Pareto-optimal set} of $S$ for the application $b$ is the
 set:
-\[ \mathcal{P}(S,b) = \{ \mathbf{c} \in \mathcal{C}^*(S) \ : \nexists \ \mathbf{c}' \in \mathcal{C}^*(S), \mathbf{c}' \succ \mathbf{c} \} \]
+\[ \mathcal{P}(S,b) = \{ \mathbf{c} \in \mathcal{C}^*(S) \ | \nexists \ \mathbf{c}' \in \mathcal{C}^*(S), \mathbf{c}' \succ \mathbf{c} \} \]
 \end{definition}
 that is, the set of configurations $\mathbf{c} \in
-\mathcal{C}^*(S)$ not dominated by any other configuration.
-Pareto-optimal configurations are configurations belonging to the
-Pareto-optimal set and the {\em Pareto-optimal front} is the image
-of the Pareto-optimal configurations, i.e. the set:
-\[ \mathcal{P}_{F}(S,b) = \{ \mathbf{o} : \mathbf{o} = E(\mathbf{c},b), \mathbf{c} \in \mathcal{P}(S,b) \} \]
+\mathcal{C}^*(S)$ not dominated by any other \comment{feasible}
+ configuration.
+The configurations belonging to the Pareto-optimal set are called \emph{Pareto-optimal configurations}, while the {\em Pareto-optimal front} is their image, i.e. the set:
+\[ \mathcal{P}_{F}(S,b) = \{ \mathbf{o} | \mathbf{o} = E(\mathbf{c},b), \mathbf{c} \in \mathcal{P}(S,b) \} \]
 
 The aim of a Design Space Exploration (DSE) strategy is to give a
 good approximation of the Pareto-optimal front for a system $S$ and an
@@ -58,7 +58,7 @@ application $b$, simulating as few configurations as possible.
 %----------------------------------------------------------------
 
 
-
+\comment{Mi sembra solo un cambio di notazione. }
 On the contrary, we call ``parameter space representation'' of the
 Pareto set the representation in which each configuration $\mathbf{p}$
 is simply represented as a point of $P_{1}\times\dots\times P_{n}$
@@ -78,18 +78,16 @@ and Pareto front (``objective space representation'')}
 
 In the design process, there are often a lot of ``local decisions''
 in which the designer can take advantage of well-known results or
-heuristics. For example, in a VLIW architecture consider a configuration
-with very few registers. It is well-known that, in such a condition,
-increasing the number of ALUs doesn't lead to tangible better performances
-but leads to an increase in area occupation. An intelligent exploration
-algorithm wouldn't waste time evaluating configurations with many
+heuristics. For example, if we consider a VLIW architecture in a configuration with very few registers, it is well-known that increasing the number of ALUs does not bring tangible better performances
+but only cause an increase in area occupation. An intelligent exploration
+algorithm would not waste time evaluating configurations with many
 ALUs and few registers. If $p_{1}$ is the parameter ``number of
 registers'' and $p_{2}$ is the parameter ``number of ALUs'', we
 can say that the region:
 \[
 R=\left\{ \left.\left(v_{1},v_{2}\right)\in P_{1}\times P_{2}\right|v_{1}<s_{1},v_{2}>s_{2}\right\} 
 \]
- (where $s_{1}$ and $s_{2}$ are some threshold values) is of little
+ (where $s_{1}$ and $s_{2}$ are some threshold values) is of modest
 interest. This example shows that some ``dependency relation'' between
 parameters may exist and can be exploited to guide the exploration:
 the dependencies between parameters can suggest to the designer that,
