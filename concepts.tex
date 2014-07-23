@@ -333,3 +333,22 @@ s\left(\mathbf{o}\rightarrow\mathbf{q}\right)=\max_{i=1,\dots,m}\left|\frac{o_{i
 \]
 
 \end{defn}
+
+\comment{ CERCARE DI FAR CAPIRE CONCETTUALMENTE IL SEGUENTE CONFRONTO CON LA SENSITIVITY ANALYSIS:
+It is worth noticing that this approach can not capture
+``local sensitivity'' (this drawback will be called ``local sensitivity
+limitation''), i.e. the objectives may be more sensitive to some
+ranges of a parameter and less sensitive to other ranges of the same
+parameter. Moreover it can not capture ``combined sensitivity''
+(``combined sensitivity limitation''), i.e. the objectives may be
+more sensitive to a range of a parameter $p_{1}$, only when other
+parameters are within certain ranges, and less sensitive to the same
+range of parameter $p_{1}$ when the other parameters are not within
+those ranges. Therefore, in the method we propose, we do not use the
+sensitivity directly, but we use the concept of innovation (that can
+be considered, at least weakly related to the sensitivity). We do
+not measure innovation of a parameter (as done for the sensitivity),
+but rather we measure the innovation of a ``region'' of parameter
+space, in order to overcome both the ``local sensitivity limitation''
+and the ``combined sensitivity limitation'' stated above for the
+sensitivity analysis.}

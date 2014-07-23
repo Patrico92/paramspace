@@ -20,6 +20,8 @@
 \usepackage[scaled=.90]{helvet}
 \usepackage{courier}
 
+\usepackage{color}
+
 \usepackage{listings}
 \usepackage{listings}
 
@@ -45,6 +47,11 @@
 \newcommand{\eg}{\emph{e.g.}}
 \newcommand{\ie}{\emph{i.e.}}
 \newcommand{\etc}{\emph{etc.}}
+
+\newcommand{\comment}[1]{\textcolor{red}{AA: \bf #1}}
+%\newcommand\comment[1]{} % When you enable this lines, all the notes will disappear
+
+
 %\renewcommand{\baselinestretch}{0.98}\normalsize
 %------------------------------------------------------------------------------
 \makeatletter
@@ -83,13 +90,13 @@ Explore Hardware-Software Dependencies}
 \maketitle
 \begin{abstract}
 Embedded Systems Design often requires conflicting objectives to be
-optimised with an approapriate choice of hardware/software parameters
+optimized with an appropriate choice of hardware/software parameters
 . Interdependencies among these parameters can make this task even
 more difficult, since an a-priori knowledge of them would  be required
 to develop an analytical model of the system. In this work we present
 PS, a multiobjective exploration strategy that introduces the notion
 of Parameters Space Representation. After a detailed formal
-description of the algorithm and its concepts, we show an
+description of the algorithm and its concepts, we show a
 hardware/software exploration case study. Qualitative and quantitative
 comparisons of PS against a well-know multiobjective genetic approach
 demonstrate that, while not outperforming it in terms of dominance, the
