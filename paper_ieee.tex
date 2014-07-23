@@ -1,5 +1,4 @@
-%\documentclass[final,journal,letterpaper]{IEEEtran}
-\documentclass[prodmode,acmtecs]{acmsmall}
+\documentclass[final,journal,letterpaper]{IEEEtran}
 
 \usepackage{cite}
 \usepackage{amsmath}
@@ -15,7 +14,7 @@
 \usepackage[latin9]{inputenc}
 \usepackage{textcomp}
 \usepackage{mathrsfs}
-%\usepackage{amsthm}
+\usepackage{amsthm}
 
 \usepackage{mathptmx}
 \usepackage[scaled=.90]{helvet}
@@ -23,6 +22,7 @@
 
 \usepackage{color}
 
+\usepackage{listings}
 \usepackage{listings}
 
 \lstset{
@@ -54,15 +54,19 @@
 
 %\renewcommand{\baselinestretch}{0.98}\normalsize
 %------------------------------------------------------------------------------
-%\makeatletter
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
-%\theoremstyle{plain}
-%\newtheorem{thm}{\protect\theoremname}
-%\theoremstyle{definition}
-%\newtheorem{defn}{\protect\definitionname}
-%\theoremstyle{remark}
-%\newtheorem{rem}{\protect\remarkname}
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\theoremstyle{plain}
+\newtheorem{thm}{\protect\theoremname}
+\theoremstyle{definition}
+\newtheorem{defn}{\protect\definitionname}
+\theoremstyle{remark}
+\newtheorem{rem}{\protect\remarkname}
 
+%\newtheorem{defn}[thm]{\protect\definitionname}
+%\theoremstyle{remark}
+%\newtheorem{rem}[thm]{\protect\remarkname}
+%\makeatother
 
 %\usepackage{babel}
 \providecommand{\definitionname}{Definition}
@@ -70,22 +74,20 @@
 \providecommand{\theoremname}{Theorem}
 
 \begin{document}
-% Page heads
-\markboth{V. Catania et al.}{Parameter Space Representation of Pareto Front to
-Explore Hardware-Software Dependencies}
 
+\author{Vincenzo~Catania, Andrea Araldo~and~Davide~Patti% 
+\thanks{The authors are with the Dipartimento di Ingegneria
+Elettrica, Elettronica ed Informatica, Universit\`a di Catania, Italy
+(email: \{vincenzo.catania,aaraldo,davide.patti\}@dieei.unict.it).}}
 
 \title{Parameter Space Representation of Pareto Front to
 Explore Hardware-Software Dependencies}
-\author{VINCENZO CATANIA
-\affil{University of Catania}
-ANDREA ARALDO
-\affil{University of Catania}
-DAVIDE PATTI
-\affil{University of Catania}
-}
+%ATTENZIONE: in questo testo io mi sono riferito a ``Pareto set''
+%come un sottoinsieme dello spazio degli obiettivi (vedi, ad es., descrizione
+%dell'algoritmo). E' più corretto forse, invece, intendere il Pareto
+%set come un sottoinsieme dello spazio delle configurazioni.
 
-%\maketitle
+\maketitle
 \begin{abstract}
 Embedded Systems Design often requires conflicting objectives to be
 optimized with an appropriate choice of hardware/software parameters .
@@ -103,22 +105,12 @@ solutions found for obtaining larger Pareto sets, thus representing a
 further choice for designer when objective constrains allow it.
 \end{abstract}
 
-\category{D.2.2}{Design Tools and Techniques}{}
+%------------------------------------------------------------------------------
+%\IEEEkeywords{...}
 
-\terms{Design, Algorithms, Performance}
-
-\keywords{DSE, MultiObjective Optimization, Genetic Algorithms}
-
-\acmformat{Vincenzo Catania, Andrea Araldo and Davide Patti, 2014. Parameter Space Representation of Pareto Front to
-Explore Hardware-Software Dependencies.}
-
-\begin{bottomstuff}
-Author's addresses: V. Catania, DIEEI University of Catania;
-A. Araldo, DIEEI University of Catania;
-D. Patti, DIEEI University of Catania.
-\end{bottomstuff}
-
-\maketitle
+\begin{IEEEkeywords}
+DSE, MultiObjective Optimization, Genetic Algorithms
+\end{IEEEkeywords}
 %------------------------------------------------------------------------------
 \input{introduction.tex}
 \input{concepts.tex}
@@ -139,7 +131,7 @@ improved pareto extension.
 
 \balance
 
-\bibliographystyle{ACM-Reference-Format-Journals} 
+\bibliographystyle{IEEEtran} 
 \bibliography{bibliography}
 
 % TODO: G2012 bib not used ?

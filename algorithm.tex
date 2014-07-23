@@ -134,14 +134,14 @@ is_{TOT,k},is_{TOT,k-1},\dots,is_{TOT,k-\beta}\le\gamma\cdot is_{TOT,k-\left(\be
 \]
  where $\beta$ and $\gamma$ are selected by the experimenter (see
 remark \ref{rem:termination}).
-\begin{rem}
+\begin{remark}
 \label{pers02.rem:smaller_regions}The rule \ref{pers02.enu:K} of
 the iteration rules says that the smaller is a region, the more ``crowded''
 it is. It means that configurations in smaller regions are evaluated
 with more ``attention'' (see figure \ref{pers02.fig:small_and_big}).
 
 \begin{figure}[h]
-\includegraphics[width=0.9\columnwidth]{img/small_and_big}
+\includegraphics[width=0.5\columnwidth]{img/small_and_big}
 
 \caption{\label{pers02.fig:small_and_big}In this example 5 configurations
 are evaluated in a small region and in a bigger region. In can be
@@ -150,9 +150,9 @@ seen that smaller region is more crowded.}
 
 \end{figure}
 
-\end{rem}
+\end{remark}
 
-\begin{rem}
+\begin{remark}
 The rule \ref{pers02.enu:novelty_score_of_a_configuration} says that
 a configuration whose objectives are more ``separated'' by the previous
 Pareto front, has to be taken in greater account than others. A configuration
@@ -162,7 +162,7 @@ of a configuration is a measure of how much interest we have in considering
 it (see figure \ref{pers02.fig:Novelty-score-of-a-config}).
 
 \begin{figure}[h]
-\includegraphics[width=0.9\columnwidth]{img/novelty_score}
+\includegraphics[width=0.5\columnwidth]{img/novelty_score}
 
 \caption{\label{pers02.fig:Novelty-score-of-a-config}innovation score of a
 configuration}
@@ -170,9 +170,9 @@ configuration}
 
 \end{figure}
 
-\end{rem}
+\end{remark}
 
-\begin{rem}
+\begin{remark}
 The innovation score of a region is a measure of how much different
 are the points that it adds to Pareto Front compared to the previous
 Pareto front. ``High innovation regions'' are the ones in which
@@ -189,9 +189,9 @@ to merge these regions, in order to less densely evaluate them.
 %ULTERIORI GIUSTIFICAZIONI SULL'IMPORTANZA DI CONSIDERARE LA DIVERSITA'
 %DELLE SOLUZIONI SI TROVA IN ext12.pag5 E ALTRI.
 
-\end{rem}
+\end{remark}
 
-\begin{rem}
+\begin{remark}
 \label{rem:termination}The algorithm terminates when in the last
 $\beta$ iterations not a great ``amount of innovation'' has been
 discovered. Therefore it is very probably that carrying on iterating
@@ -203,12 +203,12 @@ it's unsafe to terminate as soon as the Pareto front doesn't change
 enough between two consecutive eras, thus a strategy taking into
 account the history of the Pareto fronts has been adopted in the
 proposed approach.
-\end{rem}
+\end{remark}
 %!!! IN INGLESE E' PIU' CORRETTO DIRE: ``IT IS POSSIBLE THAT THE PARETO
 %FRONTS WERE NOT VERY DIFFERENT''? (CON ``WERE'' AL POSTO DI ``ARE'')
 
 
-\begin{rem}
+\begin{remark}
 Merging and splitting the regions are very dynamic processes. A portion
 of the parameter space can be populated by a large number of small
 regions in some eras, but can be covered by a small number of large
@@ -216,4 +216,4 @@ regions in next eras. This can be explained saying that, after a number
 of eras of intense exploration of a portion of parameter space, this
 exploration has turned to be enough thorough and so it was time for
 other portions to be minutely scanned.
-\end{rem}
+\end{remark}

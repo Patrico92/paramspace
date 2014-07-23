@@ -3,7 +3,7 @@
 
 \subsection{Formulation of the Problem}
 
-\label{sec:statement_of_the_problem}\index{DSE}
+\label{sec:statement_of_the_problem}
 
 Let $S$ be a parameterized system with $n$ parameters. The generic
 parameter $p_i, \ i \in \{1,2,\ldots,n\}$ can take any value in
@@ -38,12 +38,12 @@ vector comparisons are interpreted component-wise and are true
 only if all of the individual comparisons are true ($o'_i \leq
 o''_i \ \forall \ i = 1,2,\ldots,m$).
 
+\begin{definition}[Pareto Set]
+\label{pers02.def:Pareto-set}
 The {\em Pareto-optimal set} of $S$ for the application $b$ is the
 set:
-\begin{defn}
-\label{pers02.def:Pareto-set}
 \[ \mathcal{P}(S,b) = \{ \mathbf{c} \in \mathcal{C}^*(S) \ : \nexists \ \mathbf{c}' \in \mathcal{C}^*(S), \mathbf{c}' \succ \mathbf{c} \} \]
-\end{defn}
+\end{definition}
 that is, the set of configurations $\mathbf{c} \in
 \mathcal{C}^*(S)$ not dominated by any other configuration.
 Pareto-optimal configurations are configurations belonging to the
@@ -69,7 +69,7 @@ of the objective space representation of the Pareto set and the evolution
 of its parameter space representation.
 
 \begin{figure}[h]
-\includegraphics[width=0.9\columnwidth]{img/Pareto_set_and_front}
+\includegraphics[width=0.5\columnwidth]{img/Pareto_set_and_front}
 \caption{Relation between Pareto set (its ``parameter space representation'')
 and Pareto front (``objective space representation'')}
 \end{figure}
@@ -124,28 +124,25 @@ found.
 
 %TODO: sync name of values with formulation
 \subsection{Required Definitions}
-\begin{defn}
-\emph{Parameter interval}
-
-Let $p_{i}$ be a parameter and $a_{i},b_{i}\in P_{i},a_{i}<b_{i}$.
+\begin{definition}[Parameter Interval] Let $p_{i}$ be a parameter and $a_{i},b_{i}\in P_{i},a_{i}<b_{i}$.
 A $p_{i}$- interval is
 \[
 \left[a_{i}..b_{i}\right]=\left[a_{i},b_{i}\right]\cap P_{i}
 \]
  (i.e. taking the interval $\left[a_{i},b_{i}\right]$ , $\left[a_{i}..b_{i}\right]$
 is the set of values of $P_{i}$ lying in $\left[a_{i},b_{i}\right]$)
-\end{defn}
+\end{definition}
 
-\begin{rem}
+\begin{remark}
 We will consider only parameters $p_{i}$ with ordering, i.e. such
 that, if $P_{i}$ is a domain, $\forall a,b\in P_{i}$ it is possible
 to say $a<b$ or $a=b$ or $a>b$.
-\end{rem}
+\end{remark}
+
 %TODO: DESCRIVERE COME SI PENSA DI TRATTARE GLI SCENARI IN CUI ESISTONO
 %PARAMETRI SENZA ORDINAMENTO{]}
-\begin{defn}
-\emph{\label{pers02.def:Contiguous-intervals}Contiguous intervals}
-
+\begin{definition}[Contiguous intervals]
+\label{pers02.def:Contiguous-intervals}
 Let $\left[a_{i}..b_{i}\right]$ and $\left[x_{i}..y_{i}\right]$
 be two $p_{i}$-intervals. They are said to be contiguous iff
 \begin{itemize}
@@ -155,32 +152,30 @@ and
 interval or $\left[x_{i}..y_{i}\right]\cup\left[a_{i}..b_{i}\right]$
 is a $p_{i}$- interval
 \end{itemize}
-\end{defn}
+\end{definition}
 \begin{figure}[h]
-\includegraphics[width=0.9\columnwidth]{img/contiguous_intervals_or_not}
+\includegraphics[width=0.5\columnwidth]{img/contiguous_intervals_or_not}
 
 \caption{Examples of contiguous and not contiguous intervals}
 
 \end{figure}
 
-\begin{defn}
-\emph{Region}
-
-A region is a set of the following form:
+\begin{definition}[Region]A region is a set of the following form:
 \[
 R=\left[a_{1}..b_{1}\right]\times\dots\times\left[a_{n}..b_{n}\right]=\prod\left[a_{i}..b_{i}\right]
 \]
  (see figure \ref{pers02.fig:Examples-of-regions})
 
 \begin{figure}[h]
-\includegraphics[width=0.9\columnwidth]{img/regions}
+\includegraphics[width=0.5\columnwidth]{img/regions}
 
 \caption{\label{pers02.fig:Examples-of-regions}Examples of regions}
 
 
 \end{figure}
-\end{defn}
-\begin{rem}
+\end{definition}
+
+\begin{remark}
 We will talk later of ``big'' and ``small'' regions. The sense
 of these terms is related to the cardinality of regions. A region
 $R_{1}$ is said to be \emph{bigger }then $R_{2}$, if
@@ -195,15 +190,14 @@ if:
 \left|\left[a_{i}..b_{i}\right]\right|>\left|\left[c_{i}..d_{i}\right]\right|
 \]
 
-
 Therefore, the width of a $p_{i}$-interval $\left[a_{i}..b_{i}\right]$
 is not given by the numeric value $b_{i}-a_{i}$ but it is its cardinality.
-\end{rem}
+\end{remark}
+
 We now provide some rules to split and merge regions. They will be
 useful when explaining our proposed exploration algorithm.
-\begin{defn}
-\emph{\label{pers02.def:Splitting-a-region}Splitting a region}
-
+\begin{definition}[Splitting a region]
+\label{pers02.def:Splitting-a-region}
 If $\left[a_{i}..b_{i}\right]$ has more than one element, i.e. $\left|\left[a_{i}..b_{i}\right]\right|>1$,
 it can be split in two contiguous intervals
 \[
@@ -241,19 +235,16 @@ The whole region can be split in the following subregions
 See figure \ref{pers02.fig:Splitting-a-region}.
 
 \begin{figure}[h]
-\includegraphics[width=0.9\columnwidth]{img/splitting_the_region}
+\includegraphics[width=0.5\columnwidth]{img/splitting_the_region}
 
 \caption{\label{pers02.fig:Splitting-a-region}Splitting a region}
 
 
 \end{figure}
 
-\end{defn}
+\end{definition}
 
-\begin{defn}
-\emph{Contiguous regions}
-
-Let $R_{1}=\prod\left[a_{i}\dots b_{i}\right]$ and $R_{2}=\prod\left[x_{i}..y_{i}\right]$
+\begin{definition}[Contiguous regions]Let $R_{1}=\prod\left[a_{i}\dots b_{i}\right]$ and $R_{2}=\prod\left[x_{i}..y_{i}\right]$
 be two regions. They are said to be contiguous iff
 \begin{itemize}
 \item a $j$ exists such that $\left[a_{i}..b_{i}\right]=\left[x_{i}..y_{i}\right]$
@@ -261,11 +252,11 @@ for all $i\neq j$
 \item $\left[a_{j}..b_{j}\right]$ and $\left[x_{j}..y_{j}\right]$ are
 contiguous intervals (see definition \ref{pers02.def:Contiguous-intervals})
 \end{itemize}
-\end{defn}
+\end{definition}
 See figure \ref{pers02.fig:Contiguous-regions}.
 
 \begin{figure}[h]
-\includegraphics[width=0.9\columnwidth]{img/contiguous_regions}
+\includegraphics[width=0.5\columnwidth]{img/contiguous_regions}
 
 \caption{\label{pers02.fig:Contiguous-regions}Contiguous and not contiguous
 regions}
@@ -273,9 +264,8 @@ regions}
 
 
 
-\begin{defn}
-\emph{\label{pers02.def:Merging-regions}Merging regions}
-
+\begin{definition}[Merging regions]
+\label{pers02.def:Merging-regions}
 Let $R_{1}$ and $R_{2}$ be two contiguous regions as the previous
 ones. Because of the definition of contiguous intervals, it is possible
 that $b_{j}<x_{j}$ or $y_{j}<a_{j}$. We can merge the contiguous
@@ -298,57 +288,34 @@ Such an $R$ will be indicated with the following notation:
 \[
 R=R_{1}+R_{2}
 \]
-\end{defn}
-\begin{rem}
+\end{definition}
+
+\begin{remark}
 $R_{1}+R_{2}$ is mathematically equivalent to $R_{1}\cup R_{2}$.
 However, using $R_{1}+R_{2}$ notation, we enforce the argument that
 $R_{1}$ and $R_{2}$ must be to contiguous regions.
-\end{rem}
+\end{remark}
 
-\begin{defn}
-\emph{Separation}
-
-Let $\mathbf{o}=\left(o_{1},\dots,o_{m}\right)$ and $\mathbf{q}=\left(q_{1},\dots,q_{m}\right)$
+\begin{definition}[Separation]Let $\mathbf{o}=\left(o_{1},\dots,o_{m}\right)$ and $\mathbf{q}=\left(q_{1},\dots,q_{m}\right)$
 be two points of $O_{1}\times\dots\times O_{m}$. The separation between
 $\mathbf{o}$ and $\mathbf{q}$ is 
 \[
 s\left(\mathbf{o}\rightarrow\mathbf{q}\right)=\sum_{i=1}^{m}\left|\frac{o_{i}-q_{i}}{o_{i}}\right|
 \]
+Notice that the separation is not a commutative operator.
+\end{definition}
 
-
-Notice that the separation is not a commutative operator.\end{defn}
-\begin{rem}
+\begin{remark}
 The separation between $\mathbf{o}$ and $\mathbf{q}$ measures how
 much we must vary $\mathbf{o}$ to transform it in $\mathbf{q}$.
 The separation is a ``normalized'' measure that is independent of
-the nature and the unit of measurement of the objectives
-\end{rem}
+the nature and the unit of measurement of the objectives.
+\end{remark}
 
-\begin{defn}
-\emph{Separation (alternative)}
-
-Another definition of separation could be:
+\begin{definition}[Separation (alternative)] Another definition of separation could be:
 \[
 s\left(\mathbf{o}\rightarrow\mathbf{q}\right)=\max_{i=1,\dots,m}\left|\frac{o_{i}-q_{i}}{o_{i}}\right|
 \]
 
-\end{defn}
+\end{definition}
 
-\comment{ CERCARE DI FAR CAPIRE CONCETTUALMENTE IL SEGUENTE CONFRONTO CON LA SENSITIVITY ANALYSIS:
-It is worth noticing that this approach can not capture
-``local sensitivity'' (this drawback will be called ``local sensitivity
-limitation''), i.e. the objectives may be more sensitive to some
-ranges of a parameter and less sensitive to other ranges of the same
-parameter. Moreover it can not capture ``combined sensitivity''
-(``combined sensitivity limitation''), i.e. the objectives may be
-more sensitive to a range of a parameter $p_{1}$, only when other
-parameters are within certain ranges, and less sensitive to the same
-range of parameter $p_{1}$ when the other parameters are not within
-those ranges. Therefore, in the method we propose, we do not use the
-sensitivity directly, but we use the concept of innovation (that can
-be considered, at least weakly related to the sensitivity). We do
-not measure innovation of a parameter (as done for the sensitivity),
-but rather we measure the innovation of a ``region'' of parameter
-space, in order to overcome both the ``local sensitivity limitation''
-and the ``combined sensitivity limitation'' stated above for the
-sensitivity analysis.}
