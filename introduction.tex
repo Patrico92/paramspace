@@ -9,7 +9,7 @@ system configurations and objectives. In such cases a high level
 system simulation is often the only way to have a picture of how system
 parameters impact on the objectives.  A key problem is that the size
 of the design space to be simulated grows with the product of
-cardinalities of each parameter, easily resulting in an untractable number
+cardinalities of each parameter, easily resulting in an intractable number
 of simulations. In these cases a ``Design Space
 Exploration'' strategy is required, i.e. a methodology to evaluate
 only a small subset of all possible configurations while maintaining a
@@ -38,31 +38,38 @@ the strategy that is being introduced in this work.
 
 \comment{Potrebbe essere pompato di piu' con qualche cosa piu' d'impatto? }
 
-\section{Related work}
+\section{Related work and Contribution}
+\label{sec:Related-work}
 \comment{Preferisci che i related work siano in un'unica sezione con Intro?}
 Many different design space exploration algorithms have been proposed
 in literature.  The motivations of an exploration
 algorithm are rather heuristic, have some form of arbitrariness and,
 to a large extend, intuition lies behind them.
 
-Some exploration strategies assume some kind of knowledge about
-the system parameters, their meaning and their impact on design objectives.
-The \emph{Dependency analysis}, proposed in \cite{givargis_tvlsi02}, is meant
-to take advantage of the parameter dependencies, a-priori known by the designer \comment{E' giusto, cosi'?}. Starting from them, he can construct a
-``dependency graph'' and recognize clusters, i.e. subsets of strongly
-dependency-connected parameters. Each cluster is exhaustively evaluated
-and its ``local'' Pareto set is found. Then, all local Pareto sets
-are merged. In this way, a series of local exhaustive evaluations
-are performed instead of an exhaustive evaluation of all the possible
-configurations. Some problems arise: i) In real scenarios, it may
-be difficult to recognize really independent clusters of parameters,
-because there may be interdependencies among a large number of
-parameters. This may lead to the need of an evaluation of
-almost all the possible configurations. ii) A designer may not have
-a precise and complete a-priori picture of the dependencies among parameters;
-for this reason the need of ``automated approaches for computing interdependencies'' is declared in the same paper. 
-These drawbacks are not present in our algorithm, since, although it leverages dependencies as in \cite{givargis_tvlsi02}, it is able to detect them automatically, with no a-priori knowledge required. Moreover, our algorithm is able to capture also ``local dependencies", i.e. dependencies that
-emerge only among certain ranges of parameters and may not hold when considering the entires ranges. This cannot be modeled in Dependency Analysis. 
+Some exploration strategies assume some kind of knowledge about the
+system parameters, their meaning and their impact on design
+objectives.  The \emph{Dependency analysis}, proposed in
+\cite{givargis_tvlsi02}, is meant to take advantage of the parameter
+dependencies. Starting from them, he can construct a ``dependency graph''
+and recognize clusters, i.e. subsets of strongly dependency-connected
+parameters. Each cluster is exhaustively evaluated and its ``local''
+Pareto set is found. Then, all local Pareto sets are merged. In this
+way, a series of local exhaustive evaluations are performed instead of
+an exhaustive evaluation of all the possible configurations. Some
+problems arise: i) In real scenarios, it may be difficult to recognize
+really independent clusters of parameters, because there may be
+interdependencies among a large number of parameters. This may lead to
+the need of an evaluation of almost all the possible configurations.
+ii) A designer may not have a precise and complete a-priori picture of
+the dependencies among parameters; for this reason the need of
+``automated approaches for computing interdependencies'' is declared
+in the same paper.  These drawbacks are not present in our algorithm,
+since, although it leverages dependencies as in
+\cite{givargis_tvlsi02}, it is able to detect them automatically, with
+no a-priori knowledge required. Moreover, our algorithm is able to
+capture also ``local dependencies", i.e. dependencies that emerge only
+among certain ranges of parameters and may not hold when considering
+the entires ranges. This cannot be modelled in Dependency Analysis. 
 
 Abraham, Rau and Schreiber proposed in \cite{santosh_hptr00} to decompose
 the system under evaluation into components that interact minimally

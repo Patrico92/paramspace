@@ -12,7 +12,7 @@ in extended Pareto sets which are an ideal ground for our testing
 purposes focused on parameter-space space representation
 \item{Compiler awareness}: Instruction Level Parallelism (ILP)
 is statically obtained by the compiler which
-performs code trasformations being aware of the underlying hardware
+performs code transformations being aware of the underlying hardware
 configuration.  This tight hardware/software dependence, makes the
 VLIW scenario perfectly suitable for investigating hardly predictable
 hardware/software interactions.
@@ -87,13 +87,13 @@ efficiency (i.e. time required for exploration) and accuracy of the
 reported Paret Sets.  Note that for the reasons described above,
 mono-objective approaches have been explicitly excluded from this
 analysis. Same decision has been taken for other approaches (e.g.
-dependecy based~\cite{givargis_tvlsi02}) that make use of some
+dependency based~\cite{givargis_tvlsi02}) that make use of some
 a-priori knowledge about the role and meaning of each parameter, since
 our aim is evaluate the capacity of focusing on interesting parameter
-regions without any external judgement or help based on euristics.
+regions without any external judgement or help based on heuristics.
 Finally, it should be pointed out that in this introductory work we
 will explicitly use the SPEA~\cite{zitzler_eurogen01} variant of MOGA,
-remainding to works like~\cite{zitzler_ec00}~\cite{zitzler_tec03} for
+remanding to works like~\cite{zitzler_ec00}~\cite{zitzler_tec03} for
 a detailed analysis on how it differs and what could be expected from
 similar multi-objective strategies.
 
@@ -109,7 +109,7 @@ population size of 30 has been chosen for GA, corresponding to the
 same value for the $K$ of PS. The number of generations (or era)
 has been chosen so that the only the given amount of simulations is
 actually performed. Thus, when accounting these simulations only unique simulations
-has been considered, removing repeations and unfeasibile
+has been considered, removing repetitions and unfeasible
 configurations.
 
 \begin{table*}
@@ -145,16 +145,16 @@ Figure~\ref{fig:pareto_fronts_100}. With a so small number of
 configuration being investigated the two sets are often overlapping,
 being also strongly depended upon the application being considered.
 These results are obtained in about 5 eras, and the main aim was
-demonstrating that with a so limited budget PS still can competer with
+demonstrating that with a so limited budget PS still can compete with
 genetic approach while even discovering very different Pareto fronts.
-Continuing with a more extendent simulation budget as depicted in
+Continuing with a more extended simulation budget as depicted in
 Figure~\ref{fig:pareto_fronts_500}, we can qualitatively observe that
-even if PS does not stricly outperforms genetic in terms of dominance, it shows in
+even if PS does not strictly outperforms genetic in terms of dominance, it shows in
 some cases largely Pareto in terms of extension. We can intuitively
 relate this to the ``novelty-based'' score system, so that instead of
 focusing on getting better points inside a given range it tries to
 enlarge the range itself, resulting in less dense but more extended
-Paretos. Of course we cannot classify this different behavior as
+Paretos. Of course we cannot classify this different behaviour as
 ``better'' or ``worse'' as compared to the genetic one, it depends on
 various design factors such as desired results granularity, prefixed objective
 range constraints, estimated error of the models used etc~\ldots.
