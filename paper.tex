@@ -48,8 +48,8 @@
 \newcommand{\ie}{\emph{i.e.}}
 \newcommand{\etc}{\emph{etc.}}
 
-\newcommand{\comment}[1]{\textcolor{red}{AA: \bf #1}}
-%\newcommand\comment[1]{} % When you enable this lines, all the notes will disappear
+%\newcommand{\comment}[1]{\textcolor{red}{AA: \bf #1}}
+\newcommand\comment[1]{} % When you enable this lines, all the notes will disappear
 
 
 %\renewcommand{\baselinestretch}{0.98}\normalsize
@@ -90,26 +90,26 @@ Explore Hardware-Software Dependencies}
 \maketitle
 \begin{abstract}
 Embedded Systems Design often requires conflicting objectives to be
-optimized with an appropriate choice of hardware/software parameters
-. Interdependencies among these parameters can make this task even
-more difficult, since an a-priori knowledge of them would  be required
-to develop an analytical model of the system. In this work we present
-PS, a multiobjective exploration strategy that introduces the notion
-of Parameters Space Representation. After a detailed formal
-description of the algorithm and its concepts, we show a
-hardware/software exploration case study. Qualitative and quantitative
-comparisons of PS against a well-know multiobjective genetic approach
-demonstrate that, while not outperforming it in terms of dominance, the
-proposed approach can trade the uniformity and granularity
-qualities of the solutions found for obtaining larger Pareto sets,
-thus representing a further choice for designer when objective constrains allow it.
+optimized with an appropriate choice of hardware/software parameters .
+Interdependencies among these parameters can make this task even more
+difficult, since an a-priori knowledge of them would  be required to
+develop an analytical model of the system. In this work we present PS,
+a multiobjective exploration strategy that introduces the notion of
+Parameters Space Representation. After a detailed formal description
+of the algorithm and its concepts, we show a hardware/software
+exploration case study. Qualitative and quantitative comparisons of PS
+against a well-know multiobjective genetic approach demonstrate that,
+while not outperforming it in terms of dominance, the proposed
+approach can trade the uniformity and granularity qualities of the
+solutions found for obtaining larger Pareto sets, thus representing a
+further choice for designer when objective constrains allow it.
 \end{abstract}
 
 %------------------------------------------------------------------------------
 %\IEEEkeywords{...}
 
 \begin{IEEEkeywords}
-DSE, VLIW, MultiObjective
+DSE, MultiObjective Optimization, Genetic Algorithms
 \end{IEEEkeywords}
 %------------------------------------------------------------------------------
 \input{introduction.tex}
@@ -119,7 +119,15 @@ DSE, VLIW, MultiObjective
 %------------------------------------------------------------------------------
 
 \section{Conclusions}
-This is the end
+In this work we presented a multiobjective strategy which 
+introduces the concept of Parameter Space representation of Pareto
+Set. A case study of a VLIW architecture involving strong
+hardware/software dependencies has been carried out to evaluate
+effectiveness with different amount of simulations budget.
+A qualitative/quantitative comparison against a widespread multiobjective genetic
+approach showed how the proposed strategy can result in a different
+distribution of Pareto points which trades solutions granularity with
+improved pareto extension. 
 
 \balance
 
