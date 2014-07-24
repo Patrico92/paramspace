@@ -1,9 +1,15 @@
 
-\section{Preliminary Concepts}
+\section{Underlying concepts and theoretical formulation}
+\comment{Attenzione: siamo capaci di avere a che fare con unfeasible configurations?}
 
-\subsection{Formulation of the Problem}
+\comment{Theoretical suona troppo pomposo? Esportare di nuovo tutte le immagini libreoffice - svg - eps che viene meglio e aggiutare i nomi degli assi}
+In this section we provide the concepts and the formal definitions that we will use later to express our algorithm. \comment{Ha un nome l'algoritmo?} First, we give the definitions of Pareto-set and Pareto-front that lie on the basis of Design Space Exploration is based on. Then, we sketch the fundamental idea behind our algorithm. Finally, we provide a formal definition of the regions, of their properties and of the operations that will be performed on them by the algorithm.
 
-\label{sec:statement_of_the_problem}
+
+
+
+\subsection{Pareto-set and Pareto-front}
+\label{sec:pareto}
 
 Let $S$ be a parameterized system with $n$ parameters. The generic
 parameter $p_i, \ i \in \{1,2,\ldots,n\}$ can take any value in
@@ -71,10 +77,11 @@ of its parameter space representation.
 \begin{figure}[h]
 \includegraphics[width=0.5\columnwidth]{img/Pareto_set_and_front}
 \caption{Relation between Pareto set (its ``parameter space representation'')
-and Pareto front (``objective space representation'')}
+and Pareto front (``objective space representation''). \comment{Questa figura sembra molto ``didattica''. La relazione tra Pareto front e Pareto set magari deve essere illustarta a studenti ma in un paper va bene? Io la apprezzerei se la trovassi, ma di solito si fa cosi'?}}
 \end{figure}
 
 \subsection{Sketch of the Idea}
+\secL{sketch}
 
 In the design process, there are often a lot of ``local decisions''
 in which the designer can take advantage of well-known results or
@@ -87,233 +94,202 @@ can say that the region:
 \[
 R=\left\{ \left.\left(v_{1},v_{2}\right)\in P_{1}\times P_{2}\right|v_{1}<s_{1},v_{2}>s_{2}\right\} 
 \]
- (where $s_{1}$ and $s_{2}$ are some threshold values) is of modest
-interest. This example shows that some ``dependency relation'' between
-parameters may exist and can be exploited to guide the exploration:
-the dependencies between parameters can suggest to the designer that,
-if a parameter lies in a range, there are ranges of the other there
-aren't worth exploring. Intuitively, the Cartesian product of these
-ranges is an ``uninteresting region''.
+ (where $s_{1}$ and $s_{2}$ are some threshold values) is \emph{uninteresting}. This clearly shows that there are cases when, if a parameter lies in
+a certain range, there are ranges of the other that are not worth exploring. Intuitively, the Cartesian product of these ranges is an ``uninteresting
+ region''.
 
 The problem is that, in complex scenarios, not all relations of this
 kind are known in advance. Some dependency may exist but may be hidden
-to the designer. Or there may be ``local dependencies'', i.e. two
+to the designer. Or they may be ``local'', i.e. two
 parameters may be related by a dependency but only if their values
-lie on some ranges (so we can't treat them as they were related by
-a true dependency). Therefore, as stated in section \ref{sec:Related-work},
+lie on some ranges (so we cannot treat them as they were related by
+a ``complete'' dependency). 
+Therefore, as stated in section \ref{sec:Related-work},
 setting up an exploration trying to take into account as much dependencies
-as possible is a very hard task that is destined to be incompletely
+as possible is a hard task that is destined to be incompletely
 accomplished. We need a methodology to ``automatically'' recognize
 interesting or uninteresting regions without requiring a priori knowledge
-to the designer.
+to the designer, that is what our algorithm does.
 
 We also consider, in measuring how much interesting a region is, the
-``innovation'' that it adds. If, during a design space exploration,
+\emph{innovation} that it adds. If, during a design space exploration,
 a Pareto front is temporarily calculated, adding a new Pareto front
-point near to the previous ones is not a considerable ``innovation'',
-because the way it fulfils the objectives is very similar to other
+point near to the previous ones is not a considerable innovation,
+because the way it fulfills the objectives is similar to the other
 already evaluated configurations. On the contrary, adding a new Pareto
-front point that is very distant from previous ones is remarkable,
-because it let the experimenter realize that the objectives can be
-fulfilled in a completely different way from what he already found
-during exploration. So a region will be evaluated interesting as much
-as how different are its added Pareto front points from the ones already
-found.
+front point that is distant from previous ones is remarkable,
+since it let the experimenter discover potential performance that have not yet considered before.
 
 %TODO: sync name of values with formulation
-\subsection{Required Definitions}
-\begin{definition}[Parameter Interval] Let $p_{i}$ be a parameter and $a_{i},b_{i}\in P_{i},a_{i}<b_{i}$.
+\subsection{Formal definitions}
+We start by defining the parameter interval and the concept of interval contiguity. Using these definition we construct the region and define the region contiguity. Then we define the operations of splitting and merging regions. Finally, we provide the definition of separation.
+
+\begin{definition}[Parameter Interval] Let $p_{i}$ be a parameter and $a_{i},b_{i}\in V_{i},a_{i}<b_{i}$.
 A $p_{i}$- interval is
 \[
 \left[a_{i}..b_{i}\right]=\left[a_{i},b_{i}\right]\cap P_{i}
 \]
- (i.e. taking the interval $\left[a_{i},b_{i}\right]$ , $\left[a_{i}..b_{i}\right]$
-is the set of values of $P_{i}$ lying in $\left[a_{i},b_{i}\right]$)
+i.e. taking the interval $\left[a_{i}..b_{i}\right]$
+is the set of values of $V_{i}$ lying in $\left[a_{i},b_{i}\right]$)
 \end{definition}
 
-\begin{remark}
-We will consider only parameters $p_{i}$ with ordering, i.e. such
-that, if $P_{i}$ is a domain, $\forall a,b\in P_{i}$ it is possible
+We consider only parameters $p_{i}$ with ordering, i.e. such
+that $\forall a,b\in V_{i}$ it is possible
 to say $a<b$ or $a=b$ or $a>b$.
-\end{remark}
+
 
 %TODO: DESCRIVERE COME SI PENSA DI TRATTARE GLI SCENARI IN CUI ESISTONO
 %PARAMETRI SENZA ORDINAMENTO{]}
+
+	\begin{figure}[t]
+		\begin{center}
+			\subfigure[Examples of contiguous and non contiguous intervals.]{
+				\includegraphics[width=0.45\textwidth]{img/contiguous_intervals_or_not} }
+			\subfigure[Examples of regions.]{
+				\includegraphics[width=0.45\textwidth]{img/regions} }
+		    \figLC{interval_and_region}{Intervals and regions.}
+		\end{center}
+	\end{figure}
+
+
 \begin{definition}[Contiguous intervals]
 \label{pers02.def:Contiguous-intervals}
-Let $\left[a_{i}..b_{i}\right]$ and $\left[x_{i}..y_{i}\right]$
-be two $p_{i}$-intervals. They are said to be contiguous iff
-\begin{itemize}
-\item $\left[a_{i}..b_{i}\right]\cap\left[x_{i}..y_{i}\right]=\emptyset$
-and
-\item $\left[a_{i}..b_{i}\right]\cup\left[x_{i}..y_{i}\right]$ is a $p_{i}$-
-interval or $\left[x_{i}..y_{i}\right]\cup\left[a_{i}..b_{i}\right]$
-is a $p_{i}$- interval
-\end{itemize}
+Two intervals are contiguous iff they do not overlap and merging them results in a new interval.More formally, let $\left[a_{i}..b_{i}\right]$ and $\left[x_{i}..y_{i}\right]$
+be two $p_{i}$-intervals. They are said to be contiguous (see \figR{interval_and_region}(a) ) iff
+\begin{align}\begin{array}{l}
+	\left[a_{i}..b_{i}\right]\cap\left[x_{i}..y_{i}\right]=\emptyset \mbox{      and} \\
+	\left[a_{i}..b_{i}\right]\cup\left[x_{i}..y_{i}\right]$ is a $p_{i}$-
+interval or $\left[x_{i}..y_{i}\right]\cup\left[a_{i}..b_{i}\right]
+\end{array}\end{align}
 \end{definition}
-\begin{figure}[h]
-\includegraphics[width=0.5\columnwidth]{img/contiguous_intervals_or_not}
 
-\caption{Examples of contiguous and not contiguous intervals}
-
-\end{figure}
-
-\begin{definition}[Region]A region is a set of the following form:
+\begin{definition}[Region] 
+A region is a cartesian product of parameter intervals, as illustrated in \figR{interval_and_region} (b). More formally, if $p_1,\dots,p_n$ are the parameters of the system, and $\left[ a_{i}..b_{i} \right]$ is a $p_i$-interval, a region is a set of the following form:
 \[
 R=\left[a_{1}..b_{1}\right]\times\dots\times\left[a_{n}..b_{n}\right]=\prod\left[a_{i}..b_{i}\right]
 \]
- (see figure \ref{pers02.fig:Examples-of-regions})
-
-\begin{figure}[h]
-\includegraphics[width=0.5\columnwidth]{img/regions}
-
-\caption{\label{pers02.fig:Examples-of-regions}Examples of regions}
-
-
-\end{figure}
 \end{definition}
 
-\begin{remark}
-We will talk later of ``big'' and ``small'' regions. The sense
-of these terms is related to the cardinality of regions. A region
-$R_{1}$ is said to be \emph{bigger }then $R_{2}$, if
-\[
-\left|R_{1}\right|>\left|R_{2}\right|
-\]
- where $\left|R_{1}\right|$ and $\left|R_{2}\right|$ are the cardinalities
-of $R_{1}$ and $R_{2}$. Similarly, a $p_{i}$-interval $\left[a_{i}..b_{i}\right]$
+We will refer later to ``big'' and ``small'' regions. The sense
+of these terms is related to the cardinality of regions.
+\begin{definition}[Interval and region comparison]
+A $p_{i}$-interval $\left[a_{i}..b_{i}\right]$
 is said to be bigger then another $p_{i}$-interval $\left[c_{i}..d_{i}\right]$
-if:
-\[
-\left|\left[a_{i}..b_{i}\right]\right|>\left|\left[c_{i}..d_{i}\right]\right|
-\]
-
-Therefore, the width of a $p_{i}$-interval $\left[a_{i}..b_{i}\right]$
-is not given by the numeric value $b_{i}-a_{i}$ but it is its cardinality.
-\end{remark}
+iff 
+$\left|\left[a_{i}..b_{i}\right]\right|>\left|\left[c_{i}..d_{i}\right]\right|$.
+Similarly, a region $R_{1}$ is said to be \emph{bigger }then $R_{2}$, if
+$\left|R_{1}\right|>\left|R_{2}\right|$
+\end{definition}
+Note that with $|\cdot|$ we indicate the cardinality of a set. Therefore, $\left|\left[a_{i}..b_{i}\right]\right|$ is the number of values of $V_i$ lying between $a_{i}$ and $b_{i}$ and has not to be confused with $b_i - a_i$.
+Similarly $\left|R_{i}\right|$ is the number of configurations inside the region $R_i$.
 
 We now provide some rules to split and merge regions. They will be
 useful when explaining our proposed exploration algorithm.
+\begin{definition}[Splitting an interval]
+\label{pers02.def:Splitting-a-region}
+Given a $p_i$ interval $\left[a_{i}..b_{i}\right]$ with more than one element, i.e. $\left|\left[a_{i}..b_{i}\right]\right|>1$, the splitting operation produces as result two contiguous intervals $\left[a_{i}..c_{i}\right],\left[d_{i}..b_{i}\right]$
+ such that
+	\begin{align}
+		\begin{cases}
+		\left[a_{i}..c_{i}\right]\cap\left[d_{i}..b_{i}\right] & =\emptyset\\
+		\left[a_{i}..c_{i}\right]\cup\left[d_{i}..b_{i}\right] & =\left[a_{i}..b_{i}\right]\\
+		\left|\left[a_{i}..c_{i}\right]\right| & =\left\lceil \frac{\left|\left[a_{i}..b_{i}\right]\right|}{2}\right\rceil 
+		\end{cases}
+	\end{align}
+
+We define the split operator $\psi$ as the one that, applied to the intervals, gives the result of the split operation, i.e., in the case above, $\psi \left[a_{i}..b_{i}\right]=\lbrace \left[a_{i}..c_{i}\right],\left[d_{i}..b_{i}\right] \rbrace$.
+If $\left|\left[a_{i}..b_{i}\right]\right|=1$, the interval
+cannot be split and $\psi \left[a_{i}..b_{i}\right]=\left[a_{i}..b_{i}\right]$.
+\end{definition}
+
+The interval split is illustrated in \figR{split}~(a). Note that, when splitting an interval, the resulting intervals must satisfy two conditions: (i) they must be contiguous and, merging them, the initial interval must be obtained; (ii) the point in which we cut the interval is not arbitrary, but it is close to the middle.
+
 \begin{definition}[Splitting a region]
 \label{pers02.def:Splitting-a-region}
-If $\left[a_{i}..b_{i}\right]$ has more than one element, i.e. $\left|\left[a_{i}..b_{i}\right]\right|>1$,
-it can be split in two contiguous intervals
-\[
-\left[a_{i}..c_{i}\right],\left[d_{i}..b_{i}\right]
-\]
- such that
-\[
-\begin{cases}
-\left[a_{i}..c_{i}\right]\cap\left[d_{i}..b_{i}\right] & =\emptyset\\
-\left[a_{i}..c_{i}\right]\cup\left[d_{i}..b_{i}\right] & =\left[a_{i}..b_{i}\right]\\
-\left|\left[a_{i}..c_{i}\right]\right| & =\left\lceil \frac{\left|\left[a_{i}..b_{i}\right]\right|}{2}\right\rceil 
-\end{cases}
-\]
-
-
-If $\left|\left[a_{i}..b_{i}\right]\right|=1$ instead, the interval
-cannot be split. 
-
-If $\left[a_{i}..b_{i}\right]$ can be split, we define
-\[
-I_{i}=\left\{ \left[a_{i}..c_{i}\right],\left[d_{i},b_{i}\right]\right\} 
-\]
- else
-\[
-I_{i}=\left\{ \left[a_{i}..b_{i}\right]\right\} 
-\]
-
-
-The whole region can be split in the following subregions
-\[
-\mathcal{R}^{R}=\left\{ \left.\prod\left[x_{i}..y_{i}\right]\right|\left[x_{i}..y_{i}\right]\in I_{i}\right\} 
-\]
-
-
-See figure \ref{pers02.fig:Splitting-a-region}.
-
-\begin{figure}[h]
-\includegraphics[width=0.5\columnwidth]{img/splitting_the_region}
-
-\caption{\label{pers02.fig:Splitting-a-region}Splitting a region}
-
-
-\end{figure}
+Consider a region $R=\prod\left[a_{i}..b_{i}\right]$.The split operator $\psi$ divides it in a set of subregions obtained splitting each $p_i$-interval and combining the resulting subintervals with the cartesian product, as in \figR{split}~(b). Formally:
+	\begin{align}
+		\psi(R) = \left\{ \left.\prod\left[x_{i}..y_{i}\right]\right|\left[x_{i}..y_{i}\right]\in \psi\left[a_{i}..b_{i}\right]  \right\} 
+	\end{align}
 
 \end{definition}
+
+
+	\begin{figure}[t]
+		\begin{center}
+			\subfigure[Splitting an interval.]{
+				\includegraphics[width=0.30\textwidth]{img/splitting_intervals} }
+			\subfigure[Splitting a region.]{
+				\includegraphics[width=0.60\textwidth]{img/splitting_regions} }
+		    \figLC{split}{Split operations.}
+		\end{center}
+	\end{figure}
+
+
 
 \begin{definition}[Contiguous regions]Let $R_{1}=\prod\left[a_{i}\dots b_{i}\right]$ and $R_{2}=\prod\left[x_{i}..y_{i}\right]$
-be two regions. They are said to be contiguous iff
-\begin{itemize}
-\item a $j$ exists such that $\left[a_{i}..b_{i}\right]=\left[x_{i}..y_{i}\right]$
-for all $i\neq j$ 
-\item $\left[a_{j}..b_{j}\right]$ and $\left[x_{j}..y_{j}\right]$ are
-contiguous intervals (see definition \ref{pers02.def:Contiguous-intervals})
-\end{itemize}
+be two regions. They are said to be contiguous iff they do not overlap and, merging them, a new region can be obtained. Formally, $R_1$ and $R_2$ are contiguous iff there exists a $j$ such that:
+	\begin{align}\begin{array}{l}
+		\left[a_{i}..b_{i}\right]=\left[x_{i}..y_{i}\right]$
+	\mbox{ for } $i\neq j \mbox{      and} \\
+		\left[a_{j}..b_{j}\right]$ and $\left[x_{j}..y_{j}\right] \mbox{ are contiguous intervals}
+	\end{array}\end{align}
+\noindent We call $p_j$ the \emph{contiguity parameter} for the two regions.
 \end{definition}
-See figure \ref{pers02.fig:Contiguous-regions}.
 
-\begin{figure}[h]
-\includegraphics[width=0.5\columnwidth]{img/contiguous_regions}
+Examples of contiguous and non contiguous regions are given in \figR{contiguous_regions}. 
+\comment{Spiegare le figure e inserire a dx una figura con le contiguous regions mergiate. Le definizioni buttate cosi' rendono difficile la lettura a chi non sa ancora dove vogliamo andare a parare. Giustifica ogni definizione prima di darla. Ad es. quando parli di splittare, spiega che quando le regioni sono interessanti noi le splittiamo cosi' da esplorarle meglio. Al contrario quando le mergiamo. Mettere una sezione del tipo "Required operations at a glance" per giustificare tutte le definizioni prima di buttarle}.
 
-\caption{\label{pers02.fig:Contiguous-regions}Contiguous and not contiguous
-regions}
-\end{figure}
+	\begin{figure}[h]
+		\includegraphics[width=0.5\columnwidth]{img/contiguous_regions}
+		\figLC{contiguous_regions}{Contiguous and non contiguous
+		regions.}
+	\end{figure}
 
 
+\begin{definition}[Merging intervals]
+Let $\left[a_{i}\dots b_{i}\right]$ and $\left[x_{i}..y_{i}\right]$ be two contiguous $p_i$-intervals. The merge operation applied to them produces a new $p_i$-interval of the following form:
+	\begin{align}
+		\mu	 \left( \begin{array}{l}
+				\left[a_{j}..y_{j}\right] \\
+				\left[x_{j}..b_{j}\right]
+		     \end{array} \right)
+		=\begin{cases}
+			\left[a_{j}..y_{j}\right] & \mbox{ if }b_{j}<x_{j}\\
+			\left[x_{j}..b_{j}\right] & \mbox{ if }y_{j}<a_{j}
+		\end{cases}
+	\end{align}
+
+\end{definition}
 
 \begin{definition}[Merging regions]
 \label{pers02.def:Merging-regions}
-Let $R_{1}$ and $R_{2}$ be two contiguous regions as the previous
-ones. Because of the definition of contiguous intervals, it is possible
-that $b_{j}<x_{j}$ or $y_{j}<a_{j}$. We can merge the contiguous
-intervals and obtain a new interval, as the following
-\[
-\left[t_{j},z_{j}\right]=\begin{cases}
-\left[a_{j}..y_{j}\right] & \mbox{ if }b_{j}<x_{j}\\
-\left[x_{j}..b_{j}\right] & \mbox{ if }y_{j}<a_{j}
-\end{cases}
-\]
-
-
-The region ``$R_{1}$ merged with $R_{2}$'' is defined as
-\[
-R=\prod_{i<j}\left[a_{i}..b_{i}\right]\times\left[t_{j}..z_{j}\right]\times\prod_{i>j}\left[a_{i}..b_{i}\right]
-\]
-
-
-Such an $R$ will be indicated with the following notation:
-\[
-R=R_{1}+R_{2}
-\]
+Let $R_{1}=\prod\left[a_{i}\dots b_{i}\right]$ and $R_{2}=\prod\left[x_{i}..y_{i}\right]$ be two contiguous regions and let $p_j$ be the contiguity parameter. 
+The merge operation $\mu$ applied to $R_1$ and $R_2$ produces a new region of the following form:
+	\begin{align}
+		\mu(R_1,R_2)=\prod_{i<j}\left[a_{i}..b_{i}\right]
+		\times
+		\mu	 \left( \begin{array}{l}
+				\left[a_{j}..y_{j}\right] \\
+				\left[x_{j}..b_{j}\right]
+		     \end{array} \right)
+		\times
+		\prod_{i>j}\left[a_{i}..b_{i}\right]
+	\end{align}
 \end{definition}
 
-\begin{remark}
-$R_{1}+R_{2}$ is mathematically equivalent to $R_{1}\cup R_{2}$.
-However, using $R_{1}+R_{2}$ notation, we enforce the argument that
+Note that $\mu(R_{1},R_{2})$ is mathematically equivalent to $R_{1}\cup R_{2}$. However, we use the notation above to enforce the requirement that
 $R_{1}$ and $R_{2}$ must be to contiguous regions.
-\end{remark}
 
-\begin{definition}[Separation]Let $\mathbf{o}=\left(o_{1},\dots,o_{m}\right)$ and $\mathbf{q}=\left(q_{1},\dots,q_{m}\right)$
-be two points of $O_{1}\times\dots\times O_{m}$. The separation between
-$\mathbf{o}$ and $\mathbf{q}$ is 
-\[
-s\left(\mathbf{o}\rightarrow\mathbf{q}\right)=\sum_{i=1}^{m}\left|\frac{o_{i}-q_{i}}{o_{i}}\right|
-\]
-Notice that the separation is not a commutative operator.
+In \secR{sketch} we observed that, in order to estimate how much interesting is a region, it is crucial to understand the novelty that it introduces, i.e. how distant the Pareto-optimal configurations discovered in that region are from the Pareto-optimal configuration previously discovered. The concept of distance is expressed by the operator defined in the next definition. We prefer to call it \emph{separation} rather than \emph{distance}, because usually distance denote a commutative operator while our definition of separation is non commutative.
+
+\begin{definition}[Separation]
+Let $\mathbf{c}',\mathbf{c}''\in S$ be two configurations, $b\in\mathcal{B}$ a benchmark application and $\mathbf{o}',\mathbf{o}''\in \Re^m$ the representation of the configurations in the objective space, i.e. $\mathbf{o}'=E \left(\mathbf{c}', b\right)$, $\mathbf{o}''=E \left(\mathbf{c}'', b\right)$, where $E$ is the evaluation function. The separation between
+$\mathbf{c}'$ and $\mathbf{c}''$ is 
+	\[
+	s\left(\mathbf{c}'\rightarrow\mathbf{c}''\right)=\sum_{i=1}^{m}\left|\frac{o'_{i}-o''_{i}}{o'_{i}}\right|
+	\]
+where $o'_i$ and $o''_i$ are the $i$-th components of $\mathbf{o}'$ and $\mathbf{o}''$, respectively.
 \end{definition}
 
-\begin{remark}
-The separation between $\mathbf{o}$ and $\mathbf{q}$ measures how
-much we must vary $\mathbf{o}$ to transform it in $\mathbf{q}$.
-The separation is a ``normalized'' measure that is independent of
-the nature and the unit of measurement of the objectives.
-\end{remark}
-
-\begin{definition}[Separation (alternative)] Another definition of separation could be:
-\[
-s\left(\mathbf{o}\rightarrow\mathbf{q}\right)=\max_{i=1,\dots,m}\left|\frac{o_{i}-q_{i}}{o_{i}}\right|
-\]
-
-\end{definition}
-
+The separation between $\mathbf{c}'$ and $\mathbf{c}''$ measures how
+much we must vary the image of the former to obtain the image of the latter. Note that the separation is a \emph{normalized} measure, thanks to $o'_i$ at the denominator. This is important since usually objectives are heterogeneous, e.g. delay and power consumption, having different unity of measurement and different scale. If we did not use a normalized measure, in presence of objectives whose absolute values are small and other objectives with big values, the notion of distance would have been biased toward the latter.
