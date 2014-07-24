@@ -1,131 +1,124 @@
 
 \section{The algorithm}
 \label{sec:algorithm}
+\comment{Mettiamo PS algorithm come titolo della sezione almeno rinforziamo nella memoria il suo nome?}
+In this section we present PS, the algorithm that we propose to perform the Design Space Exploration (DSE). As any other DSE algorithm, its input is the parameterized system $S$ and a benchmark application $b$, while the output is an approximation of the Pareto-optimal set $\mathcal{P}\left(S,b\right)$. \comment{E' corretto?}  
+PS is iterative and we will describe, separately, the initialization phase, the operations performed inside each iteration and the condition that triggers the termination.
 
-The algorithm we present is iterative. Each iteration is called \emph{era}. 
+By a slightly abuse of notation, considering a subset $I$ of the configuration space, we will denote with $\mathcal{P}(I,b)$ the non-dominated feasible configurations in $I$, i.e.
+	\begin{align}
+		\mathcal{P}(I,b)=
+		\left\{ \mathbf{c} \in I \cap \mathcal{C}^*(S) | \nexists \ \mathbf{c}' \in I \cap \mathcal{C}^*(S), \mathbf{c}' \succ \mathbf{c} \right\}
+	\end{align}
+Since in each run of the algorithm we will consider only one benchmark application $b\in\mathcal{B}$, we will omit it, replacing, for example, $\mathcal{P}(I,b)$ with  $\mathcal{P}(I)$.
 
-Each era $era_{i}$ is characterized by 
-\begin{itemize}
-\item the set of regions $\mathcal{R}_{i}$ in which the parameter space
-$P_{1}\times\dots\times P_{n}$ is divided
-\item its Pareto set $\mathscr{P}_{i}$
-\item a set $test_{i}$ of at most $K$ configurations to evaluate
-\end{itemize}
-$K$ is a parameter that must be set before the algorithm runs.
+Each iteration is called \emph{era}. The $i$-th era is characterized by: 
+	\begin{itemize}
+	\item the set of regions $\mathcal{R}_{i}$ in which the configuration space
+	$mathcal{C}(S)=V_{1}\times\dots\times V_{n}$ is partitioned
+	\item an approximation $\mathscr{P}_{i}$ of the Pareto-optimal set.
+	\item a set $test_{i}$ of at most $K$ configurations evaluated in the era. \comment{Nella era i o nella successiva?}
+	\end{itemize}
+$K$ is a parameter that must be set before the algorithm runs. \comment{Spiegare un po' l'impatto di K.} Note that $\mathcal{R}_{i}$ is a partition of the configuration space, i.e.
+	\begin{align}\begin{array}{l}
+		\bigcup_{R\in\mathcal{R}_i} R = \mathcal{C}(S) \mbox{ and}\\
+		R' \cap R'' = \emptyset, \forall R',R'' \in \mathcal{R}_i
+	\end{array}\end{align}
 
+\comment{Prima di sbattere tutta la sfilza di steps, dovremmo dare un'idea preliminare di cosa si andra' a fare.}
 
-\subsection{Start Condition}
-$\mathcal{R}_{0}=\left\{ P_{1}\times\dots\times P_{n}\right\} $,
-i.e. era $0$ has only one region that is the whole parameter space.
+\subsection{Initialization}
+We fix $\mathcal{R}_0$, $\mathscr{P}_0$ and $test_0$ for the era $0$ as follows. Era $0$ has only one region that is the whole parameter space,
+i.e. $\mathcal{R}_{0}=\left\{ V_{1}\times\dots\times V_{n}\right\} $.
 A random set $test_{0}$ of $K$ configurations is evaluated. The
 Pareto set $\mathscr{P}_{0}=\mathscr{P}\left(test_{0}\right)$ is
-calculated (see def \ref{pers02.def:Pareto-set} for the definition
-of the operator $\mathscr{P}_{i}$ over a set)
+calculated.
 
-\subsection{Iteration Rules}
+
+
+\subsection{Iteration steps}
 
 For $era_{i}$ with $i>0$ the following operations must be performed.
 \begin{enumerate}
-\item \label{pers02.enu:K}For each region $R\in\mathcal{R}_{i}$, a set
-$test_{R,i}$ of configurations is randomly chosen in%
-\footnote{Therefore the chosen configurations can only be configurations of
-$R$ not yet evaluated in past eras.%
-} $R\setminus\bigcup_{j=0}^{i-1}test_{j}$. The number of configurations
-in $test_{R,i}$ is set to%
-\footnote{This means that $\frac{K}{\left|\mathcal{R}_{i}\right|}$ configurations
-are to be chosen, but if not yet evaluated configurations in $R$
-are less then $\frac{K}{\left|\mathcal{R}_{i}\right|}$, all of them
-are chosen%
-} 
-\[
-\min\left(\frac{K}{\left|\mathcal{R}_{i}\right|},\left|R\setminus\bigcup_{j=1}^{i-1}test_{j}\right|\right)
-\]
-The set 
-\[
-test_{i}=\bigcup_{R\in\mathcal{R}_{i}}test_{R,i}
-\]
- is defined. 
+\item \label{pers02.enu:K}
+In each era $i$, a set $test_i$ of $K$ configurations will be evaluated. We call them \emph{test configurations} and selecting them is exactly the goal of this step.
+We select only \emph{new} configurations, i.e. the ones that have not been evaluated in past eras. In other words, $test_i$ must not contain $\bigcup_{j=0}^{i-1}test_{j}$.
+Since all regions $R$ in the configuration space partition $\mathcal{R}_{i}$ must be properly explored, we have to distribute the test configurations among all these regions. For this reason, $\frac{K}{\left|\mathcal{R}_{i}\right|}$ configurations are randomly extracted from the new configurations of each region $R\in\mathcal{R}_{i}$. We denote the set of the selected configurations with $test_{R,i}$ and, obviously, $\bigcup_{R\in\mathcal{R}_{i}} test_{R,i} = test_i$.
+ In case the new configurations in $R$ are less then $\frac{K}{\left|\mathcal{R}_{i}\right|}$, all of them are selected. In this case $test_{R,i}=R\setminus\bigcup_{j=0}^{i-1}test_{j}$, where  $\bigcup_{j=0}^{i-1}test_{j}$ is the set of the configurations already in the past.\footnote{Note that if such regions exist, the total number of evaluations in era $i$ will be less than $K$}
 \item All configurations on $test_{i}$ are simulated.
-\item The Pareto set $\mathscr{P}_{i}$ for $era_{i}$ is defined as 
-\[
-\mathscr{P}_{i}=\mathscr{P}\left(test_{i}\cup\mathscr{P}_{i-1}\right)
-\]
+\item The Pareto set $\mathscr{P}_{i}$ for $era_{i}$ is defined as the set of non-dominated configurations among the ones evaluated so far, i.e.
+	\[
+	\mathscr{P}_{i} \triangleq
+	\mathscr{P}\left(\bigcup_{j\leq i}test_j\right)=
+	\mathscr{P}\left(test_{i}\cup\mathscr{P}_{i-1}\right)
+	\]
+where the last equality can easily be proved.
 
-\item \label{pers02.enu:novelty_score_of_a_configuration}Every point $\mathbf{p}$
-of%
-\footnote{The innovation score is not given to those points in $test_{i}$ that
-are not in the Pareto set%
-} $test_{i}\cap\mathscr{P}_{i}$ is given an \emph{innovation score
-}defined as:
-\[
-is\left(\mathbf{p}\right)=\min\left\{ \left.s\left(\mathbf{q}\rightarrow\mathbf{o}\left(\mathbf{p}\right)\right)\right|\mathbf{q}\in\mathscr{P}_{i-1}\right\} 
-\]
- (a configuration $\mathbf{p}$ is characterized by as much innovation
-as more separated it is from the configurations of the previous era)\@.
+\item \label{pers02.enu:novelty_score_of_a_configuration}
+The test configurations that are dominated, i.e. do not belong to $\mathscr{P}_i$, are neglected, while an \emph{innovation score} is given to the other ones, computed on the base of their separation from the non-dominated configurations of the past eras. Recalling that $s$ is the separation (see \defR{separation}), the innovation score of a non-dominated test configuration $\mathbf{c}^*$ is defined as
+	\[
+	is\left(\mathbf{c}^*\right)=\min\left\{ \left.s\left(\mathbf{c}\rightarrow\mathbf{c} \right)\right|\mathbf{c}\in\mathscr{P}_{i-1}\right\} 
+	\]
+In other words, a configuration $\mathbf{c}^*$ is characterized by as much innovation
+as more separated it is from the configurations of the previous era.
+
 \item Every region $R\in\mathcal{R}_{i}$ is given an innovation score defined
-as:
-\[
-is\left(R\right)=\sum\left\{ \left.is\left(\mathbf{p}\right)\right|\mathbf{p}\in\mathscr{P}_{i}\cap R\right\} 
-\]
+as the sum of the innovation scores of its non-dominated test configurations:
+	\[
+	is\left(R\right)=\sum\left\{ \left.is\left(\mathbf{c}\right)\right|\mathbf{c}\in\mathscr{P}_{i}\cap R\right\} 
+	\]
 
-\item The total innovation score for the entire era is:
-\[
-is_{TOT,i}=\sum_{R\in\mathcal{R}_{i}}is\left(R\right)
-\]
+\item The total innovation and average score for the entire era is calculated:
+	\[
+	is_{TOT,i}=\sum_{R\in\mathcal{R}_{i}}is\left(R\right)
+	\]
 
-\item The average innovation score for the entire era is also calculated
-as:
-\[
-is_{av,i}=\frac{is_{TOT,i}}{\left|\mathcal{R}_{i}\right|}
-\]
-where $\left|\mathcal{R}_{i}\right|$ is the number of regions of
-era $i$ .
-\item $\mathcal{R}_{i}$ is partitioned in three subsets (their meaning
-will be discussed later):
 
-\begin{enumerate}
-\item high innovation regions 
-\[
-\mathcal{R}_{i,h}=\left\{ \left.R\in\mathcal{R}_{i}\right|is\left(R\right)>\alpha\cdot is_{av,i-1}\right\} 
-\]
- where $\alpha$ is a constant defined by the designer (for example
-$\alpha=1.2$). Each $R\in\mathcal{R}_{i,h}$ is split in $\mathcal{R}^{R}$
-(as stated in def \ref{pers02.def:Splitting-a-region})
-\item low innovation regions 
-\[
-\mathcal{R}_{i,l}=\left\{ \left.R\in\mathcal{R}_{i}\right|0<is\left(R\right)\le\alpha\cdot is_{av,i-1}\right\} 
-\]
-They are not changed.
-\item no innovation regions 
-\[
-\mathcal{R}_{i,n}=\left\{ \left.R\in\mathcal{R}_{i}\right|is\left(R\right)=0\right\} 
-\]
+\item The configuration space partition $\mathcal{R}_{i}$ is divided in three subsets, that we will comment later \comment{e invece sarebbe bene commentarli ora, anche}:
+
+	\begin{enumerate}
+	\item high innovation regions 
+	\[
+	\mathcal{R}_{i,h}=\left\{ \left.R\in\mathcal{R}_{i}\right|is\left(R\right)>\alpha\cdot is_{av,i-1}\right\} 
+	\]
+	 where $\alpha$ is a constant defined by the designer (for example
+	$\alpha=1.2$). 
+	\item low innovation regions 
+	\[
+	\mathcal{R}_{i,l}=\left\{ \left.R\in\mathcal{R}_{i}\right|0<is\left(R\right)\le\alpha\cdot is_{av,i-1}\right\} 
+	\]
+	\item no innovation regions 
+	\[
+	\mathcal{R}_{i,n}=\left\{ \left.R\in\mathcal{R}_{i}\right|is\left(R\right)=0\right\} 
+	\]
+	\end{enumerate}
+
+\item The goal of this step is preparing the regions that will compose the configuration space partition of the next era, i.e. $\mathscr{R}_{i+1}$. The following operations are performed:
+	\begin{enumerate}
+		\item Each high innovation region $R\in\mathscr{R}_{i,h}$ is split obtaining $\psi(R)$, as stated in def \defR{splitting-a-region}. We denote with $\psi\left(\mathscr{R}_{i,h}\right)$ the set of regions obtained as explained.
+		\item Low innovation regions are left unchanged.
+		\item No innovation regions are merged, two by two. To do so, couples of no innovation contiguous regions $(R_1,R_2)$ are selected. We denote the set of these couples as $\mathscr{M}_i$. This set is constructed such that couples are independent, i.e. there cannot be two of them sharing a region. In other words, taking whatever $(R_1,R_2),(R_3,R_4) \in \mathscr{M}_i$, $R_i \neq R_j, \forall i,j\in\lbrace1,2,3,4\rbrace, i\neq$. 
+We merge each couple of regions, i.e. $\forall (R_1,R_2)\in\mathscr{M}_i$ we calculate $\mu(R_1,R_2)$, according to \defR{merging-regions}.
+We stress that the regions that belong to each selected couple must be contiguous, otherwise it is impossible to merge them. We denote with $\mu(\mathscr{M}_i)$ the set of the merged regions, i.e. $\mu(\mathscr{M}_i) = \bigcup_{(R_1,R_2)\in\mathscr{M}_i} \mu(R_1,R_2)$
+	\end{enumerate}
+
+
+\item The set of regions $\mathcal{R}_{i+1}$ for the following era is computed as:
+	\[
+	\mathcal{R}_{i+1}=
+	\]
+	\[
+	=\psi\left(\mathscr{R}_{i,h}\right) \cup \mathcal{R}_{i,l}\cup
+	\]
+	\[
+	\cup\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)\cup \mu(\mathscr{M}_i)
+	\]
 \end{enumerate}
 
-\item Disjoint couples of contiguous regions $\left(R_{1},R_{2}\right)$,
-with $R_{1},R_{2}\in\mathcal{R}_{i,n}$ are selected. The set of this
-couples is indicated as $\mathcal{C}$. The couples of regions are
-merged:
-\[
-\forall\left(R_{1},R_{2}\right)\in\mathcal{C}\Rightarrow R=R_{1}+R_{2}
-\]
- (see def \ref{pers02.def:Merging-regions})
-\item The set of regions $\mathcal{R}_{i+1}$ for the following era is defined
-as:
-\[
-\mathcal{R}_{i+1}=
-\]
-\[
-=\left(\bigcup_{R\in\mathcal{R}_{i,h}}\mathcal{R}^{R}\right)\cup\mathcal{R}_{i,l}\cup
-\]
-\[
-\cup\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)\cup
-\]
-\[
-\cup\left(\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left(R_{1}+R_{2}\right)\right)
-\]
+\comment{commentare questa formula}
 
-\end{enumerate}
+\comment{SONO ARRIVATO A LEGGERE QUA}
+
 
 \subsection{Termination Condition}
 The algorithm terminates at step $k$ if
@@ -169,6 +162,8 @@ configuration}
 
 
 \end{figure}
+
+\comment{Ci vorrebbe una rappresentazione schematica dell'algoritmo usando l'ambiente latex Algorithm o non mi ricordo come si chiama}
 
 \end{remark}
 

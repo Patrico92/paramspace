@@ -2,14 +2,15 @@
 \section{Underlying concepts and theoretical formulation}
 \comment{Attenzione: siamo capaci di avere a che fare con unfeasible configurations?}
 
-\comment{Theoretical suona troppo pomposo? Esportare di nuovo tutte le immagini libreoffice - svg - eps che viene meglio e aggiutare i nomi degli assi}
-In this section we provide the concepts and the formal definitions that we will use later to express our algorithm. \comment{Ha un nome l'algoritmo?} First, we give the definitions of Pareto-set and Pareto-front that lie on the basis of Design Space Exploration is based on. Then, we sketch the fundamental idea behind our algorithm. Finally, we provide a formal definition of the regions, of their properties and of the operations that will be performed on them by the algorithm.
+\comment{Theoretical suona troppo pomposo? Esportare di nuovo tutte le immagini libreoffice - svg - eps che viene meglio, come si vede in \figR{3}. Aggiustare i nomi degli assi che in alcune figure sono sbagliati. O forse basta esportarli col nuovo libreoffice che fa meglio}
+In this section we provide the concepts and the formal definitions that we will use later to express PS, the algorithm we propose.
+ First, we give the definitions of Pareto-set and Pareto-front that lie on the basis of Design Space Exploration is based on. Then, we sketch the fundamental idea behind our algorithm. Finally, we provide a formal definition of the regions, of their properties and of the operations that will be performed on them by the algorithm.
 
 
 
 
 \subsection{Pareto-set and Pareto-front}
-\label{sec:pareto}
+\secL{pareto}
 
 Let $S$ be a parameterized system with $n$ parameters. The generic
 parameter $p_i, \ i \in \{1,2,\ldots,n\}$ can take any value in
@@ -49,7 +50,7 @@ $\mathbf{c}' \succ \mathbf{c}''$.
 \label{pers02.def:Pareto-set}
 The {\em Pareto-optimal set} of $S$ for the application $b$ is the
 set:
-\[ \mathcal{P}(S,b) = \{ \mathbf{c} \in \mathcal{C}^*(S) \ | \nexists \ \mathbf{c}' \in \mathcal{C}^*(S), \mathbf{c}' \succ \mathbf{c} \} \]
+\[ \mathcal{P}(S,b) = \left\{ \mathbf{c} \in \mathcal{C}^*(S) \ | \nexists \ \mathbf{c}' \in \mathcal{C}^*(S), \mathbf{c}' \succ \mathbf{c} \right\} \]
 \end{definition}
 that is, the set of configurations $\mathbf{c} \in
 \mathcal{C}^*(S)$ not dominated by any other \comment{feasible}
@@ -186,7 +187,7 @@ Similarly $\left|R_{i}\right|$ is the number of configurations inside the region
 We now provide some rules to split and merge regions. They will be
 useful when explaining our proposed exploration algorithm.
 \begin{definition}[Splitting an interval]
-\label{pers02.def:Splitting-a-region}
+\defL{splitting-a-region}
 Given a $p_i$ interval $\left[a_{i}..b_{i}\right]$ with more than one element, i.e. $\left|\left[a_{i}..b_{i}\right]\right|>1$, the splitting operation produces as result two contiguous intervals $\left[a_{i}..c_{i}\right],\left[d_{i}..b_{i}\right]$
  such that
 	\begin{align}
@@ -262,7 +263,7 @@ Let $\left[a_{i}\dots b_{i}\right]$ and $\left[x_{i}..y_{i}\right]$ be two conti
 \end{definition}
 
 \begin{definition}[Merging regions]
-\label{pers02.def:Merging-regions}
+\defL{merging-regions}
 Let $R_{1}=\prod\left[a_{i}\dots b_{i}\right]$ and $R_{2}=\prod\left[x_{i}..y_{i}\right]$ be two contiguous regions and let $p_j$ be the contiguity parameter. 
 The merge operation $\mu$ applied to $R_1$ and $R_2$ produces a new region of the following form:
 	\begin{align}
@@ -283,7 +284,8 @@ $R_{1}$ and $R_{2}$ must be to contiguous regions.
 In \secR{sketch} we observed that, in order to estimate how much interesting is a region, it is crucial to understand the novelty that it introduces, i.e. how distant the Pareto-optimal configurations discovered in that region are from the Pareto-optimal configuration previously discovered. The concept of distance is expressed by the operator defined in the next definition. We prefer to call it \emph{separation} rather than \emph{distance}, because usually distance denote a commutative operator while our definition of separation is non commutative.
 
 \begin{definition}[Separation]
-Let $\mathbf{c}',\mathbf{c}''\in S$ be two configurations, $b\in\mathcal{B}$ a benchmark application and $\mathbf{o}',\mathbf{o}''\in \Re^m$ the representation of the configurations in the objective space, i.e. $\mathbf{o}'=E \left(\mathbf{c}', b\right)$, $\mathbf{o}''=E \left(\mathbf{c}'', b\right)$, where $E$ is the evaluation function. The separation between
+\defL{separation}
+Let $\mathbf{c}',\mathbf{c}''\in \mathcal{C}^*(S)$ be two feasible \comment{e' giusto che ho messo feasible? Se considerassimo anche le unfeasible sarebbe impossibile calcolarne le immagini nell'objective space?} configurations of the system $S$, $b\in\mathcal{B}$ a benchmark application and $\mathbf{o}',\mathbf{o}''\in \Re^m$ the representation of the configurations in the objective space, i.e. $\mathbf{o}'=E \left(\mathbf{c}', b\right)$, $\mathbf{o}''=E \left(\mathbf{c}'', b\right)$, where $E$ is the evaluation function. The separation between
 $\mathbf{c}'$ and $\mathbf{c}''$ is 
 	\[
 	s\left(\mathbf{c}'\rightarrow\mathbf{c}''\right)=\sum_{i=1}^{m}\left|\frac{o'_{i}-o''_{i}}{o'_{i}}\right|
