@@ -59,10 +59,28 @@ do\_modulo\_scheduling  Modular scheduling
 As regards the class of benchmark being considered, a set applications representative of some common
 frequently running code kernels has been selected. Table~\ref{tab:bench} shows the set of applications
 along with a brief description.
+% IEEE table style
+%\begin{table}
+%	\centering
+%	\caption{Benchmarks}
+%	\label{tab:bench}
+%	\begin{tabular}{ll}
+%	\hline
+%	\multicolumn{1}{c}{Benchmark} & \multicolumn{1}{c}{Application} \\
+%	\hline
+%	Alloca\_test & Memory array allocation test \\
+%	Bmm & Matrices multiplication and elements sum \\
+%	Fir\_int & Finite impulse response \\
+%	Mm & Floating point matrices multiplication \\
+%	Sha256 & Cryptocurrency header Hashing \\
+%	Wave & Wavefront computation \\
+%	\hline
+%	\end{tabular}
+%\end{table}
+
+% ACM table style
 \begin{table}
-	\centering
-	\caption{Benchmarks}
-	\label{tab:bench}
+	\tbl{Benchmarks\label{tab:bench}}{
 	\begin{tabular}{ll}
 	\hline
 	\multicolumn{1}{c}{Benchmark} & \multicolumn{1}{c}{Application} \\
@@ -74,9 +92,8 @@ along with a brief description.
 	Sha256 & Cryptocurrency header Hashing \\
 	Wave & Wavefront computation \\
 	\hline
-	\end{tabular}
+	\end{tabular}}
 \end{table}
-
 \subsection{Evaluation Metrics}
 
 The results presented in the next section compare PS one widely
@@ -112,8 +129,37 @@ actually performed. Thus, when accounting these simulations only unique simulati
 has been considered, removing repetitions and unfeasible
 configurations.
 
-\begin{table*}
-  \centering
+% IEEE table style
+%\begin{table}
+%  \centering
+%  \begin{tabular}{ccc}
+%    \includegraphics[width=0.30\textwidth]{pictures/alloca_100.eps} &
+%    \includegraphics[width=0.30\textwidth]{pictures/bmm_100.eps} & 
+%    \includegraphics[width=0.30\textwidth]{pictures/fir_int100.eps} \\
+%    \includegraphics[width=0.30\textwidth]{pictures/mm_100.eps} &
+%    \includegraphics[width=0.30\textwidth]{pictures/sha_100.eps} &
+%    \includegraphics[width=0.30\textwidth]{pictures/wave_100.eps} 
+%  \end{tabular}
+%  \caption{Pareto fronts found by PS and GA for a fixed budget of 100 configurations.}
+%  \label{fig:pareto_fronts_100}
+%\end{table}
+%
+%\begin{table}
+%  \centering
+%  \begin{tabular}{ccc}
+%    \includegraphics[width=0.30\textwidth]{pictures/alloca_500.eps} &
+%    \includegraphics[width=0.30\textwidth]{pictures/bmm_500.eps} & 
+%    \includegraphics[width=0.30\textwidth]{pictures/fir_int500.eps} \\
+%    \includegraphics[width=0.30\textwidth]{pictures/mm_500.eps} &
+%    \includegraphics[width=0.30\textwidth]{pictures/sha_500.eps} &
+%    \includegraphics[width=0.30\textwidth]{pictures/wave_500.eps} 
+%  \end{tabular}
+%  \caption{Pareto fronts found by PS and GA for a fixed budget of 500 configurations.}
+%  \label{fig:pareto_fronts_500}
+%\end{table}
+
+\begin{table}
+  \tbl{Pareto fronts found by PS and GA for a fixed budget of 100 configurations.\label{fig:pareto_fronts_100}}{
   \begin{tabular}{ccc}
     \includegraphics[width=0.30\textwidth]{pictures/alloca_100.eps} &
     \includegraphics[width=0.30\textwidth]{pictures/bmm_100.eps} & 
@@ -121,13 +167,13 @@ configurations.
     \includegraphics[width=0.30\textwidth]{pictures/mm_100.eps} &
     \includegraphics[width=0.30\textwidth]{pictures/sha_100.eps} &
     \includegraphics[width=0.30\textwidth]{pictures/wave_100.eps} 
-  \end{tabular}
-  \caption{Pareto fronts found by PS and GA for a fixed budget of 100 configurations.}
-  \label{fig:pareto_fronts_100}
-\end{table*}
+  \end{tabular}}
+  
+\end{table}
 
-\begin{table*}
-  \centering
+\begin{table}
+  \tbl{Pareto fronts found by PS and GA for a fixed budget of 500
+  configurations.\label{fig:pareto_fronts_500}}{
   \begin{tabular}{ccc}
     \includegraphics[width=0.30\textwidth]{pictures/alloca_500.eps} &
     \includegraphics[width=0.30\textwidth]{pictures/bmm_500.eps} & 
@@ -135,11 +181,8 @@ configurations.
     \includegraphics[width=0.30\textwidth]{pictures/mm_500.eps} &
     \includegraphics[width=0.30\textwidth]{pictures/sha_500.eps} &
     \includegraphics[width=0.30\textwidth]{pictures/wave_500.eps} 
-  \end{tabular}
-  \caption{Pareto fronts found by PS and GA for a fixed budget of 500 configurations.}
-  \label{fig:pareto_fronts_500}
-\end{table*}
-
+  \end{tabular}}
+\end{table}
 Low budget Pareto sets are shown in
 Figure~\ref{fig:pareto_fronts_100}. With a so small number of
 configuration being investigated the two sets are often overlapping,
@@ -170,8 +213,25 @@ execution time is shown in Fig.~\ref{fig:dispersion}(a) and (b)
 respectively. As it can be observed, the PS exploration provides solutions which fall on a
 range that is, on average, wider than that provided by a
 MOGA exploration for power dissipation and execution time, respectively.
+%\begin{table}
+%  \centering
+%  \begin{tabular}{c}
+%    \includegraphics[width=0.7\textwidth]{pictures/variation_power.eps} \\
+%    (a) \\
+%    \includegraphics[width=0.7\textwidth]{pictures/variation_etime.eps} \\
+%    (b) \\
+%    \includegraphics[width=0.7\textwidth]{pictures/dispersion.eps} \\
+%    (c) 
+%  \end{tabular}
+%  \caption{(a)(b) Variation range for different benchmarks between PS and GA
+%  and average dispersion absolute dispersion (c)}
+%  \label{fig:dispersion}
+%\end{table}
+
 \begin{table}
-  \centering
+  \tbl{(a)(b) Variation range for different benchmarks between PS and GA
+  and average dispersion absolute dispersion (c)
+  \label{fig:dispersion}}{
   \begin{tabular}{c}
     \includegraphics[width=0.7\textwidth]{pictures/variation_power.eps} \\
     (a) \\
@@ -179,12 +239,8 @@ MOGA exploration for power dissipation and execution time, respectively.
     (b) \\
     \includegraphics[width=0.7\textwidth]{pictures/dispersion.eps} \\
     (c) 
-  \end{tabular}
-  \caption{(a)(b) Variation range for different benchmarks between PS and GA
-  and average dispersion absolute dispersion (c)}
-  \label{fig:dispersion}
+  \end{tabular}}
 \end{table}
-
 The average normalised absolute dispersion error measures
 the average absolute difference between the distribution of points in
 the objective space and an ideal distribution in which the points are
