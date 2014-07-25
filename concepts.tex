@@ -1,15 +1,23 @@
 
 \section{Underlying concepts and theoretical formulation}
-\comment{Attenzione: siamo capaci di avere a che fare con unfeasible configurations?}
+\label{sec:statement_of_the_problem}
 
-\comment{Theoretical suona troppo pomposo? Esportare di nuovo tutte le immagini libreoffice - svg - eps che viene meglio, come si vede in \figR{3}. Aggiustare i nomi degli assi che in alcune figure sono sbagliati. O forse basta esportarli col nuovo libreoffice che fa meglio}
-In this section we provide the concepts and the formal definitions that we will use later to express PS, the algorithm we propose.
- First, we give the definitions of Pareto-set and Pareto-front that lie on the basis of Design Space Exploration is based on. Then, we sketch the fundamental idea behind our algorithm. Finally, we provide a formal definition of the regions, of their properties and of the operations that will be performed on them by the algorithm.
+\comment{Theoretical suona troppo pomposo? DP: boh... AA: Esportare di
+nuovo tutte le immagini libreoffice - svg - eps che viene meglio, come
+si vede in \figR{3}. Aggiustare i nomi degli assi che in alcune figure
+sono sbagliati. O forse basta esportarli col nuovo libreoffice che fa
+meglio DP: hai ragione, ma forse siamo fuori tempo limite per queste
+cose} 
+In this section we provide the concepts and the formal
+definitions that we will use later to express PS, the algorithm we
+propose.  First, we give the definitions of Pareto set and Pareto
+front that lie on the basis of Design Space Exploration is based on.
+Then, we sketch the fundamental idea behind our algorithm. Finally, we
+provide a formal definition of the regions, of their properties and of
+the operations that will be performed on them by the algorithm.
 
 
-
-
-\subsection{Pareto-set and Pareto-front}
+\subsection{Pareto set and Pareto front}
 \secL{pareto}
 
 Let $S$ be a parameterized system with $n$ parameters. The generic
@@ -53,8 +61,7 @@ set:
 \[ \mathcal{P}(S,b) = \left\{ \mathbf{c} \in \mathcal{C}^*(S) \ | \nexists \ \mathbf{c}' \in \mathcal{C}^*(S), \mathbf{c}' \succ \mathbf{c} \right\} \]
 \end{definition}
 that is, the set of configurations $\mathbf{c} \in
-\mathcal{C}^*(S)$ not dominated by any other \comment{feasible}
- configuration.
+\mathcal{C}^*(S)$ not dominated by any other configuration.
 The configurations belonging to the Pareto-optimal set are called \emph{Pareto-optimal configurations}, while the {\em Pareto-optimal front} is their image, i.e. the set:
 \[ \mathcal{P}_{F}(S,b) = \{ \mathbf{o} | \mathbf{o} = E(\mathbf{c},b), \mathbf{c} \in \mathcal{P}(S,b) \} \]
 
@@ -65,20 +72,25 @@ application $b$, simulating as few configurations as possible.
 %----------------------------------------------------------------
 
 
-\comment{Mi sembra solo un cambio di notazione. }
-On the contrary, we call ``parameter space representation'' of the
-Pareto set the representation in which each configuration $\mathbf{p}$
-is simply represented as a point of $P_{1}\times\dots\times P_{n}$
-space. We will investigate the relation between the ``objective space
-representation'' and the ``parameter space representation''. We
-are particularly interested in the relation between the evolution
-of the objective space representation of the Pareto set and the evolution
-of its parameter space representation.
+\comment{Mi sembra solo un cambio di notazione. DP: c'era un On the
+contrary troppo aggressivio, ho cercato di alleggerire la cosa, ma dai
+un'occhiata }
+
+For each point of the Pareto front we can imagine the corresponding
+configuration as a point of $P_{1}\times\dots\times P_{n}$
+space. We will also refer to these points as ``parameter space representation'' of the
+Pareto front. Figure~\ref{fig:psos} shows the relation between the objective space
+(containing the Pareto front) and its parameter space representation.
+In particular in this work we are interested in the relation between
+the evolution of the points in the two spaces, e.g. how some
+properties of the Pareto front points can reflect some features of the
+corresponding points in the parameter space.
 
 \begin{figure}[h]
+\label{fig:psos}
 \includegraphics[width=0.5\columnwidth]{img/Pareto_set_and_front}
 \caption{Relation between Pareto set (its ``parameter space representation'')
-and Pareto front (``objective space representation''). \comment{Questa figura sembra molto ``didattica''. La relazione tra Pareto front e Pareto set magari deve essere illustarta a studenti ma in un paper va bene? Io la apprezzerei se la trovassi, ma di solito si fa cosi'?}}
+and Pareto front (``objective space representation'').}
 \end{figure}
 
 \subsection{Sketch of the Idea}
@@ -285,7 +297,7 @@ In \secR{sketch} we observed that, in order to estimate how much interesting is 
 
 \begin{definition}[Separation]
 \defL{separation}
-Let $\mathbf{c}',\mathbf{c}''\in \mathcal{C}^*(S)$ be two feasible \comment{e' giusto che ho messo feasible? Se considerassimo anche le unfeasible sarebbe impossibile calcolarne le immagini nell'objective space?} configurations of the system $S$, $b\in\mathcal{B}$ a benchmark application and $\mathbf{o}',\mathbf{o}''\in \Re^m$ the representation of the configurations in the objective space, i.e. $\mathbf{o}'=E \left(\mathbf{c}', b\right)$, $\mathbf{o}''=E \left(\mathbf{c}'', b\right)$, where $E$ is the evaluation function. The separation between
+Let $\mathbf{c}',\mathbf{c}''\in \mathcal{C}^*(S)$ be two configurations of the system $S$, $b\in\mathcal{B}$ a benchmark application and $\mathbf{o}',\mathbf{o}''\in \Re^m$ the representation of the configurations in the objective space, i.e. $\mathbf{o}'=E \left(\mathbf{c}', b\right)$, $\mathbf{o}''=E \left(\mathbf{c}'', b\right)$, where $E$ is the evaluation function. The separation between
 $\mathbf{c}'$ and $\mathbf{c}''$ is 
 	\[
 	s\left(\mathbf{c}'\rightarrow\mathbf{c}''\right)=\sum_{i=1}^{m}\left|\frac{o'_{i}-o''_{i}}{o'_{i}}\right|

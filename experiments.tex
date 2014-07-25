@@ -79,9 +79,9 @@ along with a brief description.
 
 \subsection{Evaluation Metrics}
 
-The results presented in the next section compare PS against one
-widely adopted Multi-objective Genetic
-Algorithm~\cite{knowles_techrep06}. At best of our knowledge, genetic
+The results presented in the next section compare PS one widely
+adopted Multi-objective Genetic Algorithm
+(MOGA)~\cite{knowles_techrep06}. At best of our knowledge, genetic
 approaches in general still represent the best compromise between
 efficiency (i.e. time required for exploration) and accuracy of the
 reported Paret Sets.  Note that for the reasons described above,
@@ -92,9 +92,9 @@ a-priori knowledge about the role and meaning of each parameter, since
 our aim is evaluate the capacity of focusing on interesting parameter
 regions without any external judgement or help based on heuristics.
 Finally, it should be pointed out that in this introductory work we
-will explicitly use the SPEA~\cite{zitzler_eurogen01} variant of MOGA,
-remanding to works like~\cite{zitzler_ec00}~\cite{zitzler_tec03} for
-a detailed analysis on how it differs and what could be expected from
+will explicitly use the \emph{SPEA}~\cite{zitzler_eurogen01} variant of MOGA,
+remanding to works like~\cite{zitzler_ec00}~\cite{zitzler_tec03} for a
+detailed analysis on how it differs and what could be expected from
 similar multi-objective strategies.
 
 %------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ Set of Figures~\ref{fig:pareto_fronts_100}
 and~\ref{fig:pareto_fronts_500} show the resulting pareto fronts for two
 different scenarios of 100 and 500 simulations budget. When possible,
 similar algorithm parameters have been adopted. In particular a
-population size of 30 has been chosen for GA, corresponding to the
+population size of 30 has been chosen for the genetic approach (GA), corresponding to the
 same value for the $K$ of PS. The number of generations (or era)
 has been chosen so that the only the given amount of simulations is
 actually performed. Thus, when accounting these simulations only unique simulations
@@ -165,7 +165,7 @@ will consider two metrics, namely, the \emph{variation range} and the
 objective, the variation range represents the ratio between the
 maximum and the minimum value observed for that objective. A
 comparison between the variation range for different benchmarks
-between a FCP and a VCP exploration for both power dissipation and
+between a PS and a GA exploration for both power dissipation and
 execution time is shown in Fig.~\ref{fig:dispersion}(a) and (b)
 respectively. As it can be observed, the PS exploration provides solutions which fall on a
 range that is, on average, wider than that provided by a
@@ -173,11 +173,11 @@ MOGA exploration for power dissipation and execution time, respectively.
 \begin{table}
   \centering
   \begin{tabular}{c}
-    \includegraphics[width=0.4\textwidth]{pictures/variation_power.eps} \\
+    \includegraphics[width=0.7\textwidth]{pictures/variation_power.eps} \\
     (a) \\
-    \includegraphics[width=0.4\textwidth]{pictures/variation_etime.eps} \\
+    \includegraphics[width=0.7\textwidth]{pictures/variation_etime.eps} \\
     (b) \\
-    \includegraphics[width=0.4\textwidth]{pictures/dispersion.eps} \\
+    \includegraphics[width=0.7\textwidth]{pictures/dispersion.eps} \\
     (c) 
   \end{tabular}
   \caption{(a)(b) Variation range for different benchmarks between PS and GA
@@ -212,8 +212,8 @@ case in which all the solutions fall in a single tile:
     |O|| }{M_x M_y}. \] 
 
 Fig.~\ref{fig:dispersion}(c) shows the average normalised absolute
-dispersion errors for different benchmarks for PS and MOGA
-exploration. As it can be observed, MOGA still shows a tendency in
+dispersion errors for different benchmarks for PS and GA
+exploration. As it can be observed, GA still shows a tendency in
 discovering more uniformly dispersed points (i.e. higher values). These results,
 together with the variation ranges of Fig.~\ref{fig:dispersion}(a) and
 (b) confirm the the availability of density vs extension trade-offs

@@ -1,10 +1,8 @@
 
 \section{Introduction and Motivation}
-\comment{Si capisce che noi provide an algorithm?}
-
-\comment{Mettere our contribution?}
-
-\comment{Usare triangleq quando definiamo noi le cose, per distinguerlo dall'= di calcolo}
+\comment{Si capisce che noi provide an algorithm? DP: penso di si',
+che intendi precisamente ?}
+\comment{Mettere our contribution? DP: dove ? casomai fai tu}
 
 The design of an embedded system requires different conflicting
 objectives (energy consumption, performance, area) to be fulfilled.
@@ -21,18 +19,30 @@ only a small subset of all possible configurations while maintaining a
 good level of efficiency and accuracy~\cite{surviving_soc}.
 
 The final result of a design space exploration is a subset of the
-configurations called Pareto Set (\cite{pareto}) (See also Definition
-\ref{pers02.def:Pareto-set}). It represents the trade-offs between
-objectives, so that for each configuration of the Pareto Set there is no
-other configuration performing better for all the objectives
-considered. Once these few promising configurations have been obtained, a
-subsequent step of the design flow can eventually afford a more
-accurate low level simulation.
+configurations called \emph{Pareto set} (\cite{pareto}) (See also Definition
+\ref{pers02.def:Pareto-set}). The corresponding values of the
+objectives for each configuration of the Pareto Set is called
+\emph{Pareto front}: it represents the trade-offs between objectives, i.e.  for each
+point of the Pareto front there is no other configuration performing
+better for all the objectives considered. Once these few promising
+configurations have been obtained, a subsequent step of the design
+flow can eventually afford a more accurate low level simulation.
 
 In this work we present a multiobjective design exploration strategy
 that introduces the concept of Parameter Space Representation of
-Pareto Set (PS).\comment{Provo a fare il reviewer stronzo. Allora, quando parliamo di parameter space, non si capisce bene di cosa parliamo. Alla fin fine penso (ma gia' se nemmeno io che ci ho messo mano ne sono sicuro, figuriamoci il reviewer) stiamo parlando del configuration space, che definiamo precisamente nella \secR{pareto}. In altre parole parameter space == configuration space. Quindi, visto che il Pareto set e' contenuto nel configuration space, il Pateto-set e' gia', lui stesso, una Parameter Space Representation of Pareto-set. E' come dire ``io sono la rappresentazione di me stesso'', che filosoficamente e' affascinante ma matematicamente non lo e' altrettanto!} The main idea is focusing on the ``innovation''
-introduced in the Pareto sets and then accordingly distributing the
+Pareto front (PS).\comment{Provo a fare il reviewer stronzo. Allora,
+quando parliamo di parameter space, non si capisce bene di cosa
+parliamo. Alla fin fine penso (ma gia' se nemmeno io che ci ho messo
+mano ne sono sicuro, figuriamoci il reviewer) stiamo parlando del
+configuration space, che definiamo precisamente nella \secR{pareto}.
+In altre parole parameter space == configuration space. Quindi, visto
+che il Pareto set e' contenuto nel configuration space, il Pateto set
+e' gia', lui stesso, una Parameter Space Representation of Pareto set.
+E' come dire ``io sono la rappresentazione di me stesso'', che
+filosoficamente e' affascinante ma matematicamente non lo e'
+altrettanto! DP: risolto ?} 
+The main idea is focusing on the ``innovation''
+introduced in the Pareto front and then accordingly distributing the
 exploration effort in regions created in the multidimensional space of
 system parameters. The aim of the PS approach is to propose a new
 perspective on the configuration space, where parameter
@@ -102,16 +112,18 @@ have many advantages: they provide good accuracy, they are customizable and very
 and require no a-priori knowledge to the designer.  The strong
 point of genetic approaches can be summarized saying that they consist
 in exploration that is sufficiently broad (the mutation avoids being rigidly restricted to limited parts of parameter space), and, at the same time, not too scattered as it is guided by the performances of
-the already evaluated configurations. We claim that the
-approach presented in this paper has most of the benefits of the genetic
+the already evaluated configurations. In this work we will compare 
+the proposed approach against a well known Multi-Objective Genetic
+Algoritm~\cite{knowles_techrep06}.
+We claim that the approach presented in this paper has most of the benefits of the genetic
 approaches, although the rationale is completely different.
 
 The paper is organized as follows: in
 Section~\ref{sec:statement_of_the_problem} we formally introduce the
-main concepts and the definitions required to apply the proposed strategy. Next in
-Section~\ref{sec:algorithm} we present the PS algorithm in detail.
-Finally in Section~\ref{sec:ee} we show a case study involving the
-exploration of the hardware/software parameters of a Very Long
- Instruction Word (VLIW) architecture, performing a qualitative
- and quantitative comparison of
-PS agains the state-of-art of multiobjective genetic based approaches.
+main concepts and the definitions required to apply the proposed
+strategy. Next in Section~\ref{sec:algorithm} we present the PS
+algorithm in detail.  Finally in Section~\ref{sec:ee} we show a case
+study involving the exploration of the hardware/software parameters of
+a Very Long Instruction Word (VLIW) architecture, performing a
+qualitative and quantitative comparison of PS against the state-of-art
+of multiobjective genetic based approaches.
