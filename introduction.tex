@@ -1,58 +1,52 @@
 
 \section{Introduction and Motivation}
-\comment{Si capisce che noi provide an algorithm? DP: penso di si',
-che intendi precisamente ?}
-\comment{Mettere our contribution? DP: dove ? casomai fai tu}
 
 The design of an embedded system requires different conflicting
 objectives (energy consumption, performance, area) to be fulfilled.
 Several factors are involved in this goal and real cases show how
 often no analytical results are known to predict the relation between
 system configurations and objectives. In such cases a high level
-system simulation is often the only way to have a picture of how system
+system simulation is the only way to have a picture of how system
 parameters impact on the objectives.  A key problem is that the size
 of the design space to be simulated grows with the product of
-cardinalities of each parameter, easily resulting in an intractable number
-of simulations. In these cases a ``Design Space
-Exploration'' strategy is required, i.e. a methodology to evaluate
-only a small subset of all possible configurations while maintaining a
-good level of efficiency and accuracy~\cite{surviving_soc}.
+cardinalities of each parameter, resulting in an intractable number
+of simulations. In these cases a Design Space
+Exploration (DSE) strategy is required, i.e. an algorithm that selects
+only a tractable subset of all possible configurations to simulate while providing, at the end, configurations that are close to the optimum and that are worth evaluating, in a following step of the design process, in a more thorough way.
 
-The final result of a design space exploration is a subset of the
-configurations called \emph{Pareto set} (\cite{pareto}) (See also Definition
-\ref{pers02.def:Pareto-set}). The corresponding values of the
-objectives for each configuration of the Pareto Set is called
-\emph{Pareto front}: it represents the trade-offs between objectives, i.e.  for each
-point of the Pareto front there is no other configuration performing
-better for all the objectives considered. Once these few promising
-configurations have been obtained, a subsequent step of the design
-flow can eventually afford a more accurate low level simulation.
+%The final result of a design space exploration is a subset of the configurations called \emph{Pareto set} (\cite{pareto}, see also \defR{pareto-set}). The corresponding values of the objectives for each configuration of the Pareto Set is called \emph{Pareto front}: it represents the trade-offs between objectives, i.e.  for each point of the Pareto front there is no other configuration performing better for all the objectives considered. Once these few promising configurations have been obtained, a subsequent step of the design flow can eventually afford a more accurate low level simulation.
 
-In this work we present a multiobjective design exploration strategy
+In this work we present a multiobjective design exploration algorithm
+that introduces the concept of interesting and uninteresting regions of the configuration space.
+\comment{AA: prima era ``algorithm
 that introduces the concept of Parameter Space Representation of
-Pareto front (PS).\comment{Provo a fare il reviewer stronzo. Allora,
-quando parliamo di parameter space, non si capisce bene di cosa
-parliamo. Alla fin fine penso (ma gia' se nemmeno io che ci ho messo
-mano ne sono sicuro, figuriamoci il reviewer) stiamo parlando del
-configuration space, che definiamo precisamente nella \secR{pareto}.
-In altre parole parameter space == configuration space. Quindi, visto
-che il Pareto set e' contenuto nel configuration space, il Pateto set
-e' gia', lui stesso, una Parameter Space Representation of Pareto set.
-E' come dire ``io sono la rappresentazione di me stesso'', che
-filosoficamente e' affascinante ma matematicamente non lo e'
-altrettanto! DP: risolto ?} 
-The main idea is focusing on the ``innovation''
-introduced in the Pareto front and then accordingly distributing the
-exploration effort in regions created in the multidimensional space of
-system parameters. The aim of the PS approach is to propose a new
+Pareto front''. Se io fossi un reviewer, direi: guardi, questo io non credo, anche pecche' non siamo noi che introduciamo il concetto di parameter space representation del pareto set. Il concetto esiste gia' dal 1896 e si chiama ``Pareto-set''! Ho cambiato il claim dicendo che introduciamo interesting/uninteresting regions, che mi sembra piu' rispondente alla verita'. Cosi' ti va bene?} 
+The algorithm is iterative. The main idea can be simplified as follows. At each iteration, the configuration space is divided in regions. A score is given to each region based on the \emph{innovation} provided by its configurations in the Pareto front w.r.t. the previous iterations. The regions with high score are considered the most \emph{interesting} and more simulations are distributed there rather than in the rest of the configuration space. Since the fundamental operations consist in the formation of regions in the Parameter Space (aka configuration space), we call our algorithm PS.
+
+\comment{AA: Le seguenti referenze a cose di psicologia cognitiva potrebbero essere interpretate come una figata o una cagata. Tu come le interpreti?}
+Our algorithm mimics the attention shift in human beings. Authors in \cite{attention} models human attention as a single resource with a limited budget that must be distributed among tasks, preferring the task which the focus is on.
+ Authors in \cite{spatial_attention} describes the visual attention as a spotlight that focuses, each time, in a particular region of the visual space in order to process it more deeply. Similarly, PS focuses its ``spotlight'' only to the interesting regions and explore them more thoroughly distributing the simulation budget on them.
+% Ispirzione: http://en.wikipedia.org/wiki/Attentional_shift
+
+With PS, we propose a new
 perspective on the configuration space, where parameter
 interdependencies play the fundamental role of making some regions
 more capable of generating hardly predictable solutions: catching this
 sort of ``chaoticity'' in the parameter space is the main idea behind
 the strategy that is being introduced in this work.
 
-\section{Related work and Contribution}
-\label{sec:Related-work}
+
+The paper is organized as follows. First, \secR{Related-work} places our work in the context of related effort.
+Then we give a theoretical formulation of the algorithm. In particular, in \secR{statement_of_the_problem} we provide formal definitions of the concepts and the operations that will be used to describe PS algorithm. In \secR{algorithm} we give the theoretical description of PS. 
+Finally in Section~\ref{sec:ee} we show a case
+study involving the exploration of the hardware/software parameters of
+a Very Long Instruction Word (VLIW) architecture, performing a
+qualitative and quantitative comparison of PS against the state-of-art
+of multiobjective genetic based approaches.
+
+
+\section{Related work}
+\secL{Related-work}
 Many different design space exploration algorithms have been proposed
 in literature.  The motivations of an exploration
 algorithm are rather heuristic, have some form of arbitrariness and,
@@ -117,13 +111,3 @@ the proposed approach against a well known Multi-Objective Genetic
 Algoritm~\cite{knowles_techrep06}.
 We claim that the approach presented in this paper has most of the benefits of the genetic
 approaches, although the rationale is completely different.
-
-The paper is organized as follows: in
-Section~\ref{sec:statement_of_the_problem} we formally introduce the
-main concepts and the definitions required to apply the proposed
-strategy. Next in Section~\ref{sec:algorithm} we present the PS
-algorithm in detail.  Finally in Section~\ref{sec:ee} we show a case
-study involving the exploration of the hardware/software parameters of
-a Very Long Instruction Word (VLIW) architecture, performing a
-qualitative and quantitative comparison of PS against the state-of-art
-of multiobjective genetic based approaches.

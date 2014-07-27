@@ -1,8 +1,10 @@
 
-\section{The PS algorithm}
-\label{sec:algorithm}
+\section{PS algorithm}
+\secL{algorithm}
 In this section we present PS, the algorithm that we propose to perform the Design Space Exploration (DSE). As any other DSE algorithm, its input is the parameterized system $S$ and a benchmark application $b$, while the output is an approximation of the Pareto-optimal set $\mathcal{P}\left(S,b\right)$.   
 PS is iterative and we will describe, separately, the initialization phase, the operations performed inside each iteration and the condition that triggers the termination.
+
+At a glance, at each iterations simulations are performed. Regions are classified based on the innovation introduced by their configurations in the Pareto-front so far calculated. The most interesting regions are split, so that each subregion will receive evaluation effort in the next iteration. On the contrary, uninteresting regions are merged.
 
 By a slightly abuse of notation, considering a subset $I$ of the configuration space, we will denote with $\mathcal{P}(I,b)$ the non-dominated feasible configurations in $I$, i.e.
 	\begin{align}
@@ -17,7 +19,7 @@ Each iteration is called \emph{era}. The $i$-th era is characterized by:
 	$mathcal{C}(S)=V_{1}\times\dots\times V_{n}$ is partitioned
 	\item an approximation $\mathscr{P}_{i}$ of the Pareto-optimal set.
 	\item a set $test_{i}$ of at most $K$ configurations evaluated
-	in the era. \comment{Nella era i o nella successiva? DP: non mi ricordo!}
+	in the era.
 	\end{itemize}
 $K$ is a parameter that must be set before the algorithm runs.
 \comment{Spiegare un po' l'impatto di K. DP: se c'e' tempo...} Note that $\mathcal{R}_{i}$ is a partition of the configuration space, i.e.
@@ -26,8 +28,7 @@ $K$ is a parameter that must be set before the algorithm runs.
 		R' \cap R'' = \emptyset, \forall R',R'' \in \mathcal{R}_i
 	\end{array}\end{align}
 
-\comment{Prima di sbattere tutta la sfilza di steps, dovremmo dare
-un'idea preliminare di cosa si andra' a fare. DP: se c'e' tempo bis}
+We now describe formally PS.
 
 \subsection{Initialization}
 We fix $\mathcal{R}_0$, $\mathscr{P}_0$ and $test_0$ for the era $0$ as follows. Era $0$ has only one region that is the whole parameter space,
@@ -134,17 +135,6 @@ remark \ref{rem:termination}).
 the iteration rules says that the smaller is a region, the more ``crowded''
 it is. It means that configurations in smaller regions are evaluated
 with more ``attention'' (see figure \ref{pers02.fig:small_and_big}).
-
-\begin{figure}[h]
-\includegraphics[width=0.5\columnwidth]{img/small_and_big}
-
-\caption{\label{pers02.fig:small_and_big}In this example 5 configurations
-are evaluated in a small region and in a bigger region. In can be
-seen that smaller region is more crowded.}
-
-
-\end{figure}
-
 \end{remark}
 
 \begin{remark}

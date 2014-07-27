@@ -61,7 +61,7 @@
 \newcommand{\ie}{\emph{i.e.}}
 \newcommand{\etc}{\emph{etc.}}
 
-\newcommand{\comment}[1]{\textcolor{red}{AA: \bf #1}}
+\newcommand{\comment}[1]{\textcolor{red}{\bf #1}}
 %\newcommand\comment[1]{} % When you enable this lines, all the notes will disappear
 
 
@@ -100,14 +100,11 @@ DAVIDE PATTI
 
 %\maketitle
 \begin{abstract}
-Embedded Systems Design often requires conflicting objectives to be
-optimized with an appropriate choice of hardware/software parameters .
-Interdependencies among these parameters can make this task even more
-difficult, since an a-priori knowledge of them would  be required to
-develop an analytical model of the system. In this work we present PS,
-a multiobjective exploration algorithm that introduces the notion of
-Parameters Space Representation. After a detailed formal description
-of the algorithm and its concepts, we show a hardware/software
+Embedded Systems Design requires conflicting objectives to be
+optimized with an appropriate choice of hardware/software parameters. A simulation campaign guides the design in finding the best trade-offs, but, due to the big number of possible configurations, it is unfeasible to simulate all of them. For these reason Design Space Exploration (DSE) algorithms aim at finding near-optimal system configurations, only simulating a subset of them.
+
+In this work we present PS, a new multiobjective exploration algorithm. The basic idea is to recognize \emph{interesting}, i.e. regions of the configuration space that are proving to provide better configurations w.r.t. other ones. PS evaluates more configurations in interesting regions while exploring less thoroughly the rest of the configuration space. After a detailed formal description
+of the algorithm and the underlying concepts, we show a hardware/software
 exploration case study. Qualitative and quantitative comparisons of PS
 against a well-know multiobjective genetic approach demonstrate that,
 while not outperforming it in terms of dominance, the proposed
@@ -156,5 +153,13 @@ improved pareto extension.
 \bibliography{bibliography}
 
 % TODO: G2012 bib not used ?
+
+\comment{AA: Esportare di
+nuovo tutte le immagini libreoffice - svg - eps che viene meglio, come
+si vede in \figR{3}. Aggiustare i nomi degli assi che in alcune figure
+sono sbagliati. O forse basta esportarli col nuovo libreoffice che fa
+meglio DP: hai ragione, ma forse siamo fuori tempo limite per queste
+cose} 
+
 
 \end{document}
