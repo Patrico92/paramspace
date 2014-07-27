@@ -72,25 +72,26 @@ as the sum of the innovation scores of its non-dominated test configurations:
 	\]
 
 \item The total innovation and average score for the entire era is calculated:
-	\[
-	is_{TOT,i}=\sum_{R\in\mathcal{R}_{i}}is\left(R\right)
-	\]
+	\begin{align} \begin{array}{l}
+	is_{TOT,i}=\sum_{R\in\mathcal{R}_{i}}is\left(R\right) \\
+	is_{av,i}=is_{TOT,i} / |\mathcal{R}_i|
+	\end{array} \end{align}
+	
 
-
-\item The configuration space partition $\mathcal{R}_{i}$ is divided in three subsets, that we will comment later \comment{e invece sarebbe bene commentarli ora, anche}:
+\item The configuration space partition $\mathcal{R}_{i}$ is divided in three subsets, that we will comment later:
 
 	\begin{enumerate}
-	\item high innovation regions 
+	\item \emph{high innovation regions}, whose innovation score exceeds the average score of the previous era by a factor of $\alpha$, i.e.
 	\[
 	\mathcal{R}_{i,h}=\left\{ \left.R\in\mathcal{R}_{i}\right|is\left(R\right)>\alpha\cdot is_{av,i-1}\right\} 
 	\]
 	 where $\alpha$ is a constant defined by the designer (for example
 	$\alpha=1.2$). 
-	\item low innovation regions 
+	\item \emph{low innovation regions}, whose score is positive but modest, i.e.
 	\[
 	\mathcal{R}_{i,l}=\left\{ \left.R\in\mathcal{R}_{i}\right|0<is\left(R\right)\le\alpha\cdot is_{av,i-1}\right\} 
 	\]
-	\item no innovation regions 
+	\item \emph{no innovation regions}, whose innovation is null, i.e. 
 	\[
 	\mathcal{R}_{i,n}=\left\{ \left.R\in\mathcal{R}_{i}\right|is\left(R\right)=0\right\} 
 	\]
@@ -100,13 +101,13 @@ as the sum of the innovation scores of its non-dominated test configurations:
 	\begin{enumerate}
 		\item Each high innovation region $R\in\mathscr{R}_{i,h}$ is split obtaining $\psi(R)$, as stated in def \defR{splitting-a-region}. We denote with $\psi\left(\mathscr{R}_{i,h}\right)$ the set of regions obtained as explained.
 		\item Low innovation regions are left unchanged.
-		\item No innovation regions are merged, two by two. To do so, couples of no innovation contiguous regions $(R_1,R_2)$ are selected. We denote the set of these couples as $\mathscr{M}_i$. This set is constructed such that couples are independent, i.e. there cannot be two of them sharing a region. In other words, taking whatever $(R_1,R_2),(R_3,R_4) \in \mathscr{M}_i$, $R_i \neq R_j, \forall i,j\in\lbrace1,2,3,4\rbrace, i\neq$. 
-We merge each couple of regions, i.e. $\forall (R_1,R_2)\in\mathscr{M}_i$ we calculate $\mu(R_1,R_2)$, according to \defR{merging-regions}.
-We stress that the regions that belong to each selected couple must be contiguous, otherwise it is impossible to merge them. We denote with $\mu(\mathscr{M}_i)$ the set of the merged regions, i.e. $\mu(\mathscr{M}_i) = \bigcup_{(R_1,R_2)\in\mathscr{M}_i} \mu(R_1,R_2)$
+		\item No innovation regions are merged, two by two. To do so, pairs of no innovation contiguous regions $(R_1,R_2)$ are selected. We denote the set of these pairs as $\mathscr{M}_i$. This set is constructed such that pairs are independent, i.e. there cannot be two of them sharing a region. In other words, taking whatever $(R_1,R_2),(R_3,R_4) \in \mathscr{M}_i$, $R_i \neq R_j, \forall i,j\in\lbrace1,2,3,4\rbrace, i\neq$. 
+We merge each pair of regions, i.e. $\forall (R_1,R_2)\in\mathscr{M}_i$ we calculate $\mu(R_1,R_2)$, according to \defR{merging-regions}.
+We stress that the regions that belong to each selected pair must be contiguous, otherwise it is impossible to merge them. We denote with $\mu(\mathscr{M}_i)$ the set of the merged regions, i.e. $\mu(\mathscr{M}_i) = \bigcup_{(R_1,R_2)\in\mathscr{M}_i} \mu(R_1,R_2)$
 	\end{enumerate}
 
 
-\item The set of regions $\mathcal{R}_{i+1}$ for the following era is computed as:
+\item The set of regions $\mathcal{R}_{i+1}$ for the following era is composed of the subregions resulting from splitting operations ($\psi\left(\mathscr{R}_{i,h}\right)$), the low innovation regions unchanged $\mathcal{R}_{i,l}$, the result of the merging operations ($\mu(\mathscr{M}_i))$ and the no innovation regions that was not possible to merge $\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)$. Formally:
 	\[
 	\mathcal{R}_{i+1}=
 	\]
@@ -118,9 +119,6 @@ We stress that the regions that belong to each selected couple must be contiguou
 	\]
 \end{enumerate}
 
-\comment{commentare questa formula}
-
-\comment{SONO ARRIVATO A LEGGERE QUA}
 
 
 \subsection{Termination Condition}
@@ -128,79 +126,27 @@ The algorithm terminates at step $k$ if
 \[
 is_{TOT,k},is_{TOT,k-1},\dots,is_{TOT,k-\beta}\le\gamma\cdot is_{TOT,k-\left(\beta-1\right)}
 \]
- where $\beta$ and $\gamma$ are selected by the experimenter (see
-remark \ref{rem:termination}).
-\begin{remark}
-\label{pers02.rem:smaller_regions}The rule \ref{pers02.enu:K} of
-the iteration rules says that the smaller is a region, the more ``crowded''
-it is. It means that configurations in smaller regions are evaluated
-with more ``attention'' (see figure \ref{pers02.fig:small_and_big}).
-\end{remark}
-
-\begin{remark}
-The rule \ref{pers02.enu:novelty_score_of_a_configuration} says that
-a configuration whose objectives are more ``separated'' by the previous
-Pareto front, has to be taken in greater account than others. A configuration
-that is very near, in the objective space, to the previous Pareto
-front doesn't add a true innovation. Therefore, the innovation score
-of a configuration is a measure of how much interest we have in considering
-it (see figure \ref{pers02.fig:Novelty-score-of-a-config}).
-
-\begin{figure}[h]
-\includegraphics[width=0.5\columnwidth]{img/novelty_score}
-
-\caption{\label{pers02.fig:Novelty-score-of-a-config}innovation score of a
-configuration}
-
-
-\end{figure}
-
-\comment{Ci vorrebbe una rappresentazione schematica dell'algoritmo usando l'ambiente latex Algorithm o non mi ricordo come si chiama}
-
-\end{remark}
-
-\begin{remark}
-The innovation score of a region is a measure of how much different
-are the points that it adds to Pareto Front compared to the previous
-Pareto front. ``High innovation regions'' are the ones in which
-more configurations are worth evaluating, because they add many points
-on not yet well explored Pareto front areas. Therefore, these regions
-are split in the next era (see remark \ref{pers02.rem:smaller_regions})
-and more ``crowded'' by simulations. ``No innovation regions''
-are the ones that have proved to add few points on Pareto fronts,
-probably very near to previous Pareto front points and a Pareto front
-point near to previous points is not so much interesting. Therefore
-it's not worth evaluating many of their configurations and it is useful
-to merge these regions, in order to less densely evaluate them.
-
-%ULTERIORI GIUSTIFICAZIONI SULL'IMPORTANZA DI CONSIDERARE LA DIVERSITA'
-%DELLE SOLUZIONI SI TROVA IN ext12.pag5 E ALTRI.
-
-\end{remark}
-
-\begin{remark}
-\label{rem:termination}The algorithm terminates when in the last
+ where $\beta$ and $\gamma$ are selected by the experimenter. 
+The algorithm terminates when in the last
 $\beta$ iterations not a great ``amount of innovation'' has been
 discovered. Therefore it is very probably that carrying on iterating
-will not considerably change the Pareto front already formed. It's
-not recommended to chose $\beta=1$, because it is possible that the
-Pareto fronts $\mathbf{o}\left(\mathscr{P}_{k-1}\right)$ and $\mathbf{o}\left(\mathscr{P}_{k}\right)$
-are not very different but next Pareto fronts could be. In other words,
-it's unsafe to terminate as soon as the Pareto front doesn't change
-enough between two consecutive eras, thus a strategy taking into
+will not considerably change the Pareto-front approximation already formed. 
+
+It is not recommended to chose $\beta=1$, because it is possible that the
+$k-1$-th and $k$-th Pareto front approximations are not very different but next ones could be. In other words,
+it is unsafe to terminate as soon as the Pareto front does not considerably change
+between two consecutive eras, thus a strategy taking into
 account the history of the Pareto fronts has been adopted in the
 proposed approach.
-\end{remark}
 %!!! IN INGLESE E' PIU' CORRETTO DIRE: ``IT IS POSSIBLE THAT THE PARETO
 %FRONTS WERE NOT VERY DIFFERENT''? (CON ``WERE'' AL POSTO DI ``ARE'')
 
 
-\begin{remark}
-Merging and splitting the regions are very dynamic processes. A portion
-of the parameter space can be populated by a large number of small
+Observe that merging and splitting operation are dynamic processes. A portion
+of the parameter space may be populated by a large number of small
 regions in some eras, but can be covered by a small number of large
-regions in next eras. This can be explained saying that, after a number
-of eras of intense exploration of a portion of parameter space, this
-exploration has turned to be enough thorough and so it was time for
+regions in next eras. This is a desirable property of PS, since, after a number
+of eras of intense exploration of a portion of configuration space, this
+exploration has turned to be enough thorough and so it may be time for
 other portions to be minutely scanned.
 \end{remark}
