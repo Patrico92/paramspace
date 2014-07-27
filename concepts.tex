@@ -68,6 +68,7 @@ The simulation effort is distributed more on the regions that provide configurat
 
 
 
+
 % A PROPOSITO DI QUESTO DUBBIO:
 %\comment{AA: Mi sembra solo un cambio di notazione. DP: c'era un On the contrary troppo aggressivio, ho cercato di alleggerire la cosa, ma dai un'occhiata }
 % HO CANCELLATO TUTTA QUESTA PARTE.
@@ -75,6 +76,7 @@ The simulation effort is distributed more on the regions that provide configurat
 
 \begin{figure}[t]
 \label{fig:psos}
+\center
 \includegraphics[width=0.5\columnwidth]{img/Pareto_set_and_front}
 \caption{Relation between Pareto-set and Pareto front.}
 \end{figure}
@@ -118,6 +120,7 @@ At each iteration, PS ``zooms in'' the most interesting regions while ``zooming 
 
 
 	\begin{figure}[t]
+	\center
 	\includegraphics[width=0.5\columnwidth]{img/small_and_big}
 	\figLC{small_and_big}{In this example 5 configurations
 	are evaluated in a small region and in a bigger region. In can be
@@ -140,7 +143,6 @@ is the set of values of $V_{i}$ lying in $\left[a_{i},b_{i}\right]$)
 \end{definition}
 
 
-
 	\begin{figure}[t]
 		\begin{center}
 			\subfigure[Examples of contiguous and non contiguous intervals.]{
@@ -150,6 +152,7 @@ is the set of values of $V_{i}$ lying in $\left[a_{i},b_{i}\right]$)
 		    \figLC{interval_and_region}{Intervals and regions.}
 		\end{center}
 	\end{figure}
+
 
 
 We consider only parameters $p_{i}$ with ordering, i.e. such
@@ -241,9 +244,10 @@ be two regions. They are said to be contiguous iff they do not overlap and, merg
 
 Examples of contiguous and non contiguous regions are given in \figR{contiguous_regions}. The two regions at the top are contiguous because their union can be expressed as the cartesian product of parameter intervals, thus they can be merged to obtain a new bigger region. The same applies also to the regions on the right. On the contrary, the two regions on the left (or of the two regions at the bottom) cannot be merged. 
 
-	\begin{figure}[h]
-		\includegraphics[width=0.5\columnwidth]{img/contiguous_regions}
-		\figLC{contiguous_regions}{Contiguous and non contiguous regions. \comment{Inserire a dx una figura con le contiguous regions mergiate.}	}
+	\begin{figure}[t]
+		\center
+		\includegraphics[width=0.8\columnwidth]{img/contiguous_regions}
+		\figLC{contiguous_regions}{Contiguous and non contiguous regions.}
 	\end{figure}
 
 We now describe formally the merging operations.

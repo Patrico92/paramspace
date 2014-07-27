@@ -22,7 +22,7 @@ Each iteration is called \emph{era}. The $i$-th era is characterized by:
 	in the era.
 	\end{itemize}
 $K$ is a parameter that must be set before the algorithm runs.
-\comment{Spiegare un po' l'impatto di K. DP: se c'e' tempo...} Note that $\mathcal{R}_{i}$ is a partition of the configuration space, i.e.
+Note that $\mathcal{R}_{i}$ is a partition of the configuration space, i.e.
 	\begin{align}\begin{array}{l}
 		\bigcup_{R\in\mathcal{R}_i} R = \mathcal{C}(S) \mbox{ and}\\
 		R' \cap R'' = \emptyset, \forall R',R'' \in \mathcal{R}_i
@@ -101,22 +101,18 @@ as the sum of the innovation scores of its non-dominated test configurations:
 	\begin{enumerate}
 		\item Each high innovation region $R\in\mathscr{R}_{i,h}$ is split obtaining $\psi(R)$, as stated in def \defR{splitting-a-region}. We denote with $\psi\left(\mathscr{R}_{i,h}\right)$ the set of regions obtained as explained.
 		\item Low innovation regions are left unchanged.
-		\item No innovation regions are merged, two by two. To do so, pairs of no innovation contiguous regions $(R_1,R_2)$ are selected. We denote the set of these pairs as $\mathscr{M}_i$. This set is constructed such that pairs are independent, i.e. there cannot be two of them sharing a region. In other words, taking whatever $(R_1,R_2),(R_3,R_4) \in \mathscr{M}_i$, $R_i \neq R_j, \forall i,j\in\lbrace1,2,3,4\rbrace, i\neq$. 
-We merge each pair of regions, i.e. $\forall (R_1,R_2)\in\mathscr{M}_i$ we calculate $\mu(R_1,R_2)$, according to \defR{merging-regions}.
+		\item No innovation regions are merged, two by two. To do so, pairs of no innovation contiguous regions $(R_1,R_2)$ are selected. We denote the set of these pairs as $\mathscr{M}_i$. This set is constructed such that pairs are independent, i.e. there cannot be two of them sharing a region. In other words, taking whatever $(R_1,R_2),(R_3,R_4) \in \mathscr{M}_i$, $R_i \neq R_j, \forall i,j\in\lbrace1,2,3,4\rbrace, i\neq j$. 
+We merge each pair of these regions, i.e. $\forall (R_1,R_2)\in\mathscr{M}_i$ we calculate $\mu(R_1,R_2)$, according to \defR{merging-regions}.
 We stress that the regions that belong to each selected pair must be contiguous, otherwise it is impossible to merge them. We denote with $\mu(\mathscr{M}_i)$ the set of the merged regions, i.e. $\mu(\mathscr{M}_i) = \bigcup_{(R_1,R_2)\in\mathscr{M}_i} \mu(R_1,R_2)$
 	\end{enumerate}
 
 
 \item The set of regions $\mathcal{R}_{i+1}$ for the following era is composed of the subregions resulting from splitting operations ($\psi\left(\mathscr{R}_{i,h}\right)$), the low innovation regions unchanged $\mathcal{R}_{i,l}$, the result of the merging operations ($\mu(\mathscr{M}_i))$ and the no innovation regions that was not possible to merge $\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)$. Formally:
-	\[
-	\mathcal{R}_{i+1}=
-	\]
-	\[
-	=\psi\left(\mathscr{R}_{i,h}\right) \cup \mathcal{R}_{i,l}\cup
-	\]
-	\[
-	\cup\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)\cup \mu(\mathscr{M}_i)
-	\]
+	\begin{align} 
+	\mathcal{R}_{i+1} \triangleq
+	\psi\left(\mathscr{R}_{i,h}\right) \cup \mathcal{R}_{i,l}\cup
+	\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)\cup \mu(\mathscr{M}_i)
+	\end{align}
 \end{enumerate}
 
 
@@ -149,4 +145,63 @@ regions in next eras. This is a desirable property of PS, since, after a number
 of eras of intense exploration of a portion of configuration space, this
 exploration has turned to be enough thorough and so it may be time for
 other portions to be minutely scanned.
-\end{remark}
+
+A pseudocode representation of PS algorithm is in Alg.\ref{alg:algo}
+
+\begin{algorithm}[t]
+	\small
+	\caption{PS Algorithm}
+	\label{alg:algo}
+	  \SetKwInOut{Input}{Input}\SetKwInOut{Output}{Output}
+	  \Input{S}
+	  \Output{ $\tilde{\mathscr{P}}$ // Approximation of Pareto-set}
+%
+	  \nl //Initialization \\
+	  \nl $\mathscr{R}_0\Leftarrow
+				\left\{ V_{1}\times\dots\times V_{n}\right\} $; \\
+	  \nl $\mathscr{P}_0\Leftarrow $ extract\_non\_dominated($test_0$);\\
+	  \nl \\
+	  \nl $i\Leftarrow 0$;\\
+	  \nl \While{ !termination\_condition } {
+			// Iteration steps\\
+			\nl $test_i=\emptyset$;\\
+	  		\nl \ForEach {$R \in \mathscr{R}_i$}{
+				\nl $\mathscr{N}_{R,i} \Leftarrow$ configurations in $R$ not evaluated so far;\\
+				\nl $|\mathscr{N}_{R,i}|\leq K/|\mathscr{R}_i|$? \\
+						$\mbox{\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,}test_{R,i}\Leftarrow \mathscr{N}_{R,i}$:\\
+						\mbox{\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,}$test_{R,i}\Leftarrow K/|\mathscr{R}_i|$ randomly selected configurations from $\mathscr{N}_{R,i}$;\\
+			\nl $test_i\Leftarrow test_i \cup test_{R,i}$
+
+			}
+
+			\nl simulate ($test_i$);\\
+			\nl $\mathscr{P}_i \Leftarrow 
+				\mathscr{P}\left(test_{i}\cup\mathscr{P}_{i-1}\right)$;\\
+			\nl \ForEach{$\mathbf{c}^*\in\mathscr{P}_i$} {
+				\nl $is\left(\mathbf{c}^*\right) \Leftarrow \min\left\{ \left.s\left(\mathbf{c}\rightarrow\mathbf{c} \right)\right|\mathbf{c}\in\mathscr{P}_{i-1}\right\}$;\\
+				}
+			\nl \ForEach{$R\in\mathscr{R}_i$} {
+				\nl $is\left(R\right)=\sum\left\{ \left.is\left(\mathbf{c}\right)\right|\mathbf{c}\in\mathscr{P}_{i}\cap R\right\} $;
+			}
+
+			\nl $is_{TOT,i}=\sum_{R\in\mathcal{R}_{i}}is\left(R\right)$ \\
+			\nl $is_{av,i}=is_{TOT,i} / |\mathcal{R}_i|$\\
+			\nl \\ //Region classification\\
+			\nl $\mathcal{R}_{i,h}=\left\{ \left.R\in\mathcal{R}_{i}\right|is\left(R\right)>\alpha\cdot is_{av,i-1}\right\}$; \\
+			\nl $\mathcal{R}_{i,l}=\left\{ \left.R\in\mathcal{R}_{i}\right|0<is\left(R\right)\le\alpha\cdot is_{av,i-1}\right\} $; \\
+			\nl $\mathcal{R}_{i,n}=\left\{ \left.R\in\mathcal{R}_{i}\right|is\left(R\right)=0\right\} $;
+			
+			\nl \\ // Splitting and merging operations\\
+			\nl $\psi(\mathscr{R}_{i,h}) \Leftarrow \lbrace 
+					\psi(R) | R\in \mathscr{R}_{i,h}	
+				\rbrace$; \\
+			\nl construct $\mathscr{M}_i$; // the set of pair of contiguous no innovation regions \\
+			\nl $\mu(\mathscr{M}_i) = \bigcup_{(R_1,R_2)\in\mathscr{M}_i} \mu(R_1,R_2)$;\\
+			\nl\\ // Prepare the configuration space partition for the next iteration \\
+			\nl $\mathcal{R}_{i+1} \triangleq
+	\psi\left(\mathscr{R}_{i,h}\right) \cup \mathcal{R}_{i,l}\cup
+	\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)\cup \mu(\mathscr{M}_i)$;\\
+		}
+	\nl $\tilde{\mathscr{P}} \Leftarrow \mathscr{P}_i$
+\end{algorithm}
+%
