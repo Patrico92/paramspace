@@ -84,14 +84,16 @@ The simulation effort is distributed more on the regions that provide configurat
 \subsection{Sketch of the Idea}
 \secL{sketch}
 
-In the design process, there are often a lot of ``local decisions''
-in which the designer can take advantage of well-known results or
-heuristics. For example, if we consider a VLIW architecture in a configuration with very few registers, it is well-known that increasing the number of ALUs does not bring tangible better performances
-but only cause an increase in area occupation. An intelligent exploration
-algorithm would not waste time evaluating configurations with many
-ALUs and few registers. If $p_{1}$ is the parameter ``number of
-registers'' and $p_{2}$ is the parameter ``number of ALUs'', we
-can say that the region:
+In the design process, there are often a lot of ``local decisions'' in
+which the designer can take advantage of well-known results or
+heuristics. For example, if we consider a highly parallel
+computer architecture in a configuration with very few registers, it is
+well-known that increasing the number of ALUs does not bring tangible
+better performances but only cause an increase in area occupation. An
+intelligent exploration algorithm would not waste time evaluating
+configurations with many ALUs and few registers. If $p_{1}$ is the
+parameter ``number of registers'' and $p_{2}$ is the parameter
+``number of ALUs'', we can say that the region:
 \[
 R=\left\{ \left.\left(v_{1},v_{2}\right)\in P_{1}\times P_{2}\right|v_{1}<s_{1},v_{2}>s_{2}\right\} 
 \]

@@ -6,16 +6,16 @@ we will be using a parameterized Very Long Instruction
 Word (VLIW) architecture~\cite{kathail_tr00} as testbed. The same philosophy
 behind a VLIW system makes this a natural choice for several reasons:
 \begin{itemize}
-\item{Multi-Objective trade-offs}: VLIW architectures let designers
+\item \emph{Multi-Objective trade-offs}: VLIW architectures let designers
 easily trade between power, energy and performances, resulting
 in extended Pareto sets which are an ideal ground for our testing
-purposes focused on parameter-space space representation
-\item{Compiler awareness}: Instruction Level Parallelism (ILP)
-is statically obtained by the compiler which
-performs code transformations being aware of the underlying hardware
-configuration.  This tight hardware/software dependence, makes the
+purposes focused on parameter-space representation
+\item \emph{Compiler awareness}: code scheduling for the execution of
+applications is statically obtained by the compiler which
+performs code transformations ``being aware'' of the underlying hardware
+configuration.  This tight hardware/software dependence makes the
 VLIW scenario perfectly suitable for investigating hardly predictable
-hardware/software interactions.
+parameter interactions.
 \end{itemize}
 
 \subsection{Parameter Space}
@@ -42,18 +42,18 @@ cache (L2U).
 Next, a set of the most impacting code compilation parameters has been
 selected and included in the configuration space:
 \begin{itemize}
-\item{tcc\_region}: Specifies the scope of action of the compiler and the type
+\item \emph{tcc\_region}: Specifies the scope of action of the compiler and the type
 of code transformation involved (basic block, super block and hyper
 block) 
-\item {max\_unroll\_allowed}: The number of unroll iterations allowed
-\item{regroup\_only}: Avoids inlining 
-\item{do\_classic\_opti}: A set of classical optimization, not VLIW related,
+\item \emph {max\_unroll\_allowed}: The number of unroll iterations allowed
+\item \emph{regroup\_only}: Avoids inlining 
+\item \emph{do\_classic\_opti}: A set of classical optimization, not VLIW related,
 such as common expression removal 
-\item{do\_prepass\_scalar\_scheduling}: Performs a schedule before
+\item \emph{do\_prepass\_scalar\_scheduling}: Performs a schedule before
 forming regions 
-\item{do\_postpass\_scalar\_scheduling}: Performs a schedule after the region formation 
+\item \emph{do\_postpass\_scalar\_scheduling}: Performs a schedule after the region formation 
 do\_modulo\_scheduling  Modular scheduling 
-\item{memvr\_profiled}: Performs a memory-dependencies profiling 
+\item \emph{memvr\_profiled}: Performs a memory-dependencies profiling 
 \end{itemize}
 
 As regards the class of benchmark being considered, a set applications representative of some common
@@ -190,7 +190,7 @@ being also strongly depended upon the application being considered.
 These results are obtained in about 5 eras, and the main aim was
 demonstrating that with a so limited budget PS still can compete with
 genetic approach while even discovering very different Pareto fronts.
-Continuing with a more extended simulation budget as depicted in
+Considering the extended simulation budget as depicted in
 Figure~\ref{fig:pareto_fronts_500}, we can qualitatively observe that
 even if PS does not strictly outperforms genetic in terms of dominance, it shows in
 some cases largely Pareto in terms of extension. We can intuitively
@@ -212,7 +212,7 @@ between a PS and a GA exploration for both power dissipation and
 execution time is shown in Fig.~\ref{fig:dispersion}(a) and (b)
 respectively. As it can be observed, the PS exploration provides solutions which fall on a
 range that is, on average, wider than that provided by a
-MOGA exploration for power dissipation and execution time, respectively.
+GA exploration for power dissipation and execution time, respectively.
 %\begin{table}
 %  \centering
 %  \begin{tabular}{c}
@@ -270,8 +270,16 @@ case in which all the solutions fall in a single tile:
 Fig.~\ref{fig:dispersion}(c) shows the average normalised absolute
 dispersion errors for different benchmarks for PS and GA
 exploration. As it can be observed, GA still shows a tendency in
-discovering more uniformly dispersed points (i.e. higher values). These results,
+discovering more uniformly dispersed points (i.e. higher values in the
+chart). These results,
 together with the variation ranges of Fig.~\ref{fig:dispersion}(a) and
 (b) confirm the the availability of density vs extension trade-offs
-when comparing PS and multi-objective genetic approaches.
+when comparing PS and GA approaches. Again, it
+should be pointed out how a definitive claim about the superiority of
+the PS behaviour is stricly dependent on the design 
+requirements and constraints, e.g. whether we need wide or dense
+results. Nevetheless, the proposed algorithm introduces a new
+perspective on thinking the allocation of a simulations budget, paving the way for
+the development of further strategies for addressing the problem of
+multi-objective hardware/software desing space exploration.
 
