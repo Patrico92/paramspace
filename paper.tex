@@ -104,11 +104,22 @@ DAVIDE PATTI
 %\maketitle
 \begin{abstract}
 Embedded Systems Design requires conflicting objectives to be
-optimized with an appropriate choice of hardware/software parameters. A simulation campaign guides the design in finding the best trade-offs, but, due to the big number of possible configurations, it is unfeasible to simulate all of them. For these reason Design Space Exploration (DSE) algorithms aim at finding near-optimal system configurations, only simulating a subset of them.
+optimized with an appropriate choice of hardware/software parameters.
+A simulation campaign can guide the design in finding the best
+trade-offs, but due to the big number of possible configurations it
+is often unfeasible to simulate all of them. For these reasons Design Space
+Exploration (DSE) algorithms aim at finding near-optimal system
+configurations only simulating a subset of them.
 
-In this work we present PS, a new multiobjective exploration algorithm. The basic idea is to recognize \emph{interesting}, i.e. regions of the configuration space that are proving to provide better configurations w.r.t. other ones. PS evaluates more configurations in interesting regions while exploring less thoroughly the rest of the configuration space. After a detailed formal description
-of the algorithm and the underlying concepts, we show a hardware/software
-exploration case study. Qualitative and quantitative comparisons of PS
+In this work we present PS, a new multiobjective exploration
+algorithm. The basic idea is to recognize \emph{interesting} regions, i.e.
+regions of the configuration space that are proving to provide better
+configurations with regard to other ones. PS evaluates more configurations in
+interesting regions while exploring less thoroughly the rest of the
+configuration space. After a detailed formal description of the
+algorithm and the underlying concepts, we show a 
+case study involving the hardware/software exploration of a VLIW
+architcture. Qualitative and quantitative comparisons of PS
 against a well-know multiobjective genetic approach demonstrate that,
 while not outperforming it in terms of dominance, the proposed
 approach can trade the uniformity and granularity qualities of the
