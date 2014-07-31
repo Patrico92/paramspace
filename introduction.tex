@@ -30,19 +30,10 @@ configurations will need to be further evaluated in a next step of the design
 flow using a more accurate low level simulation (e.g. register
 transfer level).
 
-\comment{DP: ho reintrodotto la descrizione di cos'e' un pareto set e
-front che ci serve dopo quando descriviamo PS, inoltre ho sostituito
-la tua frase era un po' contorta. In breve, il fatto che il pareto set
-del DSE sia un'approssimazioen di quello divino irraggiungibile e' una
-cosa che e' inutile dire qui, fa solo confondere col concetto di
-approssimazione che e' invece dovuto al fatto che usiamo modelli di
-alto livello}
 %while providing, at the end, configurations that are close to the
 %optimum and that are worth evaluating, in a following step of the
 %design process, in a more thorough way.
 
-\comment{DP: poi dobbiamo trovare un nome piu' interessante rispetto a
-interesting regions, ci pensiamo questa estate}
 
 In this work we present PS, a multiobjective design exploration
 algorithm that introduces the concept of \emph{interesting} and
@@ -53,7 +44,7 @@ each region based on the \emph{innovation} provided by its
 configurations in the Pareto front. The regions with high score are
 considered the most \emph{interesting} and more simulations are
 distributed there rather than in the rest of the configuration space.
-Several geometrical trasformations (splitting, merging etc...) are
+Several geometrical transformations (splitting, merging etc...) are
 involved in the Parameter Space (aka configuration space), hence
 the name PS for the algorithm.
 
@@ -114,7 +105,7 @@ since, although it leverages dependencies as in
 no a-priori knowledge required. Moreover, our algorithm is able to
 capture also ``local dependencies", i.e. dependencies that emerge only
 among certain ranges of parameters and may not hold when considering
-the entires ranges. This cannot be modelled in Dependency Analysis. 
+the entire ranges. This cannot be modeled in Dependency Analysis. 
 
 Abraham, Rau and Schreiber proposed in \cite{santosh_hptr00} to decompose
 the system under evaluation into components that interact minimally
@@ -147,6 +138,6 @@ point of genetic approaches can be summarized saying that they consist
 in exploration that is sufficiently broad (the mutation avoids being rigidly restricted to limited parts of parameter space), and, at the same time, not too scattered as it is guided by the performances of
 the already evaluated configurations. In this work we will compare 
 the proposed approach against a well known Multi-Objective Genetic
-Algoritm~\cite{knowles_techrep06}.
+Algorithm~\cite{knowles_techrep06}.
 We claim that the approach presented in this paper has most of the benefits of the genetic
 approaches, although the rationale is completely different.

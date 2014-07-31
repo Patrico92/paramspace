@@ -63,8 +63,8 @@ application $b$, simulating as few configurations as possible.
 
 %----------------------------------------------------------------
 
-As we will show later, at each iteration, PS calculates an approssimation $\mathscr{P}_i$ of the Pareto-set that approaches it as iterations go on. The image of $\mathscr{P}_i$ is an approssimation of the Pareto-front.
-The simulation effort is distributed more on the regions that provide configurations in $\mathscr{P}_i$ which introduce more \emph{innovation}, i.e. whose image in the objective space is more distant, thus ``more different'', from the previous Pareto-front approssimation point.
+As we will show later, at each iteration, PS calculates an approximation $\mathscr{P}_i$ of the Pareto-set that approaches it as iterations go on. The image of $\mathscr{P}_i$ is an approximation of the Pareto-front.
+The simulation effort is distributed more on the regions that provide configurations in $\mathscr{P}_i$ which introduce more \emph{innovation}, i.e. whose image in the objective space is more distant, thus ``more different'', from the previous Pareto-front approximation point.
 
 
 
@@ -118,7 +118,7 @@ because the way it fulfills the objectives is similar to the other
 already evaluated configurations. On the contrary, adding a new Pareto
 front point that is distant from previous ones is remarkable,
 since it let the experimenter discover potential performance that have not yet considered before.
-At each iteration, PS ``zooms in'' the most interesting regions while ``zooming out'' from the rest of configuration space. In order to implement this behavior algorithmically, at each iteration PS assigns the same number $N$ of simulations to each region. If a region $R$ is interesting, it is split in $k$ subregions before the next iteration starts. Therefore, in the next iteration, $N$ simulations are assigned to each subregion. As a result, we are populating the original region $R$ with $k\cdot N$ simulations. On the contrary, uninteresting regions are merged, so that each one will receive less effort in the next iteration. In other words, ares of the configuration space that are more promising are split in small subregions, while the other ones are blended in big regions. As illustrated in \figR{small_and_big}, assigning $N$ simulations to each region makes small ones well populated while bigger ones sparsely explored.
+At each iteration, PS ``zooms in'' the most interesting regions while ``zooming out'' from the rest of configuration space. In order to implement this behavior algorithmically, at each iteration PS assigns the same number $N$ of simulations to each region. If a region $R$ is interesting, it is split in $k$ sub-regions before the next iteration starts. Therefore, in the next iteration, $N$ simulations are assigned to each sub-region. As a result, we are populating the original region $R$ with $k\cdot N$ simulations. On the contrary, uninteresting regions are merged, so that each one will receive less effort in the next iteration. In other words, ares of the configuration space that are more promising are split in small sub-regions, while the other ones are blended in big regions. As illustrated in \figR{small_and_big}, assigning $N$ simulations to each region makes small ones well populated while bigger ones sparsely explored.
 
 
 	\begin{figure}[t]
@@ -214,7 +214,7 @@ The interval split is illustrated in \figR{split}~(a). Note that, when splitting
 
 \begin{definition}[Splitting a region]
 \label{pers02.def:Splitting-a-region}
-Consider a region $R=\prod\left[a_{i}..b_{i}\right]$.The split operator $\psi$ divides it in a set of subregions obtained splitting each $p_i$-interval and combining the resulting subintervals with the cartesian product, as in \figR{split}~(b). Formally:
+Consider a region $R=\prod\left[a_{i}..b_{i}\right]$.The split operator $\psi$ divides it in a set of sub-regions obtained splitting each $p_i$-interval and combining the resulting sub-intervals with the cartesian product, as in \figR{split}~(b). Formally:
 	\begin{align}
 		\psi(R) = \left\{ \left.\prod\left[x_{i}..y_{i}\right]\right|\left[x_{i}..y_{i}\right]\in \psi\left[a_{i}..b_{i}\right]  \right\} 
 	\end{align}

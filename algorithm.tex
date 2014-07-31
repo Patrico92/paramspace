@@ -4,8 +4,7 @@
 In this section we present PS, the algorithm that we propose to perform the Design Space Exploration (DSE). As any other DSE algorithm, its input is the parameterized system $S$ and a benchmark application $b$, while the output is an approximation of the Pareto-optimal set $\mathcal{P}\left(S,b\right)$.   
 PS is iterative and we will describe, separately, the initialization phase, the operations performed inside each iteration and the condition that triggers the termination.
 
-\comment{DP: ''at each iterations'' e' scritto giusto ?}
-At a glance, at each iterations simulations are performed. Regions are classified based on the innovation introduced by their configurations in the Pareto-front so far calculated. The most interesting regions are split, so that each subregion will receive evaluation effort in the next iteration. On the contrary, uninteresting regions are merged.
+At a glance, at each iteration simulations are performed. Regions are classified based on the innovation introduced by their configurations in the Pareto-front so far calculated. The most interesting regions are split, so that each sub-region will receive evaluation effort in the next iteration. On the contrary, uninteresting regions are merged.
 
 By a slightly abuse of notation, considering a subset $I$ of the configuration space, we will denote with $\mathcal{P}(I,b)$ the non-dominated feasible configurations in $I$, i.e.
 	\begin{align}
@@ -108,7 +107,7 @@ We stress that the regions that belong to each selected pair must be contiguous,
 	\end{enumerate}
 
 
-\item The set of regions $\mathcal{R}_{i+1}$ for the following era is composed of the subregions resulting from splitting operations ($\psi\left(\mathscr{R}_{i,h}\right)$), the low innovation regions unchanged $\mathcal{R}_{i,l}$, the result of the merging operations ($\mu(\mathscr{M}_i))$ and the no innovation regions that was not possible to merge $\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)$. Formally:
+\item The set of regions $\mathcal{R}_{i+1}$ for the following era is composed of the sub-regions resulting from splitting operations ($\psi\left(\mathscr{R}_{i,h}\right)$), the low innovation regions unchanged $\mathcal{R}_{i,l}$, the result of the merging operations ($\mu(\mathscr{M}_i))$ and the no innovation regions that was not possible to merge $\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)$. Formally:
 	\begin{align} 
 	\mathcal{R}_{i+1} \triangleq
 	\psi\left(\mathscr{R}_{i,h}\right) \cup \mathcal{R}_{i,l}\cup
@@ -147,7 +146,7 @@ of eras of intense exploration of a portion of configuration space, this
 exploration has turned to be enough thorough and so it may be time for
 other portions to be minutely scanned.
 
-A pseudocode representation of PS algorithm is in Alg.\ref{alg:algo}
+A pseudo-code representation of PS algorithm is in Alg.\ref{alg:algo}
 
 \begin{algorithm}[t]
 	\small
