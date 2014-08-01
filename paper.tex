@@ -64,8 +64,8 @@
 \newcommand{\ie}{\emph{i.e.}}
 \newcommand{\etc}{\emph{etc.}}
 
-\newcommand{\comment}[1]{\textcolor{red}{\bf #1}}
-%\newcommand\comment[1]{} % When you enable this lines, all the notes will disappear
+%\newcommand{\comment}[1]{\textcolor{red}{\bf #1}}
+\newcommand\comment[1]{} % When you enable this lines, all the notes will disappear
 
 
 %\renewcommand{\baselinestretch}{0.98}\normalsize
@@ -85,6 +85,13 @@
 \providecommand{\remarkname}{Remark}
 \providecommand{\theoremname}{Theorem}
 
+% Metadata Information
+%\acmVolume{9}
+%\acmNumber{4}
+%\acmArticle{39}
+%\acmYear{2010}
+%\acmMonth{3}
+
 \begin{document}
 % Page heads
 \markboth{V. Catania et al.}{Parameter Space Representation of Pareto Front to
@@ -96,13 +103,29 @@ Explore Hardware-Software Dependencies}
 \author{VINCENZO CATANIA
 \affil{University of Catania}
 ANDREA ARALDO
-\affil{University of Catania}
+\affil{Universit\'e Paris-Sud and Telecom ParisTech, Telecom ParisTech
+Paris, France;}
 DAVIDE PATTI
 \affil{University of Catania}
 }
 
 %\maketitle
 \begin{abstract}
+%Embedded Systems Design requires conflicting objectives to be
+%optimized with an appropriate choice of hardware/software parameters.
+%In this work we present PS, a new multiobjective exploration algorithm
+%exploiting the parameter space representation of the pareto front.
+%After a detailed formal description of the algorithm and the
+%underlying concepts, we show a case study involving the
+%hardware/software exploration of a VLIW architecture. Qualitative and
+%quantitative comparisons of the PS approach against a well-known
+%multiobjective genetic technique demonstrate that, while not
+%outperforming it in terms of pareto dominance, the proposed approach
+%can trade the uniformity and granularity qualities of the solutions
+%found for obtaining larger Pareto sets, thus representing a further
+%choice for designer when objective constrains allow it.
+
+
 Embedded Systems Design requires conflicting objectives to be
 optimized with an appropriate choice of hardware/software parameters.
 A simulation campaign can guide the design in finding the best
@@ -120,8 +143,8 @@ configuration space. After a detailed formal description of the
 algorithm and the underlying concepts, we show a 
 case study involving the hardware/software exploration of a VLIW
 architecture. Qualitative and quantitative comparisons of PS
-against a well-know multiobjective genetic approach demonstrate that,
-while not outperforming it in terms of dominance, the proposed
+against a well-known multiobjective genetic approach demonstrate that,
+while not outperforming it in terms of pareto dominance, the proposed
 approach can trade the uniformity and granularity qualities of the
 solutions found for obtaining larger Pareto sets, thus representing a
 further choice for designer when objective constrains allow it.
@@ -138,7 +161,8 @@ Explore Hardware-Software Dependencies.}
 
 \begin{bottomstuff}
 Author's addresses: V. Catania, DIEEI University of Catania;
-A. Araldo, DIEEI University of Catania;
+A. Araldo, Universit\'e Paris-Sud and Telecom ParisTech, Telecom ParisTech
+Paris, France;
 D. Patti, DIEEI University of Catania.
 \end{bottomstuff}
 
