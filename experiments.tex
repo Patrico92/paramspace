@@ -2,12 +2,12 @@
 \label{sec:ee}
 \subsection{Motivation}
 In order to evaluate the behavior of the proposed approach
-we use \comment{AA:da ``we will be using'' a ``we use''} a parameterized Very Long Instruction
-Word (VLIW) architecture~\cite{kathail_tr00} as testbed. The \comment{AA:Ho eliminato ``same'' che non avevo capito a cosa si riferisse} philosophy
+we use a parameterized Very Long Instruction
+Word (VLIW) architecture~\cite{kathail_tr00} as testbed. The philosophy
 behind a VLIW system makes this a natural choice for several reasons:
 \begin{itemize}
-\item \emph{Multi-Objective trade-offs}: VLIW architectures require designers
-to trade between power \comment{AA:Prima era ``let designers easily trade'', ma mi suonava strano}, energy and performances, resulting
+\item \emph{Multi-Objective trade-offs}: VLIW architectures allow designers
+to trade between power, energy and performances objectives, resulting
 in extended Pareto sets which are an ideal ground for our testing
 purposes focused on parameter-space representation
 \item \emph{Compiler awareness}: code scheduling for the execution of
@@ -23,7 +23,7 @@ In general, system parameters can be classified in three main categories:
 \emph{processor}, \emph{memory sub-system} and \emph{compiler}. 
 The first is directly related to the VLIW core and includes the size
 of the register files and the number of functional
-units of each type\comment{AA:Da ``for each type'' a ``of each type''}. In particular, five different types of register
+units of each type. In particular, five different types of register
 files are supported:
 GPR (32-bit registers for integers), FPR (64-bit registers for
 floating point values) PR (1-bit registers used to store the Boolean
@@ -48,11 +48,11 @@ block)
 \item \emph {max\_unroll\_allowed}: The number of unroll iterations allowed
 \item \emph{regroup\_only}: Avoids inlining 
 \item \emph{do\_classic\_opti}: A set of classical optimization, not VLIW related,
-such as common expression removal 
+such as common expression removal and loop unrolling
 \item \emph{do\_prepass\_scalar\_scheduling}: Performs a schedule before
 forming regions 
 \item \emph{do\_postpass\_scalar\_scheduling}: Performs a schedule after the region formation 
-do\_modulo\_scheduling \comment{AA:Non ho capito; E' un nuovo item questo?} Modular scheduling 
+\item \emph{do\_modulo\_scheduling}: Modular scheduling of loop code
 \item \emph{memvr\_profiled}: Performs a memory-dependencies profiling 
 \end{itemize}
 
@@ -98,21 +98,21 @@ along with a brief description.
 
 The results presented in the next section compare PS with one widely
 adopted Multi-objective Genetic Algorithm
-(MOGA)~\cite{knowles_techrep06}. To the best of our knowledge \comment{AA:da ``At best ...'' a ``To the best'': lo leggo quasi sempre cosi}, genetic
+(MOGA)~\cite{knowles_techrep06}. At the best of our knowledge, genetic
 approaches in general still represent the best compromise between
 efficiency (i.e. time required for exploration) and accuracy of the
 reported Pareto Sets.  Note that, for the reasons described above,
 mono-objective approaches have been explicitly excluded from this
-analysis.  We also exclude other approaches (e.g.
-dependency based~\cite{givargis_tvlsi02}) that make use of some
-a-priori knowledge about the role and meaning of each parameter, since
-our aim is evaluate the capacity of focusing on interesting parameter
-regions without any external judgement or help based on heuristics. \comment{AA: Nella frase precedente sono passato da da ``Same decision has been taken for'' a ``We also exclude'' perche a un lettore disattento potrebbe sembrare che volevamo dire che anche givargis and co. avessero adottato la nostra decision di escludere genetic approaches}
-Finally, it should be pointed out that in this introductory work we
-will explicitly use the \emph{SPEA}~\cite{zitzler_eurogen01} variant of MOGA,
-remanding to works like~\cite{zitzler_ec00}~\cite{zitzler_tec03} for a
-detailed analysis on how it differs \comment{AA: from what?} and what could be expected from
-similar multi-objective strategies.
+analysis.  We also exclude other approaches (e.g.  dependency
+based~\cite{givargis_tvlsi02}) that make use of some a-priori
+knowledge about the role and meaning of each parameter, since our aim
+is evaluate the capacity of focusing on interesting parameter regions
+without any external judgement or help based on heuristics.  Finally,
+it should be pointed out that in this introductory work we will
+explicitly use the \emph{SPEA}~\cite{zitzler_eurogen01} variant of
+MOGA, remanding to works like~\cite{zitzler_ec00}~\cite{zitzler_tec03}
+for a detailed analysis on how it differs from other genetic approaches
+and what could be expected from similar multi-objective strategies.
 
 %------------------------------------------------------------------------------
 
@@ -187,8 +187,8 @@ Low budget Pareto sets are shown in
 Figure~\ref{fig:pareto_fronts_100}. With a so small number of
 configuration being investigated the two sets are often overlapping,
 being also strongly dependent upon the application being considered.
-These results are obtained in about 5 eras and demonstrate that with a so limited budget PS\comment{AA: ho tolto ``still'' perche' non ne ho capito il senso} can compete with
-genetic approach while even discovering very different Pareto fronts. \comment{AA: nella frase precedente cambiato da ``, and the main aim was demonstrating'' a "and demonstrate"}
+These results are obtained in about 5 eras and demonstrate that with a so limited budget PS can compete with
+genetic approach while even discovering very different Pareto fronts. 
 Considering the extended simulation budget as depicted in
 Figure~\ref{fig:pareto_fronts_500}, we can qualitatively observe that
 even if PS does not strictly outperforms genetic in terms of dominance, it shows in
@@ -206,14 +206,12 @@ will consider two metrics, namely, the \emph{variation range} and the
 \emph{average normalised absolute dispersion error}. For a given
 objective, the variation range represents the ratio between the
 maximum and the minimum value observed for that objective.
-A comparison between the variation ranges of both power dissipation and execution time, obtained by PS and GA for different benchmarks is shown in Fig.~\ref{fig:dispersion}(a) and (b) respectively. \comment{La frase precedente e' un rifrasamento (esiste sto termine in italiano?) di ``A
-comparison between the variation range for different benchmarks
-between a PS and a GA exploration for both power dissipation and
-execution time is shown in Fig.~\ref{fig:dispersion}(a) and (b)
-respectively.''}
- As it can be observed, the PS exploration provides solutions which fall on a
-range that is, on average, wider than the one provided by a
-GA exploration for power dissipation and execution time, respectively.
+A comparison between the variation ranges of both power dissipation
+and execution time, obtained by PS and GA for different benchmarks is
+shown in Fig.~\ref{fig:dispersion}(a) and (b) respectively.  As it can
+be observed, the PS exploration provides solutions which fall on a
+range that is, on average, wider than the one provided by a GA
+exploration for power dissipation and execution time, respectively.
 %\begin{table}
 %  \centering
 %  \begin{tabular}{c}
@@ -271,17 +269,17 @@ case in which all the solutions fall in a single tile:
 
 Fig.~\ref{fig:dispersion}(c) shows the average normalised absolute
 dispersion errors for different benchmarks for PS and GA
-exploration. As it can be observed, GA \comment{AA: ho tolto ``still'' perche' non ne ho capito il senso} shows a tendency in
+exploration. As it can be observed, GA shows a tendency in
 discovering more uniformly dispersed points (i.e. higher values in the
 chart). These results,
 together with the variation ranges of Fig.~\ref{fig:dispersion}(a) and
-(b) confirm the \comment{AA: cambiato da ``availability '' a ``existence''} of density vs extension trade-offs
+(b) confirm the of density vs extension trade-offs
 when comparing PS and GA approaches. Again, it
 is worth pointing out how a definitive claim about the superiority of
 the PS behaviour is strictly dependent on the design 
 requirements and constraints, e.g. whether we need wide or dense
 results. Nevertheless, the proposed algorithm introduces a new
-perspective on \comment{AA: ho rimosso `` thinking'' perche' altrimenti avrei preferito ``a new way of thinking''} the allocation of a simulations budget, paving the way for
+perspective on the allocation of a simulations budget, paving the way for
 the development of further strategies for addressing the problem of
 multi-objective hardware/software design space exploration.
 
