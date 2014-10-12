@@ -24,7 +24,7 @@ configurations called \emph{Pareto set} (\cite{pareto}, see also
 each configuration of the Pareto Set is called \emph{Pareto front}:
 it represents the trade-offs between objectives, i.e.  for each point
 of the Pareto front there is no other configuration performing better
-for all the objectives considered (see Figure~\ref{fig:psos}). Of course this is only a first
+for all the objectives considered (see \figR{psos}). Of course this is only a first
 high-level system simulation, thus these few promising
 configurations will need to be further evaluated in a next step of the design
 flow using a more accurate low level simulation (e.g. register
@@ -44,7 +44,7 @@ each region based on the \emph{innovation} provided by its
 configurations in the Pareto front. The regions with high score are
 considered the most \emph{interesting} and more simulations are
 distributed there rather than in the rest of the configuration space.
-Several geometrical transformations (splitting, merging etc...) are
+Several geometrical transformations (splitting, merging etc.) are
 involved in the Parameter Space (aka configuration space), hence
 the name PS for the algorithm.
 
@@ -68,7 +68,7 @@ main idea behind the strategy that is being introduced in this work.
 
 The paper is organized as follows. First, \secR{Related-work} places our work in the context of related effort.
 Then we give a theoretical formulation of the algorithm. In particular, in \secR{statement_of_the_problem} we provide formal definitions of the concepts and the operations that will be used to describe PS algorithm. In \secR{algorithm} we give the theoretical description of PS. 
-Finally in Section~\ref{sec:ee} we show a case
+Finally in \secR{ee} we show a case
 study involving the exploration of the hardware/software parameters of
 a Very Long Instruction Word (VLIW) architecture, performing a
 qualitative and quantitative comparison of PS against the state-of-art
@@ -116,8 +116,7 @@ of the same paper for more details), monotonicity property guarantees
 that the best system can be obtained as a composition of the best
 components. This approach would perfectly work if all the components
 were perfectly isolated, i.e., if there were no dependencies among
-them. But real scenarios seldom if ever
-expose monotonicity property thus resulting in inaccuracies, as stated in the same paper).
+them. But real scenarios rarely expose monotonicity property thus resulting in inaccuracies, as stated in the same paper).
 
 Other approaches, as \cite{fornaciari_codes01,palesi_iwsoc02}, are based the concept of \emph{sensitivity analysis}, i.e. measuring of how much the objective varies when varying each parameter.
 Parameters are ordered based on their sensitivity. The first parameter (the most sensitive one) is varied, while keeping the other parameters fixed to arbitrary values, and its best value is found. The limited accuracy shown by these approaches can be explained by the limited and rigid exploration of the parameter

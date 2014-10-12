@@ -1,5 +1,5 @@
 \section{A Case Study: VLIW Hardware/Software Design Space}
-\label{sec:ee}
+\secL{ee}
 \subsection{Motivation}
 In order to evaluate the behavior of the proposed approach
 we use a parameterized Very Long Instruction
@@ -98,7 +98,7 @@ along with a brief description.
 
 The results presented in the next section compare PS with one widely
 adopted Multi-objective Genetic Algorithm
-(MOGA)~\cite{knowles_techrep06}. At the best of our knowledge, genetic
+(MOGA)~\cite{knowles_techrep06}. To the best of our knowledge, genetic
 approaches in general still represent the best compromise between
 efficiency (i.e. time required for exploration) and accuracy of the
 reported Pareto Sets.  Note that, for the reasons described above,
@@ -118,8 +118,7 @@ and what could be expected from similar multi-objective strategies.
 
 \subsection{Results}
 
-Set of Figures~\ref{fig:pareto_fronts_100}
-and~\ref{fig:pareto_fronts_500} show the resulting Pareto fronts for two
+\figR{pareto_fronts_100} and \figR{pareto_fronts_500} show the resulting Pareto fronts for two
 different scenarios of 100 and 500 simulations budget. When possible,
 similar algorithm parameters have been adopted. In particular a
 population size of 30 has been chosen for the genetic approach (GA), corresponding to the
@@ -158,39 +157,36 @@ configurations.
 %  \label{fig:pareto_fronts_500}
 %\end{table}
 
-\begin{table}
-  \tbl{Pareto fronts found by PS and GA for a fixed budget of 100 configurations.\label{fig:pareto_fronts_100}}{
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.30\textwidth]{pictures/alloca_100.eps} &
-    \includegraphics[width=0.30\textwidth]{pictures/bmm_100.eps} & 
-    \includegraphics[width=0.30\textwidth]{pictures/fir_int100.eps} \\
-    \includegraphics[width=0.30\textwidth]{pictures/mm_100.eps} &
-    \includegraphics[width=0.30\textwidth]{pictures/sha_100.eps} &
+\begin{figure}
+  \figLC{pareto_fronts_100}{Pareto fronts found by PS and GA for a fixed budget of 100 configurations. \comment{AA: nelle due figure centrali la linea di GA e' continua, mentre in tutte le altre figure e' tratteggiata. Il revisore ci chiede di uniformare. Non so come riottenere le figure. Potresti pensarci tu?}}
+  \begin{center}
+    \includegraphics[width=0.30\textwidth]{pictures/alloca_100.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/bmm_100.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/fir_int100.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/mm_100.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/sha_100.eps}
     \includegraphics[width=0.30\textwidth]{pictures/wave_100.eps} 
-  \end{tabular}}
-  
-\end{table}
+  \end{center}
+\end{figure}
 
-\begin{table}
-  \tbl{Pareto fronts found by PS and GA for a fixed budget of 500
-  configurations.\label{fig:pareto_fronts_500}}{
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.30\textwidth]{pictures/alloca_500.eps} &
-    \includegraphics[width=0.30\textwidth]{pictures/bmm_500.eps} & 
-    \includegraphics[width=0.30\textwidth]{pictures/fir_int500.eps} \\
-    \includegraphics[width=0.30\textwidth]{pictures/mm_500.eps} &
-    \includegraphics[width=0.30\textwidth]{pictures/sha_500.eps} &
+\begin{figure}
+  \figLC{pareto_fronts_500}{Pareto fronts found by PS and GA for a fixed budget of 500 configurations.\comment{AA: nelle due figure centrali la linea di GA e' continua, mentre in tutte le altre figure e' tratteggiata. Il revisore ci chiede di uniformare. Non so come riottenere le figure. Potresti pensarci tu?}}
+  \begin{center}
+    \includegraphics[width=0.30\textwidth]{pictures/alloca_500.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/bmm_500.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/fir_int500.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/mm_500.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/sha_500.eps}
     \includegraphics[width=0.30\textwidth]{pictures/wave_500.eps} 
-  \end{tabular}}
-\end{table}
-Low budget Pareto sets are shown in
-Figure~\ref{fig:pareto_fronts_100}. With a so small number of
+  \end{center}
+\end{figure}
+Low budget Pareto sets are shown in \figR{pareto_fronts_100}. With a so small number of
 configuration being investigated the two sets are often overlapping,
 being also strongly dependent upon the application being considered.
 These results are obtained in about 5 eras and demonstrate that with a so limited budget PS can compete with
 genetic approach while even discovering very different Pareto fronts. 
 Considering the extended simulation budget as depicted in
-Figure~\ref{fig:pareto_fronts_500}, we can qualitatively observe that
+\figR{pareto_fronts_500}, we can qualitatively observe that
 even if PS does not strictly outperforms genetic in terms of dominance, it shows in
 some cases largely Pareto in terms of extension. We can intuitively
 relate this to the ``novelty-based'' score system, so that instead of
@@ -199,7 +195,7 @@ enlarge the range itself, resulting in less dense but more extended
 Paretos. Of course we cannot classify this different behaviour as
 ``better'' or ``worse'' as compared to the genetic one, it depends on
 various design factors such as desired results granularity, prefixed objective
-range constraints, estimated error of the models used etc~\ldots.
+range constraints, estimated error of the models used etc.
 
 In order to evaluate the Paretos from a quantitative point-of-view we
 will consider two metrics, namely, the \emph{variation range} and the
@@ -208,7 +204,7 @@ objective, the variation range represents the ratio between the
 maximum and the minimum value observed for that objective.
 A comparison between the variation ranges of both power dissipation
 and execution time, obtained by PS and GA for different benchmarks is
-shown in Fig.~\ref{fig:dispersion}(a) and (b) respectively.  As it can
+shown in \figR{dispersion}(a) and (b) respectively.  As it can
 be observed, the PS exploration provides solutions which fall on a
 range that is, on average, wider than the one provided by a GA
 exploration for power dissipation and execution time, respectively.
@@ -227,19 +223,15 @@ exploration for power dissipation and execution time, respectively.
 %  \label{fig:dispersion}
 %\end{table}
 
-\begin{table}
-  \tbl{(a)(b) Variation range obtained by PS and GA for different benchmarks
-  and average dispersion absolute dispersion (c). \comment{AA: manca il titolo nella figura (c)}
-  \label{fig:dispersion}}{
-  \begin{tabular}{c}
-    \includegraphics[width=0.7\textwidth]{pictures/variation_power.eps} \\
-    (a) \\
-    \includegraphics[width=0.7\textwidth]{pictures/variation_etime.eps} \\
-    (b) \\
-    \includegraphics[width=0.7\textwidth]{pictures/dispersion.eps} \\
-    (c) 
-  \end{tabular}}
-\end{table}
+\begin{figure}
+  \figLC{dispersion}{(a)(b) Variation range obtained by PS and GA for different benchmarks and average dispersion absolute dispersion (c). \comment{AA: manca il titolo nella figura (c)} }
+  \begin{center}
+    \subfigure[]{\includegraphics[width=0.7\textwidth]{pictures/variation_power.eps} }
+    \subfigure[]{\includegraphics[width=0.7\textwidth]{pictures/variation_etime.eps} }
+    \subfigure[]{\includegraphics[width=0.7\textwidth]{pictures/dispersion.eps} }
+  \end{center}
+\end{figure}
+
 The average normalised absolute dispersion error measures
 the average absolute difference between the distribution of points in
 the objective space and an ideal distribution in which the points are
@@ -267,12 +259,12 @@ case in which all the solutions fall in a single tile:
     |O|| }{M_x M_y}. \] 
 
 
-Fig.~\ref{fig:dispersion}(c) shows the average normalised absolute
+\figR{dispersion}(c) shows the average normalised absolute
 dispersion errors for different benchmarks for PS and GA
 exploration. As it can be observed, GA shows a tendency in
 discovering more uniformly dispersed points (i.e. higher values in the
 chart). These results,
-together with the variation ranges of Fig.~\ref{fig:dispersion}(a) and
+together with the variation ranges of \figR{dispersion}(a) and
 (b) confirm the of density vs extension trade-offs
 when comparing PS and GA approaches. Again, it
 is worth pointing out how a definitive claim about the superiority of

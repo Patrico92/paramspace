@@ -6,7 +6,7 @@ PS is iterative and we will describe, separately, the initialization phase, the 
 
 At a glance, at each iteration simulations are performed. Regions are classified based on the innovation introduced by their configurations in the Pareto-front so far calculated. The most interesting regions are split, so that each sub-region will receive evaluation effort in the next iteration. On the contrary, uninteresting regions are merged.
 
-By a slightly abuse of notation, considering a subset $I$ of the configuration space, we will denote with $\mathcal{P}(I,b)$ the non-dominated feasible configurations in $I$, i.e.
+By a slightly abuse of notation, considering a subset $I$ of the configuration space, we will use  $\mathcal{P}(I,b)$ to denote the non-dominated feasible configurations in $I$, i.e.
 	\begin{align}
 		\mathcal{P}(I,b)=
 		\left\{ \mathbf{c} \in I \cap \mathcal{C}^*(S) | \nexists \ \mathbf{c}' \in I \cap \mathcal{C}^*(S), \mathbf{c}' \succ \mathbf{c} \right\}
@@ -46,7 +46,7 @@ For $era_{i}$ with $i>0$ the following operations must be performed.
 \item \label{pers02.enu:K}
 In each era $i$, a set $test_i$ of $K$ configurations will be evaluated. We call them \emph{test configurations} and selecting them is exactly the goal of this step.
 We select only \emph{new} configurations, i.e. the ones that have not been evaluated in past eras. In other words, $test_i$ must not contain $\bigcup_{j=0}^{i-1}test_{j}$.
-Since all regions $R$ in the configuration space partition $\mathcal{R}_{i}$ must be properly explored, we have to distribute the test configurations among all these regions. For this reason, $\frac{K}{\left|\mathcal{R}_{i}\right|}$ configurations are randomly extracted from the new configurations of each region $R\in\mathcal{R}_{i}$. We denote the set of the selected configurations with $test_{R,i}$ and, obviously, $\bigcup_{R\in\mathcal{R}_{i}} test_{R,i} = test_i$.
+Since all regions $R$ in the configuration space partition $\mathcal{R}_{i}$ must be properly explored, we have to distribute the test configurations among all these regions. For this reason, $\frac{K}{\left|\mathcal{R}_{i}\right|}$ configurations are randomly extracted from the new configurations of each region $R\in\mathcal{R}_{i}$. We use $test_{R,i}$ to denote the set of the selected configurations and, obviously, $\bigcup_{R\in\mathcal{R}_{i}} test_{R,i} = test_i$.
  In case the new configurations in $R$ are less then $\frac{K}{\left|\mathcal{R}_{i}\right|}$, all of them are selected. In this case $test_{R,i}=R\setminus\bigcup_{j=0}^{i-1}test_{j}$, where  $\bigcup_{j=0}^{i-1}test_{j}$ is the set of the configurations already in the past.\footnote{Note that if such regions exist, the total number of evaluations in era $i$ will be less than $K$}
 \item All configurations on $test_{i}$ are simulated.
 \item The Pareto set $\mathscr{P}_{i}$ for $era_{i}$ is defined as the set of non-dominated configurations among the ones evaluated so far, i.e.
@@ -99,11 +99,11 @@ as the sum of the innovation scores of its non-dominated test configurations:
 
 \item The goal of this step is preparing the regions that will compose the configuration space partition of the next era, i.e. $\mathscr{R}_{i+1}$. The following operations are performed:
 	\begin{enumerate}
-		\item Each high innovation region $R\in\mathscr{R}_{i,h}$ is split obtaining $\psi(R)$, as stated in def \defR{splitting-a-region}. We denote with $\psi\left(\mathscr{R}_{i,h}\right)$ the set of regions obtained as explained.
+		\item Each high innovation region $R\in\mathscr{R}_{i,h}$ is split to obtain $\psi(R)$, as stated in \defR{splitting-a-region}. We use $\psi\left(\mathscr{R}_{i,h}\right)$ to denote the set of regions obtained as explained.
 		\item Low innovation regions are left unchanged.
-		\item No innovation regions are merged, two by two. To do so, pairs of no innovation contiguous regions $(R_1,R_2)$ are selected. We denote the set of these pairs as $\mathscr{M}_i$. This set is constructed such that pairs are independent, i.e. there cannot be two of them sharing a region. In other words, taking whatever $(R_1,R_2),(R_3,R_4) \in \mathscr{M}_i$, $R_i \neq R_j, \forall i,j\in\lbrace1,2,3,4\rbrace, i\neq j$. 
+		\item No innovation regions are merged, two by two. To do so, pairs of no innovation contiguous regions $(R_1,R_2)$ are selected. We use $\mathscr{M}_i$ to represent the set of these pairs. This set is constructed such that pairs are independent, i.e. there cannot be two of them sharing a region. In other words, taking whatever $(R_1,R_2),(R_3,R_4) \in \mathscr{M}_i$, $R_i \neq R_j, \forall i,j\in\lbrace1,2,3,4\rbrace, i\neq j$. 
 We merge each pair of these regions, i.e. $\forall (R_1,R_2)\in\mathscr{M}_i$ we calculate $\mu(R_1,R_2)$, according to \defR{merging-regions}.
-We stress that the regions that belong to each selected pair must be contiguous, otherwise it is impossible to merge them. We denote with $\mu(\mathscr{M}_i)$ the set of the merged regions, i.e. $\mu(\mathscr{M}_i) = \bigcup_{(R_1,R_2)\in\mathscr{M}_i} \mu(R_1,R_2)$
+We stress that the regions that belong to each selected pair must be contiguous, otherwise it is impossible to merge them. We use $\mu(\mathscr{M}_i)$ to denote the set of the merged regions, i.e. $\mu(\mathscr{M}_i) = \bigcup_{(R_1,R_2)\in\mathscr{M}_i} \mu(R_1,R_2)$
 	\end{enumerate}
 
 
