@@ -94,6 +94,8 @@ along with a brief description.
 	\hline
 	\end{tabular}}
 \end{table}
+
+
 \subsection{Terms of comparison}
 
 The results presented in the next section compare PS with one widely
@@ -114,25 +116,27 @@ MOGA, remanding to works like~\cite{zitzler_ec00}~\cite{zitzler_tec03}
 for a detailed analysis on how it differs from other genetic approaches
 and what could be expected from similar multi-objective strategies.
 
+
+%------------------------------------------------------------------------------
+\subsection{Evaluation campaign}
+In order to obtain the results presented in this section, we implemented our exploration strategy in Epic Explorer~\cite{ascia2003epic}, an open source framework for the design space explora=tion of embedded systems. \comment{AA: continuare descrivendo un po' il workflow. The reader can refer to~\cite{ascia2003epic} for more details about the estimation models of the power dissipation and execution time. Scrivere che it is possible to run benchmarks }. 
+
 %------------------------------------------------------------------------------
 
 \subsection{Evaluation metrics}
 In order to evaluate the Paretos from a quantitative point-of-view we
 will consider two metrics, namely, the \emph{variation range} and the
-\emph{average normalised absolute dispersion error}. 
+\emph{average normalised absolute dispersion error}. Both of them permit to quantify the extent of the Pareto front that is an important factor to consider when evaluating the quality of a Pareto front. Indeed, authors in \cite{zitzler_ec00} carefully observe that an exploration algorithm should preferably provide pareto fronts whose objective function range is large.
+Such Pareto fronts permit to investigate in a broader way the potentials of the designed device. This is important, in general, and turns out to be essential when designing a device that may be required to work in different operational conditions, for example with stringent execution time constraints and less strict power dissipation ones or, on the contrary, with low power requirements and tolerance to high execution time.
 
 For a given objective, the \emph{variation range} represents the ratio between the maximum and the minimum value observed for that objective.
-\comment{AA: Per rappresentare l'extent del Pereto front, forse sarebbe meglio evitare di usare il variation range, per come l'hai definito tu, e usare la funzione M3 di \cite{zitzler_ec00}, Sec.5 ``Metrics of performance'', che mi pare rappresenti la stessa cosa, concettualmente. Questo ci permette di essere meno attaccabili (del tipo ``non te la prendere con noi, prenditela con Zitzler se non capisci l'utilita' della metrica'').}
-It quantifies the extent of the of the Pareto front that is an important factor to consider when evaluating the quality of a Pareto front. Indeed, authors in \cite{zitzler_ec00} carefully observe that an exploration algorithm should preferably provide pareto fronts whose objective function range is large.
-Such Pareto fronts permit to investigate in a broader way the potentials of the designed device. This is important, in general, and turns out to be essential when designing a device that may be required to work in different operational conditions, for example with stringent execution time constraints and less strict power dissipation ones or, on the contrary, with low power requirements and tolerance to high execution time.
+\comment{AA: Per rappresentare l'extent del Pereto front, forse sarebbe meglio evitare di usare il variation range, per come l'hai definito tu, e usare la funzione M3 di \cite{zitzler_ec00}, Sec.5 ``Metrics of performance'', che mi pare rappresenti la stessa cosa, concettualmente. Questo ci permette di essere meno attaccabili (del tipo ``non te la prendere con noi, prenditela con Zitzler (che e' citato 3064 volte!) se non capisci l'utilita' della metrica'').}
 
 
 The average \emph{normalised absolute dispersion error} measures
 the average absolute difference between the distribution of points in
 the objective space and an ideal distribution in which the points are
 uniformly distributed over the objective space. 
-The motivation behind this metric is, again, given by \cite{zitzler_ec00}, in which authors remark that a desirable property of the Pareto front is the spread of the non-dominated configurations all over the configuration space. In other words, the more similar the non-dominated configuration distribution is to the uniform distribution, the better is the quality of the Pareto front.
-\comment{AA: commentare perche' e' importante questa metrica. Cercare la parola chiave ``deception'' o qualcosa del genere}.
 Formally, let $O$ be
 the image, in the objective space, of the configurations visited by
 the design space exploration. The generic element of $O$ (\ie, a
@@ -156,14 +160,21 @@ case in which all the solutions fall in a single tile:
 \[ E_{max} = \frac{(M_x M_y - 1) \overline{N} + |\overline{N} -
     |O|| }{M_x M_y}. \] 
 
+\comment{AA: Un'altra interessante metrica potrebbe essere questa: Auhtors of \cite{zitzler_ec00} remark that a desirable property of the Pareto front is the spread of the non-dominated configurations all over the configuration space. In other words, the more similar the non-dominated configuration distribution is to the uniform distribution, the better is the quality of the Pareto front, since we have not been captured by only one possible subset of Pareto configurations but we are able to span all over the configuration space and find configurations whose parameter values differ considerably. Mi aspetto che PS performi bene sotto questo punto di vista. Ovviamente, non so se e' il caso di considerarla ora. Se non e' il caso, puoi spostare questo testo nel file ``appendix.tex'' come possibile spunto futuro. Per quantificare questa cosa, si potrebbe usare come metrica la normalised absolute dispersion error pero' non nello spazio degli obiettivi, ma nello spazio delle configurazioni.}.
+
+\subsection{Impact of the algorithm parameters}
+\secL{parameter_impact}
+\comment{IMPACT OF $K$. Si potrebbero presentare un plot in cui il numero totale di simulazioni e' fissato e vengono eseguiti diversi run dell'algoritmo con diversi valori di K. Per ogni run, il pareto set e' rappresentato nel plot, sottoforma di una curva diversa. Mi aspetterei che tutte le curve siano molto simili. Per ciascun run, il valore di variation range e average absolute dispersion error sono riportati. Mi aspetto valori simili, il che confermerebbe che la diversity nel nostro algoritmo non dipende da $K$. Ne vale la pena rifare questi run? Ci vuole troppo tempo?} 
+
+\comment{Si potrebbe mettere un plot con nelle ascisse l'era e nelle ordinate il numero di split avvenuti in quell'era. Si potrebbero disegnare diverse curve, una per ogni valore di alpha, per far vedere che il numero di split e' piu' alto q. Recommended values are close to 1, as results in \secR{ee} confirm. Using different values, if sufficiently close to 1, does not have a considerable impact on the resulting Pareto front approximation. Ne vale la pena rifare questi run? Ci vuole troppo tempo?}
 
 \subsection{Results}
 
 \figR{pareto_fronts_100} and \figR{pareto_fronts_500} show the resulting Pareto fronts for two
-different scenarios of 100 and 500 simulations budget. When possible,
+different scenarios of 100 and 500 simulations budget. \comment{AA: per curiosita': quando facevi piu' run, PS andava ancora peggio rispetto a GA?} When possible,
 similar algorithm parameters have been adopted. In particular a
 population size of 30 has been chosen for the genetic approach (GA), corresponding to the
-same value for the $K$ of PS. The number of generations (or era)
+same value for the $K$ of PS. \comment{AA: che valore di $alpha$ hai usato?} The number of generations (or era)
 has been chosen so that the only the given amount of simulations is
 actually performed. Thus, when accounting these simulations only unique simulations
 has been considered, removing repetitions and unfeasible

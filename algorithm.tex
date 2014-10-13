@@ -86,7 +86,12 @@ as the sum of the innovation scores of its non-dominated test configurations:
 	\mathcal{R}_{i,h}=\left\{ \left.R\in\mathcal{R}_{i}\right|is\left(R\right)>\alpha\cdot is_{av,i-1}\right\} 
 	\]
 	 where $\alpha$ is a constant defined by the designer (for example
-	$\alpha=1.2$). 
+	$\alpha=1.2$). 	
+		\comment{AA: Secondo me e' strano usare $\alpha\cdot is_{av,i-1}$ come soglia. Non si capisce perche' non si usi $is_{av,i}$ ma si usi quello dell'era precedente. Non e' motivata da nessuna parte. Non si capisce perche', in una finale di miss italia, io dovrei conforntare le ragazze di oggi con la ragazza media dell'anno scorso. E' piu' naturale confrontare le ragazze di oggi con la ragazza media di oggi stesso, per vedere chi e' oltre alla media attuale. Che ne dici di cambiare l'espressione in 
+			\[
+			\mathcal{R}_{i,h}=\left\{ \left.R\in\mathcal{R}_{i}\right|is\left(R\right)>\alpha\cdot is_{av,i}\right\} 
+			\]
+		}
 	\item \emph{low innovation regions}, whose score is positive but modest, i.e.
 	\[
 	\mathcal{R}_{i,l}=\left\{ \left.R\in\mathcal{R}_{i}\right|0<is\left(R\right)\le\alpha\cdot is_{av,i-1}\right\} 
@@ -206,5 +211,8 @@ A pseudo-code representation of PS algorithm is in Alg.\ref{alg:algo}
 \end{algorithm}
 %
 
+\subsection{Algorithm parameters}
+The parameters that completely determine the algorithm are $K$ and $\alpha$.
+$K$ corresponds to the population size of the genetic approach. Authors of \cite{zitzler_ec00} found that increasing $k$ not necessarily has a considerable impact on the performance of the algorithm. This holds also in our algorithm.  In addition, while in the genetic approach $K$ must be sufficiently large in order to guarantee diversity of the Pareto set configurations, in our algorithm the diversity is not impacted by $K$ since, by construction, it is guaranteed by the way the configuration space is partitioned, independently from number of configurations evaluated at each iteration. \comment{This is confirmed by the experimental results in \secR{parameter_impact}. }
 
-\comment{AA: riferirsi a \cite{zitzler_ec00} Sec. 8 per vedere l'impatto di K.}
+Parameter $\alpha$ determines when a region is considered of high innovation. High values of $\alpha$ mean that a region will hardly be elected as high-innovation, yielding less splitting operations. This slows down zooming in on portions of configuration space and make the distribution of the simulated configuration more uniform, as there are fewer small regions with a high test configuration concentration. The opposite happens when small values of $\alpha$ are used. \comment{This is confirmed by results of \secR{parameter_impact}. }

@@ -1,9 +1,23 @@
+\section{appendix}
 Metto qua tutte le cose che non si possono lasciare nel testo ma che e' un peccato buttare nel dimenticatoio
 
 \begin{definition}[Separation (alternative)] Another definition of separation could be:
-\[
-s\left(\mathbf{o}\rightarrow\mathbf{q}\right)=\max_{i=1,\dots,m}\left|\frac{o_{i}-q_{i}}{o_{i}}\right|
-\]
-
+	\[
+	s\left(\mathbf{o}\rightarrow\mathbf{q}\right)=\max_{i=1,\dots,m}\left|\frac{o_{i}-q_{i}}{o_{i}}\right|
+	\]
 \end{definition}
 
+\subsection{Virtual merging}
+PROBLEMA: Secondo il punto debole del nostro algoritmo, che fa si che noi ci facciamo sempre fregare da GA e' il merging. Il merging puo' essere effettuato solo tra regioni contigue. Non so come siano andati i run, ma ad intuito, trovare delle no-innovation-regions che sono pure contigue e' proprio una botta di fortuna. Secondo me la maggior parte delle no-innovation-regions sono non contigue e quindi non si mergiano, continuando a restistere imperterritamente col procedere dei run. Risultato: le no-innovation-regions continuano a fregarsi, ad ogni iterazione, piu' run di quanti dovrebbero.
+
+SOLUZIONE: Forse per migliorare l'algoritmo si dovrebbe abbandonare il concetto di merging, visto che mi sa che per ora e' sulla carta, ma durante i run avviene poche volte. In alternativa, si potrebbe usare un fattore di qualita', che simuli l'avvenimento dei merge. Ad ogni regione $R$ si associa un fattore di qualita' $q_R$, di default 0. Quando la regione e' classificata come no-innovation, $q_R$ si decrementa. A ciascuna iterazione, anziche' assegnare ad ogni regione K/N simulazioni, dove N è il numero di regioni, ogni regione $R*$ dovrebbe avere il seguente numero di simulazioni
+	\begin{align}
+    \frac{2^{q_R*} K} { \sum_R  2^{q_R} }
+	\end{align}
+
+\subsection{Importance given to the innovation score}
+AND: una prova che si potrebbe fare e' modificare leggerment l'innovation score di una regione. Forse questa metrica da troppo peso all'innovation delle configurazioni. Se una regione e' ricca di pareto points, ma essi sono tutti simili (nel senso che le loro immagini nello spazio degli obiettivi sono tutte vicine), dopo un po' di iterazioni l'analisi di quella regione non portera' sufficiente innovazione e la regione sara' abbandonata. Il che e' un peccato, perche' magari quei punti che in questo modo ci stiamo perdendo permetterebbero di fregare, o eguagliare, genetic algo. Questo spiega anche perche' le nostre soluzioni spaziano di piu' lo spazio degli obiettivi e vanno piu' verso gli estremi. Se volessimo rinunciare a spaziare per forza tutto il range degli obiettivi, volendo essere piu' simili e competitivi con genetic algorithm, potremmo modificare il calcolo dell'innovation score (step (4) della sezione 4.2), nel seguente modo:
+	\begin{align}
+	    is(c^*) = 1 + B\cdot \min[ s(c \rightarrow c^*) | c \in \mathscr{P}_{i-1} ]
+	\end{align}
+In questo modo, il fattore B permette di pesare quanta importanza dare all'innovativita' del nuovo pareto point. Ad es, per B=0, tutti i nuovi pareto points sono buoni uguali, a prescindere dalla loro innovativita'. Per B=0.2, un nuovo pareto point gia' e' una cosa bella, se poi ha innovativita', meglio ancora, sarebbe la ciliegina sulla torta, ecc .... Si potrebbero fare nuovi run con questo calcolo di innovation score, io li farei per B=1 e B=0.5, per vedere se le cose migliorano.
