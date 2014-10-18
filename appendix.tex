@@ -7,6 +7,9 @@ Metto qua tutte le cose che non si possono lasciare nel testo ma che e' un pecca
 	\]
 \end{definition}
 
+\subsection{Other metrics}
+Un'altra interessante metrica potrebbe essere questa: Auhtors of \cite{zitzler_ec00} remark that a desirable property of the Pareto front is the spread of the non-dominated configurations all over the configuration space. In other words, the more similar the non-dominated configuration distribution is to the uniform distribution, the better is the quality of the Pareto front, since we have not been captured by only one possible subset of Pareto configurations but we are able to span all over the configuration space and find configurations whose parameter values differ considerably. Mi aspetto che PS performi bene sotto questo punto di vista. Ovviamente, non so se e' il caso di considerarla ora. Se non e' il caso, puoi spostare questo testo nel file ``appendix.tex'' come possibile spunto futuro. Per quantificare questa cosa, si potrebbe usare come metrica la normalised absolute dispersion error pero' non nello spazio degli obiettivi, ma nello spazio delle configurazioni.
+
 \subsection{Virtual merging}
 PROBLEMA: Secondo il punto debole del nostro algoritmo, che fa si che noi ci facciamo sempre fregare da GA e' il merging. Il merging puo' essere effettuato solo tra regioni contigue. Non so come siano andati i run, ma ad intuito, trovare delle no-innovation-regions che sono pure contigue e' proprio una botta di fortuna. Secondo me la maggior parte delle no-innovation-regions sono non contigue e quindi non si mergiano, continuando a restistere imperterritamente col procedere dei run. Risultato: le no-innovation-regions continuano a fregarsi, ad ogni iterazione, piu' run di quanti dovrebbero.
 
