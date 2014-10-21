@@ -142,16 +142,21 @@ proposed approach.
 %!!! IN INGLESE E' PIU' CORRETTO DIRE: ``IT IS POSSIBLE THAT THE PARETO
 %FRONTS WERE NOT VERY DIFFERENT''? (CON ``WERE'' AL POSTO DI ``ARE'')
 
+\subsection{Exploration vs exploitation in PS}
+Our algorithm is able to inherently balance exploration and exploitation, which are ``two cornerstones of problem solving by search''~\cite{eiben1998evolutionary}. While a detailed survey on the exploration vs exploitation trade-off can be found in~\cite{vcrepinvsek2013exploration}, here we limitedly recall that \emph{exploration} is the capability of an algorithm to consider different parts of the configuration space, not being confined only to a limited subset and being trapped in local optima. Following the terminology in \cite{weise2012evolutionary}, if the exploration is not sufficiently wide, we sat that the algorithm suffers from \emph{premature convergence}, i.e. it starts to analyze only a narrow portion of the configuration space, that may lead to ignore potential Pareto configurations that are outside this portion. When premature convergence happens, there is insufficient \emph{diversity}~\cite{weise2012evolutionary}, i.e. all the provided solutions are similar.
+On the other hand, \emph{exploitation} is the capability to recognize and densely analyze the parts of configuration space that have many Pareto configurations.
 
-Observe that merging and splitting operation are dynamic processes. A portion
+As in genetic algorithms exploration and exploration are guaranteed by mutation, crossover and selection, in our algorithm these guarantees are provided for the following reasons:
+	\begin{itemize}
+		\item Merging and splitting operation are dynamic processes. A portion
 of the parameter space may be populated by a large number of small
-regions in some eras, but can be covered by a small number of large
-regions in next eras. This is a desirable property of PS, since, after a number
-of eras of intense exploration of a portion of configuration space, this
-exploration has turned to be enough thorough and so it may be time for
-other portions to be minutely scanned.
+regions in some eras. However, after having been sufficiently explored, the innovation score of these regions may decrease and therefore that portion may be covered by a small number of large regions in next eras. This is a desirable property of PS, since, after a number of eras of intense exploration of a portion of configuration space, this exploration may turn to be enough thorough and so it may be time for other portions to be minutely scanned. Otherwise stated, PS dynamics can be summarized as follows: while eras alternate, PS zooms out from the configurations subspaces already sufficiently scanned in the past, whereas it zooms in subspaces which provide novelty (guaranteeing exploitation), meaning that they have not been properly analyzed yet (this helps exploration). 
+		\item No portion of parameter space is neglected since, at each era, all the regions, even the least interesting ones, have the chance to be explored with new evaluated points (providing exploration), even though some regions are less densely explored than others.
+	\end{itemize}
 
-A pseudo-code representation of PS algorithm is in Alg.\ref{alg:algo}
+To summarize,thanks to the above characteristics, PS is able to recognize the regions when the best configurations are while not being trapped in only a narrow subset of configuration space.
+
+A pseudo-code representation of PS algorithm is in Alg.\ref{alg:algo}.
 
 \begin{algorithm}[t]
 	\small
