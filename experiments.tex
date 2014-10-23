@@ -1,6 +1,11 @@
 \section{A Case Study: VLIW Hardware/Software Design Space}
 \secL{ee}
-Since our main focus is the embedded system design, we apply PS to a related case study.
+Since our main focus is the embedded system design, we apply PS to a
+related case study.  In this section, we briefly describe the
+parameterized platform used as testbed for the experiments, the
+general evaluation flow along with the high-level estimation models
+and applications used as benchmarks.
+
 \subsection{Motivation}
 In order to evaluate the behavior of the proposed approach
 we use a parameterized Very Long Instruction
@@ -96,6 +101,76 @@ along with a brief description.
 	\end{tabular}}
 \end{table}
 
+%------------------------------------------------------------------------------
+\subsection{Evaluation Flow}
+
+To evaluate and compare the performance indexes of different
+architectures for a specific application, one needs to simulate the
+architecture running the code of the application. To make
+architectural exploration possible both the compiler and the simulator
+have to be retargetable. Trimaran~\cite{trimaran_hp} provides these
+tools and thus represents the pillar around which we have constructed
+\ee~\cite{palpatti_estimedia03}. \ee{} is a framework that not only
+allows us to evaluate any instance of a platform in terms of area,
+performance and power, but also implements various techniques for
+exploration of the design space.
+
+We will now show a functional scheme highlighting the main blocks of
+the \ee{} framework and the interface with the Trimaran tools. The
+input for the whole evaluation flow is the source of the application
+involved in the optimization and the configuration of the architecture
+being evaluated.  With reference to Figure~\ref{fig:evaluation_flow}
+this input is represented by the blocks \emph{App.c} and
+\emph{Config}.
+\begin{figure}
+        \centering
+        \includegraphics[width=0.65\textwidth]{pictures/evaluation_flow.eps}
+        \caption{Block diagram of the framework.}
+        \label{fig:evaluation_flow}
+\end{figure}
+
+The application (App.c) is first compiled by the Trimaran's compiler
+front-end (IMPACT). At the end of the compilation flow,
+Trimaran supplies a simulation library (Emulib) which makes it
+possible to execute the VLIW code produced by Elcor, generating a file
+(Stats) containing the execution statistics (e.g., instruction mix,
+execution cycles, utilization of functional units, etc.). A cache
+simulator, along with a bus simulator, is used to gather information
+about the behavior of the memory hierarchy in terms of miss rate and
+data/address traffic on the interconnection buses.
+
+Together with the configuration of the system, the statistics produced
+by simulation contain all the information needed to apply the area,
+performance and power consumption estimation model implemented in the
+\emph{Estimator} component of \ee{}. The results obtained by these
+models are the input for the \emph{Explorer} component. This component
+executes an optimization algorithm, the aim of which is to modify the
+parameters of the configuration so as to minimize the three cost
+functions (area, execution time and energy/power consumption).
+
+\subsection{Estimation Models}
+Several models have been implemented in the \ee{} platform in order to
+estimate the power/energy/performance indexes of each simulated system
+configuration.
+
+The average power consumed by the processor was estimated using an
+adaptation of the Cai-Lim model~\cite{cai_micro99} to the VLIW
+processor. As regards the cache subsystem, a transition-based model
+was used, according to the equations described
+in~\cite{kamble_islped97}.  The main memory energy is based on the
+model in~\cite{shiue_dac99} and assumes a per main memory access
+energy of $4.95 \times 10^{-9} J$ based on the data for the Cypress
+CY7C1326-133 memory chip.  The contribution towards power consumption
+made by the interconnection system was calculated by counting the
+number of transitions on the bus lines and applying the formula
+$P_{bus} = 1/2 V_{dd}^2 \alpha f C_l$ where $V_{dd}$ is the supply
+voltage, $\alpha$ is the switching activity, $f$ is the clock
+frequency and $C_l$ is the capacity of a bus line. For the on-chip
+buses we also considered the coupling capacitances between bus lines,
+using the model in~\cite{lekatsas_dac01}. For a detailed description
+of the models used and their adaption to the case of a VLIW based
+system see~\cite{palpatti_estimedia03}.
+
 
 \subsection{Terms of comparison}
 
@@ -118,9 +193,6 @@ for a detailed analysis on how it differs from other genetic approaches
 and what could be expected from similar multi-objective strategies.
 
 
-%------------------------------------------------------------------------------
-\subsection{Evaluation campaign}
-In order to obtain the results presented in this section, we implemented our exploration strategy in Epic Explorer~\cite{ascia2003epic}, an open source framework for the design space explora=tion of embedded systems. \comment{[TODO DAV]: continuare descrivendo un po' il workflow. The reader can refer to~\cite{ascia2003epic} for more details about the estimation models of the power dissipation and execution time. Scrivere che it is possible to run benchmarks }. 
 
 %------------------------------------------------------------------------------
 
