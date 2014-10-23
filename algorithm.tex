@@ -13,6 +13,7 @@ By a slightly abuse of notation, considering a subset $I$ of the configuration s
 	\end{align}
 Since in each run of the algorithm we will consider only one benchmark application $b\in\mathcal{B}$, we will omit it, replacing, for example, $\mathcal{P}(I,b)$ with  $\mathcal{P}(I)$.
 
+\comment{TODO AND: c'e' un problema col mathcal, dai un'occhiata qui sotto}
 Each iteration is called \emph{era}. The $i$-th era is characterized by: 
 	\begin{itemize}
 	\item the set of regions $\mathcal{R}_{i}$ in which the configuration space
@@ -211,8 +212,58 @@ A pseudo-code representation of PS algorithm is in Alg.\ref{alg:algo}.
 \end{algorithm}
 %
 
-\subsection{Algorithm parameters}
-The parameters that completely determine the algorithm are $K$ and $\alpha$.
-$K$ corresponds to the population size of the genetic approach. Authors of \cite{zitzler_ec00} found that increasing $k$ not necessarily has a considerable impact on the performance of the algorithm. This holds also in our algorithm.  In addition, while in the genetic approach $K$ must be sufficiently large in order to guarantee diversity of the Pareto set configurations, in our algorithm the diversity is not impacted by $K$ since, by construction, it is guaranteed by the way the configuration space is partitioned, independently from number of configurations evaluated at each iteration. \comment{This is confirmed by the experimental results in \secR{parameter_impact}. }
+\subsection{Algorithm Parameters and Scalability} The parameters that
+completely determine the algorithm are the configurations budget each
+era $K$ and the threshold factor $\alpha$. From a functional point of
+view, $K$ is somewhat similar to the population size of a genetic
+approach, determining which configuration should be evaluated in the
+in the subsequent step of the algorithm. However, as seen in the
+previous subsection, the way this $K$ configurations are distributed
+across the parameters space is completely different.
+Authors of \cite{zitzler_ec00} found that
+increasing $k$ not necessarily has a considerable impact on the
+performance of the algorithm, and this holds also in our algorithm.
+But while in the genetic approach $K$ must be sufficiently large
+in order to guarantee diversity of the Pareto set configurations, in
+our algorithm the diversity is not impacted by $K$ since, by
+construction, it is guaranteed by the way the configuration space is
+partitioned, independently from number of configurations evaluated at
+each iteration. 
 
-Parameter $\alpha$ determines when a region is considered of high innovation. High values of $\alpha$ mean that a region will hardly be elected as high-innovation, yielding less splitting operations. This slows down zooming in on portions of configuration space and make the distribution of the simulated configuration more uniform, as there are fewer small regions with a high test configuration concentration. The opposite happens when small values of $\alpha$ are used. \comment{This is confirmed by results of \secR{parameter_impact}. }
+On the other side, parameter $\alpha$ determines when a region is considered of high
+innovation. High values of $\alpha$ mean that a region will hardly be
+elected as high-innovation, yielding less splitting operations. This
+slows down zooming in on portions of configuration space and make the
+distribution of the simulated configuration more uniform, as there are
+fewer small regions with a high test configuration concentration. The
+opposite happens when small values of $\alpha$ are used. In this
+introductory work we are not explicitly focused on a deep
+investigation on how these parameters can be fine tuned, nevertheless
+we conducted some preliminary tests to confirm the relative stability
+of $PS$ with different choices and to select some ``reasonable'' average
+values to perform the design space exploration (see Figure 
+\comment{TODO This is confirmed by results of \secR{parameter_impact}
+}). 
+
+\comment{TODO: Usare notazioni coerenti con le precedenti}
+As regards the performance of the proposed approach we can estimate that the
+performance of $PS$ is strictly related to the total number of
+different configurations evaluated during the exploration. We can
+safely make such assumption, because the process of evalutating a new
+configuration is the time-dominating one among all the operations
+performed. As we will show the
+next Section, this is especially true in the hardware/software
+design space exploration scenario we are addressing, since benchmark compiling and execution times
+are orders of magnitude bigger than the splitting/merging operations and
+innovation scores computations.  Ideally, the $i$-th era would provide a new set
+$test_i$ of $K$ configurations to be tested. However, we cannot know
+a priori how many of
+these will actually be new configurations, i.e. requiring a process of
+evaluation. Thus, number of total new simulations $N_{tot}$ 
+can be estimated to be bounded as follows:
+\[
+K \le N_{tot} \le K \times E_{tot}
+\]
+where $E_{tot}$ is the nuber of eras executed and assuming that at
+least $K$ evaluation should be performed in order to obtain the first
+pareto $\mathscr{P}_0$. 
