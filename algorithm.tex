@@ -41,6 +41,7 @@ calculated.
 
 
 \subsection{Iteration steps}
+\secL{steps}
 
 For $era_{i}$ with $i>0$ the following operations must be performed.
 \begin{enumerate}
@@ -66,7 +67,7 @@ The test configurations that are dominated, i.e. do not belong to $\mathscr{P}_i
 In other words, a configuration $\mathbf{c}^*$ is characterized by as much innovation
 as more separated it is from the configurations of the previous era.
 
-\item Every region $R\in\mathcal{R}_{i}$ is given an innovation score defined
+\item \label{enu:region_innovation_score} Every region $R\in\mathcal{R}_{i}$ is given an innovation score defined
 as the sum of the innovation scores of its non-dominated test configurations:
 	\[
 	is\left(R\right)=\sum\left\{ \left.is\left(\mathbf{c}\right)\right|\mathbf{c}\in\mathscr{P}_{i}\cap R\right\} 
@@ -268,3 +269,18 @@ K \le N_{tot} \le K \times E_{tot}
 where $E_{tot}$ is the nuber of eras executed and assuming that at
 least $K$ evaluation should be performed in order to obtain the first
 pareto $\mathscr{P}_0$. 
+
+
+
+
+
+\subsection{On the parallelizability of PS}
+While the detailed analysis and the evaluation of a parallel implementation of our algorithm is not in the scope of this paper, we provide in this section some arguments to show that PS is parallelizable. 
+
+Following the approach used in the ``Master-Slaves parallel genetic algorithms''~\cite{Cantu-Paz98asurvey,Borkar14parallel}, we can distinguish a master and different slave processing nodes. At each era the master assigns a set of regions to each slave, which, in turn, independently performs the analysis and calculates the innovation score of the assigned regions. At the end of each era, the master collects the results from the slaves, performs the splitting/merging operations and the next era starts.
+
+Another possible approach is closer to the ``Island scheme'' for GA parallelization~\cite{Borkar14parallel}. The configuration space is initially divided in $n$ macro-regions, each one assigned to a different processing node, which autonomously performs all the PS steps, including merging and splitting, considering the assigned macro-region as the entire parameter space. Note that, while the Island scheme for GA parallelization requires a migration operator, that is not easy to properly tune, we do not have special requirements. On the other hand, one of the macro-regions may begin to provide very low innovation at a certain era. In this case, dedicating to it the same number $K$ of test function as the other macro-regions is inefficient. To solve this problem, the number of test functions assigned to each macro-region should be perdiodically renegotiated, in favor of the macro-regions providing most innovation.
+
+Opposite to the ``Island  scheme'', a novel parallelization technique permitted by PS can consist of different instances of PS, each one running on the whole configuration space but having its own configuration space partition that separately evolves. Each PS instance independently performs the zoom-out and zoom-in in on configuration space, splitting and merging its own regions. All PS instances share the indication of the configurations already tested, so that a configuration already tested by some PS instance, will not be tested again by some other PS instance. In addition, PS instances share the set of non-dominated configuration. Therefore, when a PS instance evaluates the innovation score of its regions (steps \ref{pers02.enu:novelty_score_of_a_configuration} and \ref{enu:region_innovation_score} of \secR{steps}), it considers the solutions found by the other PS instances. In this way, the configuration space is spanned in parallel by multiple PS instances, but, altough autonomous, they are not isolated; on the contrary, they continuously exchange information and influence each other, thanks to sharing the already simulated configurations and the non-dominated one. Otherwise stated, all the PS instances (independently but jointly) contribute at the formation of the Pareto-set.
+
+We defer the evaluation of these different proposals to our future research, the aim of this section being just to show that our algorithm has the potentiality of being parallelized, thus leaving room for performance improvement.
