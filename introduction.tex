@@ -15,20 +15,19 @@ of the design space to be simulated grows with the product of
 cardinalities of each parameter, resulting in an intractable number
 of simulations. 
 
-In these cases a Design Space
-Exploration (DSE) strategy is required, i.e. an algorithm that selects
-only a tractable subset of all possible configurations.
-The final result of a design space exploration is a subset of the
-configurations called \emph{Pareto set} (\cite{pareto}, see also
-\defR{pareto-set}). The corresponding values of the objectives for
-each configuration of the Pareto Set is called \emph{Pareto front}:
-it represents the trade-offs between objectives, i.e.  for each point
-of the Pareto front there is no other configuration performing better
-for all the objectives considered (see \figR{psos}). Of course this is only a first
-high-level system simulation, thus these few promising
-configurations will need to be further evaluated in a next step of the design
-flow using a more accurate low level simulation (e.g. register
-transfer level).
+In these cases a Design Space Exploration (DSE) strategy is required,
+i.e. an algorithm that selects only a tractable subset of all possible
+configurations.  The final result of a design space exploration is a
+subset of the configurations called \emph{Pareto set} (\cite{pareto},
+see also \defR{pareto-set}). The corresponding values of the
+objectives for each configuration of the Pareto Set is called
+\emph{Pareto front}: it represents the trade-offs between objectives,
+i.e.  for each point of the Pareto front there is no other
+configuration performing better for all the objectives considered (see
+\figR{psos}). Of course this is only a first high-level system
+simulation, thus these few promising configurations will need to be
+further evaluated in a next step of the design flow using a more
+accurate low level simulation (e.g. register transfer level).
 
 %while providing, at the end, configurations that are close to the
 %optimum and that are worth evaluating, in a following step of the
@@ -76,8 +75,13 @@ of multiobjective genetic based approaches.
 \section{Related work}
 \secL{Related-work}
 Many different design space exploration algorithms have been proposed
-in literature.  The motivations of an exploration
-algorithm are rather heuristic, have some form of arbitrariness and,
+in literature.  What makes the exploration of embedded systems so
+complex is not only the huge size of the parameter spaces involved,
+but also the tight interaction between parameters in relation to their
+effect on the objective to be optimised, which take the form of
+\emph{parameter dependencies} (see~\defR{dependency}). The 
+motivations of an exploration algorithm and how it deals with such
+complexity are often rather heuristic, have some form of arbitrariness and,
 to a large extend, intuition lies behind them.
 
 Some exploration strategies assume some kind of knowledge about the
@@ -116,6 +120,11 @@ important role that hardware/software dependencies can play in a
 multi-objective exploration and thus justify the choice of explicitly
 including the two class of parameters in the design space without
 making any distinction between them from the algorithm's perspective.
+In fact, one of the purposes of the proposed PS algorithm is avoiding
+the need of any a priori knowledge about those dependencies, letting
+the algorithm itself discover regions where interaction between
+parameters generates new pareto-optimal points (see the PS scoring
+system described in the next sections).
 
 Abraham, Rau and Schreiber proposed in \cite{santosh_hptr00} to
 decompose the system under evaluation into components that interact
@@ -201,7 +210,7 @@ Different variants of these algorithms have been proposed in
 literature, including mixed approaches as in~\cite{Ascia2011382},
 where authors specifically focuse on increasing the performance of a
 evolutionaly exploration strategy, proposing a fuzzy based technique
-to avoing the actual simulation of a certain number of configurations.
+to avoid the actual simulation of a certain number of configurations.
 In particular, in this work we compare the proposed approach against a
 well known Multi-Objective Genetic Algorithm~\cite{knowles_techrep06}
 which is at best of our knowledge one of the most appropriate for the

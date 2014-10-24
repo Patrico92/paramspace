@@ -59,6 +59,19 @@ that is, the set of configurations $\mathbf{c} \in
 The configurations belonging to the Pareto-optimal set are called \emph{Pareto-optimal configurations}, while the {\em Pareto-optimal front} (or, shortly, Pareto-front) is their image, i.e. the set:
 \[ \mathcal{P}_{F}(S,b) = \{ \mathbf{o} | \mathbf{o} = E(\mathbf{c},b), \mathbf{c} \in \mathcal{P}(S,b) \} \]
 
+Another fundamental concept, which adds further complexity to the
+problem of multiobjective design space exploration, is the following
+
+\begin{definition}[Parameter dependencies]
+\defL{dependency}
+A parameter $x$ is said to be dependent on another parameter $y$ if
+the optimal value of $y$, i.e. the $x_{opt}$ which optimizes the
+objectives is dependent upon the current value of $y$. 
+\end{definition}
+Note that when this happens, we cannot make any safe assumption on the
+``meaning'' of $a$ in order to intuitively choose an appropriate
+value. 
+
 The aim of a Design Space Exploration (DSE) strategy is to give a
 good approximation of the Pareto-optimal set for a system $S$ and an
 application $b$, simulating as few configurations as possible.

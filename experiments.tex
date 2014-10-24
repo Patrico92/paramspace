@@ -1,12 +1,5 @@
 \section{A Case Study: VLIW Hardware/Software Design Space}
 \secL{ee}
-Since our main focus is the embedded system design, we apply PS to a
-related case study.  In this section, we briefly describe the
-parameterized platform used as testbed for the experiments, the
-general evaluation flow along with the high-level estimation models
-and applications used as benchmarks.
-
-\subsection{Motivation}
 In order to evaluate the behavior of the proposed approach
 we use a parameterized Very Long Instruction
 Word (VLIW) architecture~\cite{kathail_tr00} as testbed. The philosophy
@@ -24,10 +17,22 @@ VLIW scenario perfectly suitable for investigating hardly predictable
 parameter interactions.
 \end{itemize}
 
-\subsection{Parameter Space}
-In general, system parameters can be classified in three main categories:
-\emph{processor}, \emph{memory sub-system} and \emph{compiler}. 
-The first is directly related to the VLIW core and includes the size
+In this section, we will also briefly describe the parameterized platform used
+as testbed for the experiments, the general evaluation flow along with
+the high-level estimation models and applications used as benchmarks.
+
+\subsection{Design Space: Hardware and Software Parameters}
+Conceptually, system parameters can be classified in three main categories:
+\emph{processor}, \emph{memory sub-system} and \emph{compiler}. The
+first two categories are directly related to the physical
+implementation of the system, so parameters of those
+classes are usually referred ``hardware parameters''. On the other
+side, all the parameters affecting the behaviour of the compiler
+are referred as ``software parameters'', being directly involved in
+the process of generating the application executables running on the
+underlying hardware.
+
+Processor hardware parameters are directly related to the VLIW core and includes the size
 of the register files and the number of functional
 units of each type. In particular, five different types of register
 files are supported:
@@ -39,14 +44,15 @@ registers containing information about the internal state of the
 processor). The functional units involved are: \emph{Integer units},
 \emph{floating point units}, \emph{memory units} (associated with
 load/store operations) and \emph{branch units} (associated with branch
-operations). With respect to the memory sub-system, the parameters
+operations). With respect to the memory sub-system hardware, the parameters
 include \emph{size}, \emph{associativity} and
 \emph{block size} for each of the three caches: First-level data cache
 (L1D), first-level instruction cache (L1I) and second-level unified
 cache (L2U).
 
-Next, a set of the most impacting code compilation parameters has been
-selected and included in the configuration space:
+On the software side, a set of the most impacting code
+compilation parameters has been selected and included in the
+configuration space, in particular:
 \begin{itemize}
 \item \emph{tcc\_region}: Specifies the scope of action of the compiler and the type
 of code transformation involved (basic block, super block and hyper
