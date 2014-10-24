@@ -105,39 +105,106 @@ capture also ``local dependencies", i.e. dependencies that emerge only
 among certain ranges of parameters and may not hold when considering
 the entire ranges. This cannot be modeled in Dependency Analysis. 
 
-Abraham, Rau and Schreiber proposed in \cite{santosh_hptr00} to decompose
-the system under evaluation into components that interact minimally
-with each other. Pareto sets for each component are found and, provided
-that ``monotonicity'' exists, the complete Pareto set is computed
-merging the component Pareto sets. Roughly speaking (see section 4
-of the same paper for more details), monotonicity property guarantees
-that the best system can be obtained as a composition of the best
-components. This approach would perfectly work if all the components
-were perfectly isolated, i.e., if there were no dependencies among
-them. But real scenarios rarely expose monotonicity property thus resulting in inaccuracies, as stated in the same paper).
+A preliminary estimation of hardware/software dependencies in order to
+reduce the design space is addressed in~\cite{Catania2008}, where
+authors propose to deal with the software parameters separately,
+statistically testing their average effect on objectives before the
+actual exploration is performed. Also in~\cite{merging} authors
+analyze the impact of including compilation parameters into the design
+space space exploration. The results of both works confirm the
+important role that hardware/software dependencies can play in a
+multi-objective exploration and thus justify the choice of explicitly
+including the two class of parameters in the design space without
+making any distinction between them from the algorithm's perspective.
 
-Other approaches, as \cite{fornaciari_codes01,palesi_iwsoc02}, are based the concept of \emph{sensitivity analysis}, i.e. measuring of how much the objective varies when varying each parameter.
-Parameters are ordered based on their sensitivity. The first parameter (the most sensitive one) is varied, while keeping the other parameters fixed to arbitrary values, and its best value is found. The limited accuracy shown by these approaches can be explained by the limited and rigid exploration of the parameter
-space: after fixing the best first parameter value, there are no more chances to consider different values. It is worth noticing that this approach can not capture
-``local sensitivity'', i.e. the objectives may be more sensitive to some
-ranges of a parameter and less sensitive to other ranges of the same
-parameter. Moreover it can not capture ``combined sensitivity'', i.e. the objectives may be
-more sensitive to a range of a parameter $p_{1}$, only when other
-parameters are within certain ranges, and less sensitive to the same
-range of $p_{1}$ when the other parameters are in different ranges. Otherwise, our algorithm can both capture local and combined sensitivity.
+Abraham, Rau and Schreiber proposed in \cite{santosh_hptr00} to
+decompose the system under evaluation into components that interact
+minimally with each other. Pareto sets for each component are found
+and, provided that ``monotonicity'' exists, the complete Pareto set is
+computed merging the component Pareto sets. Roughly speaking (see
+section 4 of the same paper for more details), monotonicity property
+guarantees that the best system can be obtained as a composition of
+the best components. This approach would perfectly work if all the
+components were perfectly isolated, i.e., if there were no
+dependencies among them. But real scenarios rarely expose monotonicity
+property thus resulting in inaccuracies, as stated in the same paper).
 
-Authors of \cite{dellnitz2005covering,dellnitz2009computation} propose three different methods for the numerical approximation of the Pareto set. The first two require the knowledge of the gradient of the objective functions, which is usually not available in embedded system design, since the closed form expression of the objective functions is not known a priori. The third one, called ``Sampling algorithm'', does not need this requirement and is the closest to ours, although the mechanism is different. At every iteration a set of regions of configuration space is constructed with the aim to cover the Pareto set. The size of these regions becomes smaller at each iteration so that the covering becomes tighter. A random set of test points are evaluated in each new region; only the regions containing non-dominated points will be considered in the next iteration. Our approach is different. First, in the Sampling algorithm only the selected regions are examined, even though there is no guarantee that all the Pareto points are included in them. As a consequence, the Sampling algorithm may erroneously and prematurely neglect some regions that may possibly contain a non-negligible number of Pareto points. Our algorithm avoids this, since even though a region has not provided non-dominated points, it is not neglected, rather it is simply populated with fewer test points, thus giving the chance to find non-dominated points in them. From this behavior also comes another important difference. The Sampling algorithm of \cite{dellnitz2005covering} keeps reinforcing the analysis of the regions selected in the previous iterations. In other words, it keeps zooming into the regions that have been considered ``interesting'', i.e. rich of non-dominated points, in the previous iterations. The philosophy behind our algorithm is different. A region, which has been considered interesting at a certain iterations, may be not in the future, since it has been thoroughly analyzed. On the other hand, a region, initially uninteresting, may turn out to be interesting in the future, once all the other regions have been already exploited. Therefore, from an iteration to the next, our algorithm zoom in on regions that are currently interesting and zoom out from the uninteresting ones,  spanning in a broader and more dynamical way the configuration space. In addition, in the Sampling region only the number of non-dominated points is accounted to see how interesting a region is. On the contrary, we also consider the \emph{innovation}, as already anticipated in the introduction.
+Other approaches, as \cite{fornaciari_codes01,palesi_iwsoc02}, are
+based the concept of \emph{sensitivity analysis}, i.e. measuring of
+how much the objective varies when varying each parameter.  Parameters
+are ordered based on their sensitivity. The first parameter (the most
+sensitive one) is varied, while keeping the other parameters fixed to
+arbitrary values, and its best value is found. The limited accuracy
+shown by these approaches can be explained by the limited and rigid
+exploration of the parameter space: after fixing the best first
+parameter value, there are no more chances to consider different
+values. It is worth noticing that this approach can not capture
+``local sensitivity'', i.e. the objectives may be more sensitive to
+some ranges of a parameter and less sensitive to other ranges of the
+same parameter. Moreover it can not capture ``combined sensitivity'',
+i.e. the objectives may be more sensitive to a range of a parameter
+$p_{1}$, only when other parameters are within certain ranges, and
+less sensitive to the same range of $p_{1}$ when the other parameters
+are in different ranges. Otherwise, our algorithm can both capture
+local and combined sensitivity.
 
+Authors of \cite{dellnitz2005covering,dellnitz2009computation} propose
+three different methods for the numerical approximation of the Pareto
+set. The first two require the knowledge of the gradient of the
+objective functions, which is usually not available in embedded system
+design, since the closed form expression of the objective functions is
+not known a priori. The third one, called ``Sampling algorithm'', does
+not need this requirement and is the closest to ours, although the
+mechanism is different. At every iteration a set of regions of
+configuration space is constructed with the aim to cover the Pareto
+set. The size of these regions becomes smaller at each iteration so
+that the covering becomes tighter. A random set of test points are
+evaluated in each new region; only the regions containing
+non-dominated points will be considered in the next iteration. Our
+approach is different. First, in the Sampling algorithm only the
+selected regions are examined, even though there is no guarantee that
+all the Pareto points are included in them. As a consequence, the
+Sampling algorithm may erroneously and prematurely neglect some
+regions that may possibly contain a non-negligible number of Pareto
+points. Our algorithm avoids this, since even though a region has not
+provided non-dominated points, it is not neglected, rather it is
+simply populated with fewer test points, thus giving the chance to
+find non-dominated points in them. From this behavior also comes
+another important difference. The Sampling algorithm of
+\cite{dellnitz2005covering} keeps reinforcing the analysis of the
+regions selected in the previous iterations. In other words, it keeps
+zooming into the regions that have been considered ``interesting'',
+i.e. rich of non-dominated points, in the previous iterations. The
+philosophy behind our algorithm is different. A region, which has been
+considered interesting at a certain iterations, may be not in the
+future, since it has been thoroughly analyzed. On the other hand, a
+region, initially uninteresting, may turn out to be interesting in the
+future, once all the other regions have been already exploited.
+Therefore, from an iteration to the next, our algorithm zoom in on
+regions that are currently interesting and zoom out from the
+uninteresting ones,  spanning in a broader and more dynamical way the
+configuration space. In addition, in the Sampling region only the
+number of non-dominated points is accounted to see how interesting a
+region is. On the contrary, we also consider the \emph{innovation}, as
+already anticipated in the introduction.
 
-
-Many studies, as \cite{coello_easmop} and others, focus on genetic approaches to solve multiobjective
-optimization problems. Genetic approaches
-have many advantages: they provide good accuracy, they are customizable and very general
-and require no a-priori knowledge to the designer.  The strong
-point of genetic approaches can be summarized as follows: they consist
-in an exploration that is sufficiently broad (the mutation avoids being rigidly restricted to limited parts of parameter space), and, at the same time, not too scattered as it is guided by the performances of
-the already evaluated configurations. In this work we will compare 
-the proposed approach against a well known Multi-Objective Genetic
-Algorithm~\cite{knowles_techrep06}.
-We claim that the approach presented in this paper has most of the benefits of the genetic
+Many studies, as \cite{coello_easmop} and others, focus on genetic
+approaches to solve multiobjective optimization problems. Genetic
+approaches have many advantages: they provide good accuracy, they are
+customizable and very general and require no a-priori knowledge to the
+designer. The strong point of genetic approaches can be summarized as
+follows: they consist in an exploration that is sufficiently broad
+(the mutation avoids being rigidly restricted to limited parts of
+parameter space), and, at the same time, not too scattered as it is
+guided by the performances of the already evaluated configurations.
+Different variants of these algorithms have been proposed in
+literature, including mixed approaches as in~\cite{Ascia2011382},
+where authors specifically focuse on increasing the performance of a
+evolutionaly exploration strategy, proposing a fuzzy based technique
+to avoing the actual simulation of a certain number of configurations.
+In particular, in this work we compare the proposed approach against a
+well known Multi-Objective Genetic Algorithm~\cite{knowles_techrep06}
+which is at best of our knowledge one of the most appropriate for the
+particular scenario we adopted as testbed.  We claim that the approach
+presented in this paper has most of the benefits of the genetic
 approaches, although the rationale is completely different.
