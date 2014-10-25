@@ -117,44 +117,6 @@ We stress that the regions that belong to each selected pair must be contiguous,
 	\end{align}
 \end{enumerate}
 
-
-
-\subsection{Termination Condition}
-The algorithm terminates at step $k$ if
-\[
-is_{TOT,k},is_{TOT,k-1},\dots,is_{TOT,k-\beta}\le\gamma\cdot is_{TOT,k-\left(\beta-1\right)}
-\]
- where $\beta$ and $\gamma$ are selected by the experimenter. 
-The algorithm terminates when in the last
-$\beta$ iterations not a great ``amount of innovation'' has been
-discovered. Therefore it is very probably that carrying on iterating
-will not considerably change the Pareto-front approximation already formed. 
-
-It is not recommended to chose $\beta=1$, because it is possible that the
-$k-1$-th and $k$-th Pareto front approximations are not very different but next ones could be. In other words,
-it is unsafe to terminate as soon as the Pareto front does not considerably change
-between two consecutive eras, thus a strategy taking into
-account the history of the Pareto fronts has been adopted in the
-proposed approach.
-%!!! IN INGLESE E' PIU' CORRETTO DIRE: ``IT IS POSSIBLE THAT THE PARETO
-%FRONTS WERE NOT VERY DIFFERENT''? (CON ``WERE'' AL POSTO DI ``ARE'')
-
-\subsection{Exploration vs exploitation in PS}
-Our algorithm is able to inherently balance exploration and exploitation, which are ``two cornerstones of problem solving by search''~\cite{eiben1998evolutionary}. While a detailed survey on the exploration vs exploitation trade-off can be found in~\cite{vcrepinvsek2013exploration}, here we limitedly recall that \emph{exploration} is the capability of an algorithm to consider different parts of the configuration space, not being confined only to a limited subset and being trapped in local optima. Following the terminology in \cite{weise2012evolutionary}, if the exploration is not sufficiently wide, we sat that the algorithm suffers from \emph{premature convergence}, i.e. it starts to analyze only a narrow portion of the configuration space, that may lead to ignore potential Pareto configurations that are outside this portion. When premature convergence happens, there is insufficient \emph{diversity}~\cite{weise2012evolutionary}, i.e. all the provided solutions are similar.
-On the other hand, \emph{exploitation} is the capability to recognize and densely analyze the parts of configuration space that have many Pareto configurations.
-
-As in genetic algorithms exploration and exploration are guaranteed by mutation, crossover and selection, in our algorithm these guarantees are provided for the following reasons:
-	\begin{itemize}
-		\item Merging and splitting operation are dynamic processes. A portion
-of the parameter space may be populated by a large number of small
-regions in some eras. However, after having been sufficiently explored, the innovation score of these regions may decrease and therefore that portion may be covered by a small number of large regions in next eras. This is a desirable property of PS, since, after a number of eras of intense exploration of a portion of configuration space, this exploration may turn to be enough thorough and so it may be time for other portions to be minutely scanned. Otherwise stated, PS dynamics can be summarized as follows: while eras alternate, PS zooms out from the configurations subspaces already sufficiently scanned in the past, whereas it zooms in subspaces which provide novelty (guaranteeing exploitation), meaning that they have not been properly analyzed yet (this helps exploration). 
-		\item No portion of parameter space is neglected since, at each era, all the regions, even the least interesting ones, have the chance to be explored with new evaluated points (providing exploration), even though some regions are less densely explored than others.
-	\end{itemize}
-
-To summarize,thanks to the above characteristics, PS is able to recognize the regions when the best configurations are while not being trapped in only a narrow subset of configuration space.
-
-A pseudo-code representation of PS algorithm is in Alg.\ref{alg:algo}.
-
 \begin{algorithm}[t]
 	\small
 	\caption{PS Algorithm}
@@ -211,6 +173,44 @@ A pseudo-code representation of PS algorithm is in Alg.\ref{alg:algo}.
 		}
 	\nl $\tilde{\mathscr{P}} \Leftarrow \mathscr{P}_i$
 \end{algorithm}
+
+\subsection{Termination Condition}
+The algorithm terminates at step $k$ if
+\[
+is_{TOT,k},is_{TOT,k-1},\dots,is_{TOT,k-\beta}\le\gamma\cdot is_{TOT,k-\left(\beta-1\right)}
+\]
+ where $\beta$ and $\gamma$ are selected by the experimenter. 
+The algorithm terminates when in the last
+$\beta$ iterations not a great ``amount of innovation'' has been
+discovered. Therefore it is very probably that carrying on iterating
+will not considerably change the Pareto-front approximation already formed. 
+
+It is not recommended to chose $\beta=1$, because it is possible that the
+$k-1$-th and $k$-th Pareto front approximations are not very different but next ones could be. In other words,
+it is unsafe to terminate as soon as the Pareto front does not considerably change
+between two consecutive eras, thus a strategy taking into
+account the history of the Pareto fronts has been adopted in the
+proposed approach.
+
+A pseudo-code representation of PS algorithm is in Alg.\ref{alg:algo}.
+%!!! IN INGLESE E' PIU' CORRETTO DIRE: ``IT IS POSSIBLE THAT THE PARETO
+%FRONTS WERE NOT VERY DIFFERENT''? (CON ``WERE'' AL POSTO DI ``ARE'')
+
+\subsection{Exploration vs exploitation in PS}
+Our algorithm is able to inherently balance exploration and exploitation, which are ``two cornerstones of problem solving by search''~\cite{eiben1998evolutionary}. While a detailed survey on the exploration vs exploitation trade-off can be found in~\cite{vcrepinvsek2013exploration}, here we limitedly recall that \emph{exploration} is the capability of an algorithm to consider different parts of the configuration space, not being confined only to a limited subset and being trapped in local optima. Following the terminology of \cite{weise2012evolutionary}, if the exploration is not sufficiently wide, the algorithm suffers from \emph{premature convergence}, i.e. it starts to analyze only a narrow portion of the configuration space, thus ignoring potential Pareto configurations that are outside this portion. When premature convergence happens, there is insufficient \emph{diversity}~\cite{weise2012evolutionary}, i.e. all the provided solutions are similar.
+On the other hand, \emph{exploitation} is the capability to recognize and densely analyze the parts of configuration space that have many Pareto configurations.
+
+While in genetic algorithms exploration and exploration are guaranteed by mutation, crossover and selection, in our algorithm these guarantees are provided for the following reasons:
+	\begin{itemize}
+		\item Merging and splitting operation are dynamic processes. A portion
+of the parameter space may be populated by a large number of small
+regions in some eras, and thus a large number of test configurations. However, after having been sufficiently explored, the innovation score of these regions may decrease, they may be merged and therefore that portion of configuration space may be covered by a small number of large regions in next eras. This is a desirable property of PS, since, after a number of eras of intense exploration of a configuration space part, this exploration may turn to be enough thorough and so it may be time for other parts to be minutely scanned. 
+PS dynamics can be summarized as follows: while eras alternate, PS zooms out from the configurations subspaces already sufficiently scanned in the past, whereas it zooms in on subspaces which provide novelty (guaranteeing exploitation), meaning that they have not been properly analyzed yet (this helps exploration). 
+		\item No portion of parameter space is neglected since, at each era, all the regions, even the least interesting ones, have the chance to be explored with new evaluated points (providing exploration), even though some regions are less densely explored than others.
+	\end{itemize}
+
+To summarize,thanks to the above characteristics, PS is able to recognize the regions when the best configurations are, while avoiding premature convergence, not being trapped in a narrow subset of configuration space.
+
 %
 
 \subsection{Algorithm Parameters and Scalability} The parameters that
@@ -279,7 +279,7 @@ While the detailed analysis and the evaluation of a parallel implementation of o
 
 Following the approach used in the ``Master-Slaves parallel genetic algorithms''~\cite{Cantu-Paz98asurvey,Borkar14parallel}, we can distinguish a master and different slave processing nodes. At each era the master assigns a set of regions to each slave, which, in turn, independently performs the analysis and calculates the innovation score of the assigned regions. At the end of each era, the master collects the results from the slaves, performs the splitting/merging operations and the next era starts.
 
-Another possible approach is closer to the ``Island scheme'' for GA parallelization~\cite{Borkar14parallel}. The configuration space is initially divided in $n$ macro-regions, each one assigned to a different processing node, which autonomously performs all the PS steps, including merging and splitting, considering the assigned macro-region as the entire parameter space. Note that, while the Island scheme for GA parallelization requires a migration operator, that is not easy to properly tune, we do not have special requirements. On the other hand, one of the macro-regions may begin to provide very low innovation at a certain era. In this case, dedicating to it the same number $K$ of test function as the other macro-regions is inefficient. To solve this problem, the number of test functions assigned to each macro-region should be perdiodically renegotiated, in favor of the macro-regions providing most innovation.
+Another possible approach is closer to the ``Island scheme'' for GA parallelization~\cite{Borkar14parallel}. The configuration space is initially divided in $n$ macro-regions, each one assigned to a different processing node, which autonomously performs all the PS steps, including merging and splitting, considering the assigned macro-region as the entire parameter space. Note that, while the Island scheme for GA parallelization requires a migra0tion operator, that is not easy to properly tune, we do not have special requirements. On the other hand, one of the macro-regions may begin to provide very low innovation at a certain era. In this case, dedicating to it the same number $K$ of test function as the other macro-regions is inefficient. To solve this problem, the number of test functions assigned to each macro-region should be perdiodically renegotiated, in favor of the macro-regions providing most innovation.
 
 Opposite to the ``Island  scheme'', a novel parallelization technique permitted by PS can consist of different instances of PS, each one running on the whole configuration space but having its own configuration space partition that separately evolves. Each PS instance independently performs the zoom-out and zoom-in in on configuration space, splitting and merging its own regions. All PS instances share the indication of the configurations already tested, so that a configuration already tested by some PS instance, will not be tested again by some other PS instance. In addition, PS instances share the set of non-dominated configuration. Therefore, when a PS instance evaluates the innovation score of its regions (steps \ref{pers02.enu:novelty_score_of_a_configuration} and \ref{enu:region_innovation_score} of \secR{steps}), it considers the solutions found by the other PS instances. In this way, the configuration space is spanned in parallel by multiple PS instances, but, altough autonomous, they are not isolated; on the contrary, they continuously exchange information and influence each other, thanks to sharing the already simulated configurations and the non-dominated one. Otherwise stated, all the PS instances (independently but jointly) contribute at the formation of the Pareto-set.
 
