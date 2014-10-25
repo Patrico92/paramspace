@@ -13,11 +13,10 @@ By a slightly abuse of notation, considering a subset $I$ of the configuration s
 	\end{align}
 Since in each run of the algorithm we will consider only one benchmark application $b\in\mathcal{B}$, we will omit it, replacing, for example, $\mathcal{P}(I,b)$ with  $\mathcal{P}(I)$.
 
-\comment{TODO AND: c'e' un problema col mathcal, dai un'occhiata qui sotto}
 Each iteration is called \emph{era}. The $i$-th era is characterized by: 
 	\begin{itemize}
 	\item the set of regions $\mathcal{R}_{i}$ in which the configuration space
-	$mathcal{C}(S)=V_{1}\times\dots\times V_{n}$ is partitioned
+	$\mathcal{C}(S)=V_{1}\times\dots\times V_{n}$ is partitioned
 	\item an approximation $\mathscr{P}_{i}$ of the Pareto-optimal set.
 	\item a set $test_{i}$ of at most $K$ configurations evaluated
 	in the era.
@@ -29,7 +28,7 @@ Note that $\mathcal{R}_{i}$ is a partition of the configuration space, i.e.
 		R' \cap R'' = \emptyset, \forall R',R'' \in \mathcal{R}_i
 	\end{array}\end{align}
 
-We now describe formally PS.
+We now formally describe PS.
 
 \subsection{Initialization}
 We fix $\mathcal{R}_0$, $\mathscr{P}_0$ and $test_0$ for the era $0$ as follows. Era $0$ has only one region that is the whole parameter space,
