@@ -107,18 +107,16 @@ along with a brief description.
 \end{table}
 
 %------------------------------------------------------------------------------
-\subsection{Evaluation Flow}
+\subsection{Configuration Evaluation Flow}
 
 To evaluate and compare the performance indexes of different
 architectures for a specific application, one needs to simulate the
 architecture running the code of the application. To make
 architectural exploration possible both the compiler and the simulator
-have to be retargetable. Trimaran~\cite{trimaran_hp} provides these
-tools and thus represents the pillar around which we have constructed
-\ee~\cite{palpatti_estimedia03}. \ee{} is a framework that not only
-allows us to evaluate any instance of a platform in terms of area,
-performance and power, but also implements various techniques for
-exploration of the design space.
+have to be retargetable. The open source project Trimaran~\cite{trimaran_hp} provides these
+tools and together with estimation framework \ee~\cite{palpatti_estimedia03} has been
+adopted as a tested and flexible platform for carrying out the
+experiments described in the previous subsection.
 
 We will now show a functional scheme highlighting the main blocks of
 the \ee{} framework and the interface with the Trimaran tools. The
@@ -177,27 +175,81 @@ of the models used and their adaption to the case of a VLIW based
 system see~\cite{palpatti_estimedia03}.
 
 
-\subsection{Terms of comparison}
+\subsection{Comparison Setup}
 
 The results presented in the next section compare PS with one widely
-adopted Multi-objective Genetic Algorithm
-(MOGA)~\cite{knowles_techrep06}. To the best of our knowledge, genetic
-approaches in general still represent the best compromise between
-efficiency (i.e. time required for exploration) and accuracy of the
-reported Pareto Sets.  Note that, for the reasons described above,
-mono-objective approaches have been explicitly excluded from this
-analysis.  We also exclude other approaches (e.g.  dependency
-based~\cite{givargis_tvlsi02}) that make use of some a-priori
-knowledge about the role and meaning of each parameter, since our aim
-is evaluate the capacity of focusing on interesting parameter regions
-without any external judgement or help based on heuristics.  Finally,
-it should be pointed out that in this introductory work we will
-explicitly use the \emph{SPEA}~\cite{zitzler_eurogen01} variant of
-MOGA, remanding to works like~\cite{zitzler_ec00}~\cite{zitzler_tec03}
-for a detailed analysis on how it differs from other genetic approaches
-and what could be expected from similar multi-objective strategies.
+adopted Multi-objective Genetic Algorithm~\cite{knowles_techrep06}. To
+the best of our knowledge, genetic approaches in general still
+represent the best compromise between efficiency (i.e. time required
+for exploration) and accuracy of the reported Pareto Sets.  Note that,
+for the reasons described above, mono-objective approaches have been
+explicitly excluded from this analysis.  We also exclude other
+approaches (e.g.  dependency based~\cite{givargis_tvlsi02}) that make
+use of some a-priori knowledge about the role and meaning of each
+parameter, since our aim is evaluate the capacity of focusing on
+interesting parameter regions without any external judgement or help
+based on heuristics.  In particular in this work when referring to
+genetic approach (or GA) we will denote the widely spread 
+\emph{SPEA}~\cite{zitzler_eurogen01} variant of the Multi-objective
+Genetic Algorithm, remanding to
+works like~\cite{zitzler_ec00}~\cite{zitzler_tec03} for a detailed
+analysis on how it could differ from other genetic approaches and what
+could be expected from similar multi-objetive strategies. 
 
+\comment{TODO controllare inglese}
+Even if an analogy between the concepts of ``era'' and ``generation'' 
+can be considered, a fixed amount of total different simulations has been
+considered for each of the tests. The purpose is to make the
+comparison fair from a algorithm performance perspective, since a
+fixed budget of simulations is directly related to the amount of time
+required to execute the exploration; on the other side, simply
+referring to number of generations/era could be misleading when a
+significative number of configuration remain unaltered in the current
+population (e.g. because of a local optimum).
 
+The set of default algorithm tuning parameters used for both the
+genetic and PS approaches to perform the simulations are shown in
+Table~\ref{tab:defaults}. Given the similarity, both in terms of
+meaning and functionality, of the parameter $K$ with the population size
+of the genetic approach, they both have been set to the same values. As discussed
+when introducing the main PS algorithm concepts, an accurate
+investigation of algorithm tuning is beyond the scope of this
+introductory work. Nevertheless, a set of preliminary tests with
+different values of $K$ have been conducted. As shown in
+Figure~\ref{fig:kimpact}, which refer to the alloca\_test application
+and a fixed amount of 500 configurations, initially increasing values
+of $K$ seem to improve both pareto (left picture) and objective
+distribution (right picture), but after some threshold the $K$ does
+not seem to provide any benefit, even returning to slightly worse
+results for the last value considered (100). Similar results have been
+reported on average for the different benchmarks considered, which are
+not included for space reasons. A complete resource with the whole 
+results and data obtained in the tests performed can be found
+at~\cite{ps_results}.
+
+\begin{table}
+	\tbl{Benchmarks\label{tab:defaults}}{
+	\begin{tabular}{ll}
+	\hline
+	\multicolumn{1}{c}{Parameter} & \multicolumn{1}{c}{Default Value} \\
+	\hline
+	GA population size & 30 \\
+	GA crossover probability & 0.8 \\
+	GA mutation probability  & 0.1 \\
+	$K$ era budget & 30 \\
+	alpha threshold & 1 \\
+	Total simulations budgets & 100-500 \\
+	\hline
+	\end{tabular}}
+\end{table}
+
+\begin{figure}
+  \figLC{kimpact}{Impact of increased K values on Pareto fronts and distribution for the alloca\_test application.}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth]{pictures/alloca_K.eps} 
+    \includegraphics[width=0.45\textwidth]{pictures/alloca_K_ALL.eps} 
+  \end{center}
+\end{figure}
 
 %------------------------------------------------------------------------------
 
@@ -285,8 +337,13 @@ configurations.
 %  \label{fig:pareto_fronts_500}
 %\end{table}
 
+
 \begin{figure}
-  \figLC{pareto_fronts_100}{Pareto fronts found by PS and GA for a fixed budget of 100 configurations. \comment{AA: nelle due figure centrali la linea di GA e' continua, mentre in tutte le altre figure e' tratteggiata. Il revisore ci chiede di uniformare. Non so come riottenere le figure. Potresti pensarci tu?}}
+  \figLC{pareto_fronts_100}{Pareto fronts found by PS and GA for a
+  fixed budget of 100 configurations. \comment{AA: nelle due figure
+  centrali la linea di GA e' continua, mentre in tutte le altre figure
+  e' tratteggiata. Il revisore ci chiede di uniformare. Non so come
+  riottenere le figure. Potresti pensarci tu?}}
   \begin{center}
     \includegraphics[width=0.30\textwidth]{pictures/alloca_100.eps}
     \includegraphics[width=0.30\textwidth]{pictures/bmm_100.eps}
@@ -298,7 +355,11 @@ configurations.
 \end{figure}
 
 \begin{figure}
-  \figLC{pareto_fronts_500}{Pareto fronts found by PS and GA for a fixed budget of 500 configurations.\comment{AA: nelle due figure centrali la linea di GA e' continua, mentre in tutte le altre figure e' tratteggiata. Il revisore ci chiede di uniformare. Non so come riottenere le figure. Potresti pensarci tu?}}
+  \figLC{pareto_fronts_500}{Pareto fronts found by PS and GA for a
+  fixed budget of 500 configurations.\comment{AA: nelle due figure
+  centrali la linea di GA e' continua, mentre in tutte le altre figure
+  e' tratteggiata. Il revisore ci chiede di uniformare. Non so come
+  riottenere le figure. Potresti pensarci tu?}}
   \begin{center}
     \includegraphics[width=0.30\textwidth]{pictures/alloca_500.eps}
     \includegraphics[width=0.30\textwidth]{pictures/bmm_500.eps}
@@ -308,6 +369,7 @@ configurations.
     \includegraphics[width=0.30\textwidth]{pictures/wave_500.eps} 
   \end{center}
 \end{figure}
+
 Low budget Pareto sets are shown in \figR{pareto_fronts_100}. With a so small number of
 configuration being investigated the two sets are often overlapping,
 being also strongly dependent upon the application being considered.
