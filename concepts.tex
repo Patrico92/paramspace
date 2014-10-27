@@ -64,20 +64,24 @@ problem of multiobjective design space exploration, is the following
 
 \begin{definition}[Parameter dependencies]
 \defL{dependency}
-A parameter $x$ is said to be dependent on another parameter $y$ if
-the optimal value of $y$, i.e. the $x_{opt}$ which optimizes the
-objectives is dependent upon the current value of $y$. 
+Given a system $S$, application $b \in \mathcal{B}$ and two parameters
+$p_x$ and $p_y$, $p_x$ is said to
+be dependent on another parameter $p_y$ if the optimal value of $p_x$,
+that is the $v_{x} \in V_x$ which optimizes the objectives of the
+evaluation function $E$, is dependent upon the current value of $p_y$. 
 \end{definition}
-Note that when this happens, we cannot make any safe assumption on the
-``meaning'' of $a$ in order to intuitively choose an appropriate
-value. 
+
+When a dependency is present any safe assumption about the ``meaning'' of
+$p_x$ in order to intuitively choose an appropriate value that
+optimizes objective could be misleading.  It should be also pointed
+out that it's often very difficult to identify dependencies using
+analytical techniques and often designers have to use different
+strategies to deal with such complexity, as seen
+in~\secR{Related-work}.
 
 The aim of a Design Space Exploration (DSE) strategy is to give a
 good approximation of the Pareto-optimal set for a system $S$ and an
 application $b$, simulating as few configurations as possible.
-
-%----------------------------------------------------------------
-
 As we will show later, at each iteration, PS calculates an approximation $\mathscr{P}_i$ of the Pareto-set that approaches it as iterations go on. The image of $\mathscr{P}_i$ is an approximation of the Pareto-front.
 The simulation effort is distributed more on the regions that provide configurations in $\mathscr{P}_i$ which introduce more \emph{innovation}, i.e. whose image in the objective space is more distant, thus ``more different'', from the previous Pareto-front approximation point.
 
