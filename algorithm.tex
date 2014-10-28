@@ -217,12 +217,13 @@ completely determine the algorithm are the configurations budget each
 era $K$ and the threshold factor $\alpha$. From a functional point of
 view, $K$ is somewhat similar to the population size of a genetic
 approach, determining which configuration should be evaluated in the
-in the subsequent step of the algorithm. However, as seen in the
+subsequent step of the algorithm. However, as seen in the
 previous subsection, the way this $K$ configurations are distributed
 across the parameters space is completely different.
 Authors of \cite{zitzler_ec00} found that
-increasing $k$ not necessarily has a considerable impact on the
-performance of the algorithm, and this holds also in our algorithm.
+increasing $K$ not necessarily has a considerable impact on the
+performance of the algorithm, and this holds also in our algorithm (see for example
+Figure~\ref{fig:kimpact} in Subsection~\ref{sec:comparison}).
 But while in the genetic approach $K$ must be sufficiently large
 in order to guarantee diversity of the Pareto set configurations, in
 our algorithm the diversity is not impacted by $K$ since, by
@@ -241,10 +242,8 @@ introductory work we are not explicitly focused on investigating how
 these parameters could be fine tuned, nevertheless
 we conducted some preliminary tests to confirm the relative stability
 of $PS$ with different choices and to select some ``reasonable'' average
-values to perform the design space exploration (see for example Figure
-TODO in Section \ref{sec:ee})
-\comment{TODO This is confirmed by results of \secR{parameter_impact}
-}). 
+values to perform the design space exploration, as it will discussed
+in~\secR{ee}.
 
 \comment{TODO: Usare notazioni coerenti con le precedenti}
 As regards the performance of the proposed approach we can estimate that the
@@ -268,9 +267,6 @@ K \le N_{tot} \le K \times E_{tot}
 where $E_{tot}$ is the nuber of eras executed and assuming that at
 least $K$ evaluation should be performed in order to obtain the first
 pareto $\mathscr{P}_0$. 
-
-
-
 
 
 \subsection{On the parallelizability of PS}
