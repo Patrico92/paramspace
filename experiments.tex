@@ -299,15 +299,15 @@ case in which all the solutions fall in a single tile:
 
 \subsection{Results}
 
-\figR{pareto_fronts_100} and \figR{pareto_fronts_500} show the resulting Pareto fronts for two
-different scenarios of 100 and 500 simulations budget. \comment{AA: per curiosita': quando facevi piu' run, PS andava ancora peggio rispetto a GA?} When possible,
-similar algorithm parameters have been adopted. In particular a
-population size of 30 has been chosen for the genetic approach (GA), corresponding to the
-same value for the $K$ of PS. \comment{AA: che valore di $alpha$ hai usato?} The number of generations (or era)
-has been chosen so that the only the given amount of simulations is
-actually performed. Thus, when accounting these simulations only unique simulations
-has been considered, removing repetitions and unfeasible
-configurations.
+\figR{pareto_fronts_100} and \figR{pareto_fronts_500} show the
+resulting Pareto fronts for two different scenarios of 100 and 500
+simulations budget. The set of algorithm parameters involved and their
+values are the one previously shown in Table~\ref{tab:defaults}. It
+should be pointed out again that the number of generations (or era)
+has been chosen so that only the given amount of simulations is
+actually performed. Thus, when accounting these simulations only
+unique simulations has been considered, removing repetitions and
+unfeasible configurations.
 
 % IEEE table style
 %\begin{table}
@@ -365,23 +365,23 @@ configurations.
   \end{center}
 \end{figure}
 
-Low budget Pareto sets are shown in \figR{pareto_fronts_100}. With a so small number of
-configuration being investigated the two sets are often overlapping,
-being also strongly dependent upon the application being considered.
-These results are obtained in about 5 eras and demonstrate that with a so limited budget PS can compete with
-genetic approach while even discovering very different Pareto fronts. 
+Low budget Pareto sets are shown in \figR{pareto_fronts_100}. Note
+that with a so small number of configuration being investigated the
+two sets are often overlapping, being also strongly dependent upon the
+application being considered.  These results are obtained in about 5
+eras and demonstrate that with a so limited budget PS can compete with
+genetic approach while even discovering very different Pareto fronts.
 Considering the extended simulation budget as depicted in
-\figR{pareto_fronts_500}, we can qualitatively observe that
-even if PS does not strictly outperforms genetic in terms of dominance, it shows in
-some cases largely Pareto in terms of extension. We can intuitively
+\figR{pareto_fronts_500}, we can qualitatively observe that even if PS
+does not strictly outperforms genetic in terms of dominance, it shows
+in some cases largely Pareto in terms of extension. We can intuitively
 relate this to the ``novelty-based'' score system, so that instead of
 focusing on getting better points inside a given range it tries to
 enlarge the range itself, resulting in less dense but more extended
 Paretos. Of course we cannot classify this different behaviour as
 ``better'' or ``worse'' as compared to the genetic one, it depends on
-various design factors such as desired results granularity, prefixed objective
-range constraints, estimated error of the models used etc.
-
+various design factors such as desired results granularity, prefixed
+objective range constraints, estimated error of the models used etc.
 
 A comparison between the variation ranges of both power dissipation
 and execution time, obtained by PS and GA for different benchmarks is
@@ -417,15 +417,25 @@ exploration for power dissipation and execution time, respectively.
 dispersion errors for different benchmarks for PS and GA
 exploration. As it can be observed, GA shows a tendency in
 discovering more uniformly dispersed points (i.e. higher values in the
-chart). These results,
-together with the variation ranges of \figR{dispersion}(a) and
+chart). These results, together with the variation ranges of \figR{dispersion}(a) and
 (b) confirm the of density vs extension trade-offs
 when comparing PS and GA approaches. Again, it
 is worth pointing out how a definitive claim about the superiority of
 the PS behaviour is strictly dependent on the design 
 requirements and constraints, e.g. whether we need wide or dense
-results. Nevertheless, the proposed algorithm introduces a new
-perspective on the allocation of a simulations budget, paving the way for
-the development of further strategies for addressing the problem of
-multi-objective hardware/software design space exploration.
+results.  
+
+\comments{Da lasciare, da spostare ? da mostrare in modo semplice ?
+non so}
+Another interesting feature of PS is that the final output of its
+execution is not only the set of pareto optimal configurations, but also a set
+of more or less innovation regions of the parameter space, obtained as
+a result of the merge/splitting operators described
+in~\secR{algorithm}.
+
+%Nevertheless, the proposed algorithm introduces a new
+%perspective on the allocation of a simulations budget, paving the way for
+%the development of further strategies for addressing the problem of
+%multi-objective hardware/software design space exploration.
+
 
