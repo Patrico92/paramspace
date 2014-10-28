@@ -145,35 +145,34 @@ data/address traffic on the interconnection buses.
 Together with the configuration of the system, the statistics produced
 by simulation contain all the information needed to apply the area,
 performance and power consumption estimation model implemented in the
-\emph{Estimator} component of \ee{}. The results obtained by these
+\emph{Estimator} component. These are high-level abstraction models
+that allow to quickly get an estimation while still providing a
+discrete level of accuracy (for a detailed description of the models
+see also~\cite{palpatti_estimedia03}).
+
+Finally, the results obtained by these
 models are the input for the \emph{Explorer} component. This component
 executes an optimization algorithm, the aim of which is to modify the
 parameters of the configuration so as to minimize the three cost
 functions (area, execution time and energy/power consumption).
 
-\subsection{Estimation Models}
-Several models have been implemented in the \ee{} platform in order to
-estimate the power/energy/performance indexes of each simulated system
-configuration.
-
-The average power consumed by the processor was estimated using an
-adaptation of the Cai-Lim model~\cite{cai_micro99} to the VLIW
-processor. As regards the cache subsystem, a transition-based model
-was used, according to the equations described
-in~\cite{kamble_islped97}.  The main memory energy is based on the
-model in~\cite{shiue_dac99} and assumes a per main memory access
-energy of $4.95 \times 10^{-9} J$ based on the data for the Cypress
-CY7C1326-133 memory chip.  The contribution towards power consumption
-made by the interconnection system was calculated by counting the
-number of transitions on the bus lines and applying the formula
-$P_{bus} = 1/2 V_{dd}^2 \alpha f C_l$ where $V_{dd}$ is the supply
-voltage, $\alpha$ is the switching activity, $f$ is the clock
-frequency and $C_l$ is the capacity of a bus line. For the on-chip
-buses we also considered the coupling capacitances between bus lines,
-using the model in~\cite{lekatsas_dac01}. For a detailed description
-of the models used and their adaption to the case of a VLIW based
-system see~\cite{palpatti_estimedia03}.
-
+%\subsection{Estimation Models}
+%
+%The average power consumed by the processor was estimated using an
+%adaptation of the Cai-Lim model~\cite{cai_micro99} to the VLIW
+%processor. As regards the cache subsystem, a transition-based model
+%was used, according to the equations described
+%in~\cite{kamble_islped97}.  The main memory energy is based on the
+%model in~\cite{shiue_dac99} and assumes a per main memory access
+%energy of $4.95 \times 10^{-9} J$ based on the data for the Cypress
+%CY7C1326-133 memory chip.  The contribution towards power consumption
+%made by the interconnection system was calculated by counting the
+%number of transitions on the bus lines and applying the formula
+%$P_{bus} = 1/2 V_{dd}^2 \alpha f C_l$ where $V_{dd}$ is the supply
+%voltage, $\alpha$ is the switching activity, $f$ is the clock
+%frequency and $C_l$ is the capacity of a bus line. For the on-chip
+%buses we also considered the coupling capacitances between bus lines,
+%using the model in~\cite{lekatsas_dac01}. 
 
 \subsection{Comparison Setup}
 \secL{comparison}
@@ -292,11 +291,11 @@ case in which all the solutions fall in a single tile:
 \[ E_{max} = \frac{(M_x M_y - 1) \overline{N} + |\overline{N} -
     |O|| }{M_x M_y}. \] 
 
-\subsection{Impact of the algorithm parameters}
-\secL{parameter_impact}
-\comment{IMPACT OF $K$. Si potrebbero presentare un plot in cui il numero totale di simulazioni e' fissato e vengono eseguiti diversi run dell'algoritmo con diversi valori di K. Per ogni run, il pareto set e' rappresentato nel plot, sottoforma di una curva diversa. Mi aspetterei che tutte le curve siano molto simili. Per ciascun run, il valore di variation range e average absolute dispersion error sono riportati. Mi aspetto valori simili, il che confermerebbe che la diversity nel nostro algoritmo non dipende da $K$. Ne vale la pena rifare questi run? Ci vuole troppo tempo?} 
-
-\comment{Si potrebbe mettere un plot con nelle ascisse l'era e nelle ordinate il numero di split avvenuti in quell'era. Si potrebbero disegnare diverse curve, una per ogni valore di alpha, per far vedere che il numero di split e' piu' alto q. Recommended values are close to 1, as results in \secR{ee} confirm. Using different values, if sufficiently close to 1, does not have a considerable impact on the resulting Pareto front approximation. Ne vale la pena rifare questi run? Ci vuole troppo tempo?}
+%\subsection{Impact of the algorithm parameters}
+%\secL{parameter_impact}
+%\comment{IMPACT OF $K$. Si potrebbero presentare un plot in cui il numero totale di simulazioni e' fissato e vengono eseguiti diversi run dell'algoritmo con diversi valori di K. Per ogni run, il pareto set e' rappresentato nel plot, sottoforma di una curva diversa. Mi aspetterei che tutte le curve siano molto simili. Per ciascun run, il valore di variation range e average absolute dispersion error sono riportati. Mi aspetto valori simili, il che confermerebbe che la diversity nel nostro algoritmo non dipende da $K$. Ne vale la pena rifare questi run? Ci vuole troppo tempo?} 
+%
+%\comment{Si potrebbe mettere un plot con nelle ascisse l'era e nelle ordinate il numero di split avvenuti in quell'era. Si potrebbero disegnare diverse curve, una per ogni valore di alpha, per far vedere che il numero di split e' piu' alto q. Recommended values are close to 1, as results in \secR{ee} confirm. Using different values, if sufficiently close to 1, does not have a considerable impact on the resulting Pareto front approximation. Ne vale la pena rifare questi run? Ci vuole troppo tempo?}
 
 \subsection{Results}
 
@@ -342,32 +341,26 @@ configurations.
 
 \begin{figure}
   \figLC{pareto_fronts_100}{Pareto fronts found by PS and GA for a
-  fixed budget of 100 configurations. \comment{AA: nelle due figure
-  centrali la linea di GA e' continua, mentre in tutte le altre figure
-  e' tratteggiata. Il revisore ci chiede di uniformare. Non so come
-  riottenere le figure. Potresti pensarci tu?}}
+  fixed budget of 100 configurations.}
   \begin{center}
     \includegraphics[width=0.30\textwidth]{pictures/alloca_100.eps}
-    \includegraphics[width=0.30\textwidth]{pictures/bmm_100.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/bmm_100_bis.eps}
     \includegraphics[width=0.30\textwidth]{pictures/fir_int100.eps}
     \includegraphics[width=0.30\textwidth]{pictures/mm_100.eps}
-    \includegraphics[width=0.30\textwidth]{pictures/sha_100.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/sha_100_bis.eps}
     \includegraphics[width=0.30\textwidth]{pictures/wave_100.eps} 
   \end{center}
 \end{figure}
 
 \begin{figure}
   \figLC{pareto_fronts_500}{Pareto fronts found by PS and GA for a
-  fixed budget of 500 configurations.\comment{AA: nelle due figure
-  centrali la linea di GA e' continua, mentre in tutte le altre figure
-  e' tratteggiata. Il revisore ci chiede di uniformare. Non so come
-  riottenere le figure. Potresti pensarci tu?}}
+  fixed budget of 500 configurations.}
   \begin{center}
     \includegraphics[width=0.30\textwidth]{pictures/alloca_500.eps}
-    \includegraphics[width=0.30\textwidth]{pictures/bmm_500.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/bmm_500_bis.eps}
     \includegraphics[width=0.30\textwidth]{pictures/fir_int500.eps}
     \includegraphics[width=0.30\textwidth]{pictures/mm_500.eps}
-    \includegraphics[width=0.30\textwidth]{pictures/sha_500.eps}
+    \includegraphics[width=0.30\textwidth]{pictures/sha_500_bis.eps}
     \includegraphics[width=0.30\textwidth]{pictures/wave_500.eps} 
   \end{center}
 \end{figure}
