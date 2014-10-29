@@ -62,7 +62,7 @@ The configurations belonging to the Pareto-optimal set are called \emph{Pareto-o
 Another fundamental concept, which adds further complexity to the
 problem of multiobjective design space exploration, is the following
 
-\begin{definition}[Parameter dependencies]
+\begin{definition}[Parameter dependency]
 \defL{dependency}
 Given a system $S$, application $b \in \mathcal{B}$ and two parameters
 $p_x$ and $p_y$, $p_x$ is said to
@@ -71,13 +71,17 @@ that is the $v_{x} \in V_x$ which optimizes the objectives of the
 evaluation function $E$, is dependent upon the current value of $p_y$. 
 \end{definition}
 
-When a dependency is present any safe assumption about the ``meaning'' of
-$p_x$ in order to intuitively choose an appropriate value that
-optimizes objective could be misleading.  It should be also pointed
+When a dependency is present between parameters, it could be
+misleading to use assumption about the ``meaning'' of
+parameters in order to intuitively choose an appropriate value that
+optimizes objectives.  It should be also pointed
 out that it's often very difficult to identify dependencies using
 analytical techniques and often designers have to use different
 strategies to deal with such complexity, as seen
-in~\secR{Related-work}.
+in~\secR{Related-work}. In this work we will often refer to
+hardware/sofware dependencies, denoting dependencies occourring
+between parameters belonging to the hardware and software categories,
+as defined in~\secR{designspace}.
 
 The aim of a Design Space Exploration (DSE) strategy is to give a
 good approximation of the Pareto-optimal set for a system $S$ and an
