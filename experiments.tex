@@ -1,6 +1,13 @@
 \section{A Case Study: VLIW Hardware/Software Design Space}
 \secL{ee}
-Although PS has been formally described as a general exploration algorithm, the goal of this work is giving a method applicable to the embedded system design. For this reason, we evaluate PS in this context. To this aim, we use a parameterized Very Long Instruction
+Although PS has been formally introduced and described as a general
+multi-objective optimization algorithm, in this work we will
+explicitly refer to the more restricted (but still very large)
+embedded system design scenario,  since its properties
+are the one that suggested to the authors the concepts of pareto-based
+innovation and region scoring system.
+
+In particular, we will use a parameterized Very Long Instruction
 Word (VLIW) architecture~\cite{kathail_tr00} as testbed. The philosophy
 behind a VLIW system makes this a natural choice for several reasons:
 \begin{itemize}
@@ -8,7 +15,7 @@ behind a VLIW system makes this a natural choice for several reasons:
 to trade between power, energy and performances objectives, resulting
 in extended Pareto sets which are an ideal ground for our testing
 purposes focused on parameter-space representation
-\item \emph{Compiler awareness}: code scheduling for the execution of
+\item \emph{Software Compiler awareness}: code scheduling for the execution of
 applications is statically obtained by the compiler which
 performs code transformations ``being aware'' of the underlying hardware
 configuration.  This tight hardware/software dependence makes the
@@ -26,47 +33,21 @@ Conceptually, system parameters can be classified in three main categories:
 \emph{processor}, \emph{memory sub-system} and \emph{compiler}. The
 first two categories are directly related to the physical
 implementation of the system, so parameters of those
-classes are usually referred ``hardware parameters''. On the other
+classes are usually referred as ``hardware parameters''. On the other
 side, all the parameters affecting the behaviour of the compiler
 are referred as ``software parameters'', being directly involved in
-the process of generating the application executables running on the
+the process of generating the application executable running on the
 underlying hardware.
 
-Processor hardware parameters are directly related to the VLIW core and includes the size
-of the register files and the number of functional
-units of each type. In particular, five different types of register
-files are supported:
-GPR (32-bit registers for integers), FPR (64-bit registers for
-floating point values) PR (1-bit registers used to store the Boolean
-values of predicated instructions), BTR (64-bit registers containing
-information about possible future branches) and CR (32-bit control
-registers containing information about the internal state of the
-processor). The functional units involved are: \emph{Integer units},
-\emph{floating point units}, \emph{memory units} (associated with
-load/store operations) and \emph{branch units} (associated with branch
-operations). With respect to the memory sub-system hardware, the parameters
-include \emph{size}, \emph{associativity} and
-\emph{block size} for each of the three caches: First-level data cache
-(L1D), first-level instruction cache (L1I) and second-level unified
-cache (L2U).
+Processor hardware parameters are directly related to the VLIW core
+and includes the size of the register files and the number of
+functional units of each type. On the software side, a set of the most
+impacting code compilation parameters has been selected.
+Table~\ref{tab:param} show the complete set of parameters included in
+the design space and their possible values. The total size of design
+space, which grows with the product of parameter cardinalities is
+about $1.33 \times 10^{14}$.
 
-On the software side, a set of the most impacting code
-compilation parameters has been selected and included in the
-configuration space, in particular:
-\begin{itemize}
-\item \emph{tcc\_region}: Specifies the scope of action of the compiler and the type
-of code transformation involved (basic block, super block and hyper
-block) 
-\item \emph {max\_unroll\_allowed}: The number of unroll iterations allowed
-\item \emph{regroup\_only}: Avoids inlining 
-\item \emph{do\_classic\_opti}: A set of classical optimization, not VLIW related,
-such as common expression removal and loop unrolling
-\item \emph{do\_prepass\_scalar\_scheduling}: Performs a schedule before
-forming regions 
-\item \emph{do\_postpass\_scalar\_scheduling}: Performs a schedule after the region formation 
-\item \emph{do\_modulo\_scheduling}: Modular scheduling of loop code
-\item \emph{memvr\_profiled}: Performs a memory-dependencies profiling 
-\end{itemize}
 
 As regards the class of benchmark being considered, a set applications representative of some common
 frequently running code kernels has been selected. Table~\ref{tab:bench} shows the set of applications
@@ -90,6 +71,46 @@ along with a brief description.
 %	\end{tabular}
 %\end{table}
 
+
+\begin{table}
+	\tbl{Design Space\label{tab:param}}{
+	\begin{tabular}{lll}
+	\hline
+	\multicolumn{1}{c}{Parameter} & \multicolumn{1}{c}{Values} & \multicolumn{1}{c}{Type}\\
+	\hline
+	General Purpose Registers & 16, 32, 64, 128 & HW \\
+	Floating Point Registers & 16, 32, 64, 128 & HW \\
+	Predicate Instructions registers & 32, 64, 128 & HW \\
+	Branch Target Registers & 16, 32, 64 & HW \\
+	Control Registers & 32, 64, 128 & HW \\
+	\hline
+	Integer Functional Units & 1, 2, 3, 4, 5, 6 & HW \\
+	Floating Point Units & 1, 2, 3, 4, 5, 6 & HW\\
+	Memory Units & 1, 2, 3, 4  & HW \\
+	Branch Units & 1, 2, 3, 4  & HW \\
+	\hline
+	L1 Data Cache Size (KB) & 1, 2, 4, 8, 16, 32, 64, 128 & HW \\
+	L1 Data Cache Blocksize & 32, 68, 128 & HW \\
+	L1 Data Cache Associativity (KB) & 1, 2, 4 & HW \\
+	L1 Instruction Cache Size (KB) & 1, 2, 4, 8, 16, 32, 64, 128 & HW \\
+	L1 Instruction Cache Blocksize & 32, 68, 128 & HW \\
+	L1 Instruction Cache Associativity (KB) & 1, 2, 4 & HW \\
+	L2 Unified Cache Size (KB) & 32, 64, 128, 256, 512  & HW\\
+	L2 Unified Cache Blocksize & 32, 68, 128 & HW \\
+	L2 Unified Cache Associativity (KB) & 2, 4, 8 & HW \\
+	\hline
+        tcc\_region: Scope of action of the compiler & basic block, super block, hyper block & SW \\
+        max\_unroll\_allowed: unroll iterations allowed & none, medium, high & SW \\
+        regroup\_only: Avoids inlining & yes, no & SW \\
+        do\_classic\_opti: Classical optimizations & yes, no & SW \\
+        do\_prepass\_scalar\_scheduling: Performs a prepass schedule & yes, no & SW \\
+        do\_postpass\_scalar\_scheduling: Performs a schedule after & yes, no & SW \\
+	do\_modulo\_scheduling: Modular scheduling of loop code & yes, no & SW \\
+        memvr\_profiled: Memory-dependencies profiling & yes, no & SW \\
+	\hline
+	\end{tabular}}
+\end{table}
+
 % ACM table style
 \begin{table}
 	\tbl{Benchmarks\label{tab:bench}}{
@@ -106,7 +127,6 @@ along with a brief description.
 	\hline
 	\end{tabular}}
 \end{table}
-
 %------------------------------------------------------------------------------
 \subsection{Configuration Evaluation Flow}
 
@@ -197,7 +217,6 @@ works like~\cite{zitzler_ec00}~\cite{zitzler_tec03} for a detailed
 analysis on how it could differ from other genetic approaches and what
 could be expected from similar multi-objetive strategies. 
 
-\comment{TODO controllare inglese}
 Even if an analogy between the concepts of ``era'' and ``generation'' 
 can be considered, a fixed amount of total different simulations has been
 considered for each of the tests. The purpose is to make the
@@ -216,16 +235,16 @@ of the genetic approach, they both have been set to the same values. As discusse
 when introducing the main PS algorithm concepts, an accurate
 investigation of algorithm tuning is beyond the scope of this
 introductory work. Nevertheless, a set of preliminary tests with
-different values of $K$ have been conducted. As shown in
-Figure~\ref{fig:kimpact}, which refer to the alloca\_test application
-and a fixed amount of 500 configurations, initially increasing values
-of $K$ seem to improve both pareto (left picture) and objective
-distribution (right picture), but after some threshold the $K$ does
-not seem to provide any benefit, returning to slightly worse
-results for the last value considered (100). Similar trends have been
-found for other benchmarks in the set considered (which are
-not included for space reasons), showing a value of $K$ around 30 as
-reasonable sweet spot for the objectives. A complete resource with the whole 
+different values of $K$ have been conducted, similar the one shown in
+Figure~\ref{fig:kimpact} which refer to the alloca\_test application
+and a fixed amount of 500 configurations. We found that initially increasing values
+of $K$ seem to improve both pareto (as in the picture on the left) and objective
+distribution (right picture), but after some threshold value the $K$ does
+not seem to provide any benefit, even returning to slightly worse
+results for the last value of $K$ considered (100). Similar trends have been
+found for the other benchmarks (not included for space reasons),
+showing on average a value of $K$ around 30 as
+reasonable sweet spot for the objectives. A complete online resource with the whole 
 results and data obtained in the tests performed can be found
 at~\cite{ps_results}.
 
@@ -256,6 +275,12 @@ at~\cite{ps_results}.
 %------------------------------------------------------------------------------
 
 \subsection{Evaluation metrics}
+Qualitative evaluation of paretos is probably the simplest way for
+having a quick glance on algorithm behviour and results. However, in
+tests involving a comparison between different exploration strategies
+that approach could not help in capturing the whole picture, e.g. missing
+some important properties related to the distribution of the solutions
+found.
 In order to evaluate the Paretos from a quantitative point-of-view we
 will consider two metrics, namely, the \emph{variation range} and the
 \emph{average normalised absolute dispersion error}. Both of them permit to quantify the extent of the Pareto front that is an important factor to consider when evaluating the quality of a Pareto front. Indeed, authors in \cite{zitzler_ec00,weise2012evolutionary} observe that an exploration algorithm should preferably provide Pareto fronts whose objective function range is large. In other words, following the terminology of~\cite{weise2012evolutionary}, a \emph{uniform convergence} should be guaranteed.
