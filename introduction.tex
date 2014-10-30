@@ -34,7 +34,7 @@ accurate low level simulation (e.g. register transfer level).
 %design process, in a more thorough way.
 
 
-In this work we present PS, a multiobjective design exploration
+In this work we present PS, a multi-objective design exploration
 algorithm that introduces the concept of \emph{interesting} and
 \emph{uninteresting regions} of the configuration space.  The main
 idea can be simplified as follows: at each iteration of the algorithm,
@@ -69,16 +69,16 @@ Finally in \secR{ee} we show a case
 study involving the exploration of the hardware/software parameters of
 a Very Long Instruction Word (VLIW) architecture, performing a
 qualitative and quantitative comparison of PS against the state-of-art
-of multiobjective genetic based approaches.
+of multi-objective genetic based approaches.
 
 
 \section{Related work and Our Contribution}
 \secL{Related-work}
 Many different design space exploration algorithms have been proposed
-in literature.  What makes the exploration of embedded systems so
-complex is not only the huge size of the parameter spaces involved,
+in literature.  What makes so complex the exploration of embedded
+systems is not only the huge size of parameter spaces involved,
 but also the tight interaction between parameters in relation to their
-effect on the objective to be optimised, which take the form of
+effect on the objective to be optimized, which take the form of
 \emph{parameter dependencies} (see~\defR{dependency}). The 
 motivations of an exploration algorithm and how it deals with such
 complexity are often rather heuristic, have some form of arbitrariness and,
@@ -115,15 +115,15 @@ authors propose to deal with the software parameters separately,
 statistically testing their average effect on objectives before the
 actual exploration is performed. Also in~\cite{merging} authors
 analyze the impact of including compilation parameters into the design
-space space exploration. The results of both works confirm the
-important role that hardware/software dependencies can play in a
+space exploration. The results of both works confirm the
+important role that hardware/software dependencies play in a
 multi-objective exploration and thus justify the choice of explicitly
 including the two class of parameters in the design space without
 making any distinction between them from the algorithm's perspective.
-In fact, one of the purposes of the proposed PS algorithm is avoiding
+In fact, one of the purposes of the proposed PS algorithm is to avoid
 the need of any a priori knowledge about those dependencies, letting
-the algorithm itself discover regions where interaction between
-parameters generates new pareto-optimal points (see the PS scoring
+the algorithm itself to discover regions where interaction among
+parameters generates new Pareto-optimal points (see the PS scoring
 system described in the next sections).
 
 Abraham, Rau and Schreiber proposed in \cite{santosh_hptr00} to
@@ -199,9 +199,9 @@ region is. On the contrary, we also consider the \emph{innovation}, as
 already anticipated in the introduction.
 
 The most well documented and widespread class of algorithms adopted in the
-design space exploration of embedded systems is probably the one of Evolutionary
-Multiobjective Optimization Algorithms~\cite{coello_easmop}. For this
-reason this is the class of algorithms that we will use for the
+design space exploration of embedded systems is probably the Evolutionary
+Multi-objective Optimization Algorithms~\cite{coello_easmop}. For this
+reason, this is the class of algorithms that we will use for the
 experiments discussed in~\secR{ee}.
 Evolutionary approaches have many advantages: they provide good accuracy, they are
 problem-independent and do not require any a-priori knowledge of the
@@ -211,8 +211,8 @@ parameter space), and, at the same time, not too scattered as it is
 guided by the performances of the already evaluated configurations.
 Different variants of these algorithms have been proposed in
 literature, including mixed approaches as in~\cite{Ascia2011382},
-where authors specifically focuse on increasing the performance of a
-evolutionaly exploration strategy, proposing a fuzzy based technique
+where authors specifically focus on increasing the performance of an
+evolutionary exploration strategy, proposing a fuzzy-based technique
 to avoid the actual simulation of a certain number of configurations.
 In particular, in this work we will compare the proposed approach against a
 well known SPEA2 multi-objective genetic algorithm~\cite{knowles_techrep06}

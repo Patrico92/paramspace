@@ -4,7 +4,7 @@ Although PS has been formally introduced and described as a general
 multi-objective optimization algorithm, in this work we will
 explicitly refer to the more restricted (but still very large)
 embedded system design scenario,  since its properties
-are the one that suggested to the authors the concepts of pareto-based
+are the one that suggested to the authors the concepts of Pareto-based
 innovation and region scoring system.
 
 In particular, we will use a parameterized Very Long Instruction
@@ -34,7 +34,7 @@ Conceptually, system parameters can be classified in three main categories:
 first two categories are directly related to the physical
 implementation of the system, so parameters of those
 classes are usually referred as ``hardware parameters''. On the other
-side, all the parameters affecting the behaviour of the compiler
+side, all the parameters affecting the behavior of the compiler
 are referred as ``software parameters'', being directly involved in
 the process of generating the application executable running on the
 underlying hardware.
@@ -208,24 +208,25 @@ explicitly excluded from this analysis.  We also exclude other
 approaches (e.g.  dependency based~\cite{givargis_tvlsi02}) that make
 use of some a-priori knowledge about the role and meaning of each
 parameter, since our aim is evaluate the capacity of focusing on
-interesting parameter regions without any external judgement or help
+interesting parameter regions without any external judgment or help
 based on heuristics.  In particular in this work when referring to
 genetic approach (or GA) we will denote the widely spread 
 \emph{SPEA}~\cite{zitzler_eurogen01} variant of the Multi-objective
 Genetic Algorithm, remanding to
 works like~\cite{zitzler_ec00}~\cite{zitzler_tec03} for a detailed
 analysis on how it could differ from other genetic approaches and what
-could be expected from similar multi-objetive strategies. 
+could be expected from similar multi-objective strategies. 
 
-Even if an analogy between the concepts of ``era'' and ``generation'' 
-can be considered, a fixed amount of total different simulations has been
-considered for each of the tests. The purpose is to make the
-comparison fair from a algorithm performance perspective, since a
-fixed budget of simulations is directly related to the amount of time
-required to execute the exploration; on the other side, just simply
-referring to a given number of generations/era could be misleading when a
-significative number of configuration remain unaltered in the current
-population (e.g. because of a local optimum).
+Although an analogy between the concepts of ``era'' and ``generation''
+can be considered, comparisons have been carried out using as
+reference a fixed amount of total unique simulations, instead of a given
+number of eras/generations . The purpose is to make the comparison
+fair and accurate from the algorithm performance perspective, since a fixed budget of
+different simulations is more directly related to the actual amount of time
+required to execute the exploration; on the other side, simply
+referring to a given number of generations/eras could be inaccurate
+when a significative number of configuration remain unaltered in the
+current population (e.g. because of a local optimum).
 
 The set of default algorithm tuning parameters used for both the
 genetic and PS approaches to perform the simulations are shown in
@@ -235,21 +236,21 @@ of the genetic approach, they both have been set to the same values. As discusse
 when introducing the main PS algorithm concepts, an accurate
 investigation of algorithm tuning is beyond the scope of this
 introductory work. Nevertheless, a set of preliminary tests with
-different values of $K$ have been conducted, similar the one shown in
+different values of $K$ have been conducted, similar to the one shown in
 Figure~\ref{fig:kimpact} which refer to the alloca\_test application
 and a fixed amount of 500 configurations. We found that initially increasing values
-of $K$ seem to improve both pareto (as in the picture on the left) and objective
-distribution (right picture), but after some threshold value the $K$ does
+of $K$ seem to improve both Pareto (as in the picture on the left) and objective
+distribution (on the right), but after some threshold value the $K$ does
 not seem to provide any benefit, even returning to slightly worse
 results for the last value of $K$ considered (100). Similar trends have been
 found for the other benchmarks (not included for space reasons),
 showing on average a value of $K$ around 30 as
-reasonable sweet spot for the objectives. A complete online resource with the whole 
-results and data obtained in the tests performed can be found
+reasonable sweet spot for the objectives. A complete resource with the
+whole set of results and data obtained in the tests performed can be found online
 at~\cite{ps_results}.
 
 \begin{table}
-	\tbl{Benchmarks\label{tab:defaults}}{
+	\tbl{Algorithm Parameters\label{tab:defaults}}{
 	\begin{tabular}{ll}
 	\hline
 	\multicolumn{1}{c}{Parameter} & \multicolumn{1}{c}{Default Value} \\
@@ -275,22 +276,31 @@ at~\cite{ps_results}.
 %------------------------------------------------------------------------------
 
 \subsection{Evaluation metrics}
-Qualitative evaluation of paretos is probably the simplest way for
-having a quick glance on algorithm behviour and results. However, in
+\secL{metrics}
+A qualitative evaluation of Paretos is probably the simplest way for
+having a quick glance on algorithm behavior and results. However, in
 tests involving a comparison between different exploration strategies
-that approach could not help in capturing the whole picture, e.g. missing
+this approach could not help in capturing the whole picture, missing
 some important properties related to the distribution of the solutions
 found.
 In order to evaluate the Paretos from a quantitative point-of-view we
 will consider two metrics, namely, the \emph{variation range} and the
-\emph{average normalised absolute dispersion error}. Both of them permit to quantify the extent of the Pareto front that is an important factor to consider when evaluating the quality of a Pareto front. Indeed, authors in \cite{zitzler_ec00,weise2012evolutionary} observe that an exploration algorithm should preferably provide Pareto fronts whose objective function range is large. In other words, following the terminology of~\cite{weise2012evolutionary}, a \emph{uniform convergence} should be guaranteed.
+\emph{average normalized absolute dispersion error}. Both of them permit to quantify the extent of the Pareto front that is an important factor to consider when evaluating the quality of a Pareto front. Indeed, authors in \cite{zitzler_ec00,weise2012evolutionary} observe that an exploration algorithm should preferably provide Pareto fronts whose objective function range is large. In other words, following the terminology of~\cite{weise2012evolutionary}, a \emph{uniform convergence} should be guaranteed.
 Pareto fronts with large objective function ranges permit to investigate in a broader way the potentials of the designed device. This is important, in general, since if only a narrow portion of the Pareto front is provided due to non-uniform convergence, the decision maker may neglect some important options~\cite{weise2012evolutionary}. Having a wide Pareto front becomes essential, in particular, when designing a device that may be required to satisfy different constraints. For example, the decision maker may want to design two different multi-purpose processors. The first design may adapt to situations in which the processor is used for real time elaboration (thus requiring low execution time) and is attached to the powerline (thus not having stringent power dissipation constraints). The second design, on the contrary, may fit situations in which the energy is provided by a battery (stringent power constraints) but only background computations are performed (long execution time is tolerable). These two processors may be successfully designed maintaining the same architecture, using different values for the design parameters. A wide Pareto front helps in achieving this goal.
 
-For a given objective, the \emph{variation range} represents the ratio between the maximum and the minimum value observed for that objective.
-\comment{AA: Per rappresentare l'extent del Pereto front, forse sarebbe meglio evitare di usare il variation range, per come l'hai definito tu, e usare la funzione M3 di \cite{zitzler_ec00}, Sec.5 ``Metrics of performance'', che mi pare rappresenti la stessa cosa, concettualmente. Questo ci permette di essere meno attaccabili (del tipo ``non te la prendere con noi, prenditela con Zitzler (che e' citato 3064 volte!) se non capisci l'utilita' della metrica'').}
+For a given objective, the \emph{variation range} represents the ratio
+between the maximum and the minimum value observed for that objective.
 
+\comment{AA: Per rappresentare l'extent del Pereto front, forse
+sarebbe meglio evitare di usare il variation range, per come l'hai
+definito tu, e usare la funzione M3 di \cite{zitzler_ec00}, Sec.5
+``Metrics of performance'', che mi pare rappresenti la stessa cosa,
+concettualmente. Questo ci permette di essere meno attaccabili (del
+tipo ``non te la prendere con noi, prenditela con Zitzler (che e'
+citato 3064 volte!) se non capisci l'utilita' della metrica'').}
 
-The average \emph{normalised absolute dispersion error} measures
+Another metric is the average \emph{normalized absolute dispersion
+error}: it measures
 the average absolute difference between the distribution of points in
 the objective space and an ideal distribution in which the points are
 uniformly distributed over the objective space. 
@@ -309,8 +319,8 @@ computed as the ratio between the cardinality of $O$ and the number of
 tiles. Thus,
 \[ E_i = |N_i - \overline{N}|, \]
 where $\overline{N} = |O| / (M_x M_y)$. The average
-normalised absolute dispersion error ($ANADE$) is the average of $E_i$
-normalised to the maximum absolute error $E_{max}$:
+normalized absolute dispersion error ($ANADE$) is the average of $E_i$
+normalized to the maximum absolute error $E_{max}$:
 \[ ANADE = \frac{\sum_{i=1}^{M_xM_y} E_i/(M_xM_y)}{E_{max}}, \]
 where $E_{max}$ can be computed as the average absolute error in the worst
 case in which all the solutions fall in a single tile:
@@ -325,14 +335,21 @@ case in which all the solutions fall in a single tile:
 
 \subsection{Results}
 
+In this Section we first analyze the results of GA and PS approaches from a
+qualitative perspective, showing how Pareto curves compare when
+plotted on the bidimensional space of power and performance
+objectives. Next, we perform a quantitative
+analysis of the results in order to more accurately figure out in which
+features/properties the two approaches can differentiate.
+
 \figR{pareto_fronts_100} and \figR{pareto_fronts_500} show the
-resulting Pareto fronts for two different scenarios of 100 and 500
-simulations budget. The set of algorithm parameters involved and their
+resulting Pareto fronts for two scenarios of 100 and 500
+simulations budget respectively. The set of algorithm parameters involved and their
 values are the one previously shown in Table~\ref{tab:defaults}. It
-should be pointed out again that the number of generations (or era)
-has been chosen so that only the given amount of simulations is
+should be pointed out again that the number of generations (or eras)
+has been chosen so that only the given amount of different simulations is
 actually performed. Thus, when accounting these simulations only
-unique simulations has been considered, removing repetitions and
+unique simulations have been considered, removing repetitions and
 unfeasible configurations.
 
 % IEEE table style
@@ -404,17 +421,22 @@ in some cases largely Pareto in terms of extension. We can intuitively
 relate this to the ``novelty-based'' score system, so that instead of
 focusing on getting better points inside a given range it tries to
 enlarge the range itself, resulting in less dense but more extended
-Paretos. Of course we cannot classify this different behaviour as
-``better'' or ``worse'' as compared to the genetic one, it depends on
-various design factors such as desired results granularity, prefixed
-objective range constraints, estimated error of the models used etc.
+Paretos. Of course we cannot classify this different behavior as
+being strictly better or worse when compared to the genetic one: other
+design factors should be evaluated on a case-by-case basis, e.g. the
+desired granularity of the results, objective range constraints or
+estimated error of the models used.
 
-A comparison between the variation ranges of both power dissipation
-and execution time, obtained by PS and GA for different benchmarks is
-shown in \figR{dispersion}(a) and (b) respectively.  As it can
-be observed, the PS exploration provides solutions which fall on a
-range that is, on average, wider than the one provided by a GA
-exploration for power dissipation and execution time, respectively.
+To better evaluate results from a different perspective, we will
+adopted the two quantitative metrics of variation range and average absolute
+dispersion error, which have been described and motivated
+in~\secR{metrics}. In particular, a comparison between the variation
+ranges of both power dissipation and execution time, obtained by PS
+and GA for different benchmarks is shown in \figR{dispersion}(a) and
+(b) respectively.  As it can be observed, the PS exploration provides
+solutions which fall on a range that is, on average, wider than the
+one provided by a GA exploration for power dissipation and execution
+time, respectively.
 %\begin{table}
 %  \centering
 %  \begin{tabular}{c}
@@ -431,7 +453,9 @@ exploration for power dissipation and execution time, respectively.
 %\end{table}
 
 \begin{figure}
-  \figLC{dispersion}{(a)(b) Variation range obtained by PS and GA for different benchmarks and average dispersion absolute dispersion (c). \comment{AA: manca il titolo nella figura (c)} }
+  \figLC{dispersion}{(a)(b) Variation range obtained by PS and GA for
+  different benchmarks and average dispersion absolute dispersion (c).
+  \comment{AA: manca il titolo nella figura (c)} }
   \begin{center}
     \subfigure[]{\includegraphics[width=0.7\textwidth]{pictures/variation_power.eps} }
     \subfigure[]{\includegraphics[width=0.7\textwidth]{pictures/variation_etime.eps} }
@@ -439,24 +463,25 @@ exploration for power dissipation and execution time, respectively.
   \end{center}
 \end{figure}
 
-\figR{dispersion}(c) shows the average normalised absolute
-dispersion errors for different benchmarks for PS and GA
-exploration. As it can be observed, GA shows a tendency in
-discovering more uniformly dispersed points (i.e. higher values in the
-chart). These results, together with the variation ranges of \figR{dispersion}(a) and
-(b) confirm the of density vs extension trade-offs
-when comparing PS and GA approaches. Again, it
-is worth pointing out how a definitive claim about the superiority of
-the PS behaviour is strictly dependent on the design 
-requirements and constraints, e.g. whether we need wide or dense
-results.  
-
+\figR{dispersion}(c) shows the average normalized absolute dispersion
+errors for different benchmarks for PS and GA exploration.  As it can
+be observed, GA shows a tendency in discovering more uniformly
+dispersed points (i.e. higher values in the chart). These results,
+together with the variation ranges of \figR{dispersion}(a) and (b)
+confirm the of density vs extension trade-offs when comparing PS and
+GA approaches. Again, it is worth pointing out how a definitive claim
+about which algorithm shows better results, being that strictly
+dependent on the design requirements and constraints, e.g.  whether we
+need wide or dense results.
 \comment{Da lasciare, da spostare ? da mostrare in modo semplice ?  non so}
-Another interesting feature of PS is that the final output of its
-execution is not only the set of pareto optimal configurations, but also a set
-of more or less innovation regions of the parameter space, obtained as
-a result of the merge/splitting operators described
-in~\secR{algorithm}.
+
+Finally, it should be pointed out that the final output of PS
+execution is not only the Pareto-optimal set of configurations, but also
+a partitioning of the parameter space in more or less innovative
+regions, obtained as a result of the merge/splitting operators
+described in~\secR{algorithm}. Exploiting the information carried out
+by this partitioning could be an interesting added-value of PS to be
+investigated in future developments of the proposed strategy.
 
 %Nevertheless, the proposed algorithm introduces a new
 %perspective on the allocation of a simulations budget, paving the way for

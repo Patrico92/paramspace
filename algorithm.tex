@@ -214,7 +214,7 @@ To summarize,thanks to the above characteristics, PS is able to recognize the re
 %
 
 \subsection{Algorithm Parameters and Scalability} The parameters that
-completely determine the algorithm are the configurations budget each
+completely determine the algorithm are the configurations budget for each
 era $K$ and the threshold factor $\alpha$. From a functional point of
 view, $K$ is somewhat similar to the population size of a genetic
 approach, determining which configuration should be evaluated in the
@@ -229,7 +229,7 @@ But while in the genetic approach $K$ must be sufficiently large
 in order to guarantee diversity of the Pareto set configurations, in
 our algorithm the diversity is not impacted by $K$ since, by
 construction, it is guaranteed by the way the configuration space is
-partitioned, independently from number of configurations evaluated at
+partitioned, independently from the number of configurations evaluated at
 each iteration. 
 
 On the other side, parameter $\alpha$ determines when a region is considered of high
@@ -246,14 +246,15 @@ of $PS$ with different choices and to select some ``reasonable'' average
 values to perform the design space exploration, as it will discussed
 in~\secR{ee}.
 
-As regards the performance of the proposed approach we can estimate that the
+With regard to the performance of the proposed approach we can estimate that the
 performance of $PS$ is strictly related to the total number of
 different configurations evaluated during the exploration. We can
-safely make such assumption, because the process of evalutating a new
+safely make such assumption, because the process of evaluating a new
 configuration is the time-dominating one among all the operations
-performed. As we will show the
+performed. As we will show in the
 next Section, this is especially true in the hardware/software
-design space exploration scenario we are addressing, since benchmark compiling and execution times
+design space exploration scenario we are addressing, since benchmark
+compilation and execution times
 are orders of magnitude bigger than the splitting/merging operations and
 innovation scores computations.  Ideally, the $i$-th era would provide a new set
 $test_i$ of $K$ configurations to be tested. However, we cannot know
@@ -264,7 +265,7 @@ can be estimated to be bounded as follows:
 \[
 K \le N_{tot} \le K \times E_{tot}
 \]
-where $E_{tot}$ is the nuber of eras executed and assuming that at
+where $E_{tot}$ is the number of eras executed and assuming that at
 least $K$ evaluation should be performed in order to obtain the first
 pareto $\mathscr{P}_0$. 
 
@@ -296,7 +297,7 @@ requirements. On the other hand, one of the macro-regions may begin to
 provide very low innovation at a certain era. In this case, dedicating
 to it the same number $K$ of test function as the other macro-regions
 is inefficient. To solve this problem, the number of test functions
-assigned to each macro-region should be perdiodically renegotiated, in
+assigned to each macro-region should be periodically renegotiated, in
 favor of the macro-regions providing most innovation.
 
 Opposite to the ``Island  scheme'', a novel parallelization technique
@@ -314,7 +315,7 @@ instance evaluates the innovation score of its regions (steps
 \ref{enu:region_innovation_score} of \secR{steps}), it considers the
 solutions found by the other PS instances. In this way, the
 configuration space is spanned in parallel by multiple PS instances,
-but, altough autonomous, they are not isolated; on the contrary, they
+but, although autonomous, they are not isolated; on the contrary, they
 continuously exchange information and influence each other, thanks to
 sharing the already simulated configurations and the non-dominated
 one. Otherwise stated, all the PS instances (independently but
