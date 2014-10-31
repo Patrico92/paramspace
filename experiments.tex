@@ -45,7 +45,7 @@ functional units of each type. On the software side, a set of the most
 impacting code compilation parameters has been selected.
 Table~\ref{tab:param} show the complete set of parameters included in
 the design space and their possible values. The total size of design
-space, which grows with the product of parameter cardinalities is
+space, which grows with the product of parameter cardinalities, is
 about $1.33 \times 10^{14}$.
 
 
@@ -223,10 +223,14 @@ reference a fixed amount of total unique simulations, instead of a given
 number of eras/generations . The purpose is to make the comparison
 fair and accurate from the algorithm performance perspective, since a fixed budget of
 different simulations is more directly related to the actual amount of time
-required to execute the exploration; on the other side, simply
-referring to a given number of generations/eras could be inaccurate
-when a considerable number of configurations remain unaltered in the
-current population (e.g. because of a local optimum)\comment{AA: Da 'on the other side' fin qui non ho capito cosa vuoi dire}.
+required to execute the exploration.
+%; on the other side, simply
+%referring to a given number of generations/eras could be inaccurate
+%when a considerable number of configurations remain unaltered in the
+%current population (e.g. because of a local optimum)
+\comment{AA: Da 'on the other side' fin qui non ho capito cosa vuoi dire}.
+\comment{DAV: se non lo capisci vuol dire che o e' scritto male o e'
+inutile, per adesso lo tolgo.}
 
 The set of default algorithm tuning parameters used for both the
 genetic and PS approaches to perform the simulations are shown in
