@@ -246,8 +246,8 @@ of $PS$ with different choices and to select some ``reasonable'' average
 values to perform the design space exploration, as it will discussed
 in~\secR{ee}.
 
-With regard to the performance of the proposed approach we can estimate that the
-performance of $PS$ is strictly related to the total number of
+With regard to the performance of the proposed approach, we observe that the
+performance of $PS$ is related to the total number of
 different configurations evaluated during the exploration. We can
 safely make such assumption, because the process of evaluating a new
 configuration is the time-dominating one among all the operations
@@ -256,12 +256,12 @@ next Section, this is especially true in the hardware/software
 design space exploration scenario we are addressing, since benchmark
 compilation and execution times
 are orders of magnitude bigger than the splitting/merging operations and
-innovation scores computations.  Ideally, the $i$-th era would provide a new set
+innovation scores computations.  The $i$-th era would provide a new set
 $test_i$ of $K$ configurations to be tested. However, we cannot know
 a priori how many of
 these will actually be new configurations, i.e. requiring a process of
-evaluation. Thus, number of total new simulations $N_{tot}$ 
-can be estimated to be bounded as follows:
+evaluation. Thus, the number of total new simulations $N_{tot}$ 
+is bounded as follows:
 \[
 K \le N_{tot} \le K \times E_{tot}
 \]

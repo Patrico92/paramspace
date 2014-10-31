@@ -171,19 +171,19 @@ set. The size of these regions becomes smaller at each iteration so
 that the covering becomes tighter. A random set of test points are
 evaluated in each new region; only the regions containing
 non-dominated points will be considered in the next iteration.
-However, an important feature differentiates it from PS. The Sampling algorithm only the
+However, an important feature differentiates it from PS. In the Sampling algorithm only the
 selected regions are examined, even though there is no guarantee that
-all the Pareto points are included in them. As a consequence, the
+they contain all the Pareto points. As a consequence, the
 Sampling algorithm may erroneously and prematurely neglect some
 regions that may possibly contain a non-negligible number of Pareto
 points. The PS algorithm avoids this, since even though a region has not
-provided non-dominated points, it is not neglected, rather it is
-simply populated with fewer test points, thus giving the chance to
-find non-dominated points in them. From this behavior also comes
+provided non-dominated points, it is not neglected, but it is
+populated with fewer test points, allowing to
+find its other non-dominated points. From this behavior also comes
 another important difference. The Sampling algorithm of
 \cite{dellnitz2005covering} keeps reinforcing the analysis of the
 regions selected in the previous iterations. In other words, it keeps
-zooming into the regions that have been considered ``interesting'',
+zooming in into the regions that have been considered ``interesting'',
 i.e. rich of non-dominated points, in the previous iterations. The
 philosophy behind our algorithm is different. A region, which has been
 considered interesting at a certain iterations, may be not in the

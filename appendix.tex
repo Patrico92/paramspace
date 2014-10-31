@@ -18,6 +18,15 @@ AA: Secondo me e' strano usare $\alpha\cdot is_{av,i-1}$ come soglia. Non si cap
 ?
 
 \subsection{Other metrics}
+Per rappresentare l'extent del Pereto front, forse
+sarebbe meglio evitare di usare il variation range, per come l'hai
+definito tu, e usare la funzione M3 di \cite{zitzler_ec00}, Sec.5
+``Metrics of performance'', che mi pare rappresenti la stessa cosa,
+concettualmente. Questo ci permette di essere meno attaccabili (del
+tipo ``non te la prendere con noi, prenditela con Zitzler (che e'
+citato 3064 volte!) se non capisci l'utilita' della metrica'').
+
+
 Un'altra interessante metrica potrebbe essere questa: Auhtors of \cite{zitzler_ec00} remark that a desirable property of the Pareto front is the spread of the non-dominated configurations all over the configuration space. In other words, the more similar the non-dominated configuration distribution is to the uniform distribution, the better is the quality of the Pareto front, since we have not been captured by only one possible subset of Pareto configurations but we are able to span all over the configuration space and find configurations whose parameter values differ considerably. Mi aspetto che PS performi bene sotto questo punto di vista. Ovviamente, non so se e' il caso di considerarla ora. Se non e' il caso, puoi spostare questo testo nel file ``appendix.tex'' come possibile spunto futuro. Per quantificare questa cosa, si potrebbe usare come metrica la normalised absolute dispersion error pero' non nello spazio degli obiettivi, ma nello spazio delle configurazioni.
 
 \subsection{Virtual merging}

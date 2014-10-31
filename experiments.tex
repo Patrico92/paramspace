@@ -225,21 +225,19 @@ fair and accurate from the algorithm performance perspective, since a fixed budg
 different simulations is more directly related to the actual amount of time
 required to execute the exploration; on the other side, simply
 referring to a given number of generations/eras could be inaccurate
-when a significative number of configuration remain unaltered in the
-current population (e.g. because of a local optimum).
+when a considerable number of configurations remain unaltered in the
+current population (e.g. because of a local optimum)\comment{AA: Da 'on the other side' fin qui non ho capito cosa vuoi dire}.
 
 The set of default algorithm tuning parameters used for both the
 genetic and PS approaches to perform the simulations are shown in
 Table~\ref{tab:defaults}. Given the similarity, both in terms of
 meaning and functionality, of the parameter $K$ with the population size
 of the genetic approach, they both have been set to the same values. As discussed
-when introducing the main PS algorithm concepts, an accurate
-investigation of algorithm tuning is beyond the scope of this
-introductory work. Nevertheless, a set of preliminary tests with
-different values of $K$ have been conducted, similar to the one shown in
-Figure~\ref{fig:kimpact} which refer to the alloca\_test application
-and a fixed amount of 500 configurations. We found that initially increasing values
-of $K$ seem to improve both Pareto (as in the picture on the left) and objective
+when introducing the main PS algorithm concepts, a sensitivity analysis on the algorithm parameters is beyond the scope of this work. Nevertheless, we conducted several tests with
+different values of $K$, similar to the ones shown in
+Figure~\ref{fig:kimpact} which refers to the alloca\_test application
+and a total budget of 500 configurations. We found that initially increasing values
+of $K$ seems to improve both Pareto (as in the picture on the left) and objective
 distribution (on the right), but after some threshold value the $K$ does
 not seem to provide any benefit, even returning to slightly worse
 results for the last value of $K$ considered (100). Similar trends have been
@@ -251,22 +249,22 @@ at~\cite{ps_results}.
 
 \begin{table}
 	\tbl{Algorithm Parameters\label{tab:defaults}}{
-	\begin{tabular}{ll}
+	\begin{tabular}{cll}
 	\hline
-	\multicolumn{1}{c}{Parameter} & \multicolumn{1}{c}{Default Value} \\
+	\multicolumn{1}{c}{Algorithm} & \multicolumn{1}{c}{Parameter} & \multicolumn{1}{c}{Default Value} \\
 	\hline
-	GA population size & 30 \\
-	GA crossover probability & 0.8 \\
-	GA mutation probability  & 0.1 \\
-	$K$ era budget & 30 \\
-	alpha threshold & 1 \\
-	Total simulations budgets & 100-500 \\
+	GA & population size & 30 \\
+	GA & crossover probability & 0.8 \\
+	GA & mutation probability  & 0.1 \\
+	PS & era budget ($K$) & 30 \\
+	PS & innovation threshold ($\alpha$ ) & 1 \\
+	both PS and GA & Total simulations budget & 100-500 \\
 	\hline
 	\end{tabular}}
 \end{table}
 
 \begin{figure}
-  \figLC{kimpact}{Impact of increased K values on Pareto fronts and distribution for the alloca\_test application.}
+  \figLC{kimpact}{Impact of increased K values on Pareto fronts and distribution for the alloca\_test application. \comment{AA: non capisco cosa sia la figura a destra. Inoltre, io vedo sulle ascisse e le ordinate di entrambi i grafici, le stesse grandezze (Time vs Power), quindi mi aspetto di trovare esattamente lo stesso plot sia a destra che a sinistra}}
   \begin{center}
     \includegraphics[width=0.45\textwidth]{pictures/alloca_K.eps} 
     \includegraphics[width=0.45\textwidth]{pictures/alloca_K_ALL.eps} 
@@ -290,14 +288,6 @@ Pareto fronts with large objective function ranges permit to investigate in a br
 
 For a given objective, the \emph{variation range} represents the ratio
 between the maximum and the minimum value observed for that objective.
-
-\comment{AA: Per rappresentare l'extent del Pereto front, forse
-sarebbe meglio evitare di usare il variation range, per come l'hai
-definito tu, e usare la funzione M3 di \cite{zitzler_ec00}, Sec.5
-``Metrics of performance'', che mi pare rappresenti la stessa cosa,
-concettualmente. Questo ci permette di essere meno attaccabili (del
-tipo ``non te la prendere con noi, prenditela con Zitzler (che e'
-citato 3064 volte!) se non capisci l'utilita' della metrica'').}
 
 Another metric is the average \emph{normalized absolute dispersion
 error}: it measures
@@ -469,11 +459,7 @@ be observed, GA shows a tendency in discovering more uniformly
 dispersed points (i.e. higher values in the chart). These results,
 together with the variation ranges of \figR{dispersion}(a) and (b)
 confirm the of density vs extension trade-offs when comparing PS and
-GA approaches. Again, it is worth pointing out how a definitive claim
-about which algorithm shows better results, being that strictly
-dependent on the design requirements and constraints, e.g.  whether we
-need wide or dense results.
-\comment{Da lasciare, da spostare ? da mostrare in modo semplice ?  non so}
+GA approaches. We highlight that PS shows a stronger \emph{uniform convergence} (discussed in \secL{metrics}), i.e. it provides a more extended Pareto front, avoiding the designer to neglect some important options, and offering a wider view of the potentiality of the designed device.
 
 Finally, it should be pointed out that the final output of PS
 execution is not only the Pareto-optimal set of configurations, but also
