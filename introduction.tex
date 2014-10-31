@@ -6,7 +6,7 @@ objectives (energy consumption, performance, area) to be fulfilled.
 The growing demand and reduced time-to-market of these systems are
 introducing even more challenges that designers have to
 face~\cite{wsts}.
-Several factors are involved in this goal and real cases show how
+Real cases show how
 often no analytical results are known to predict the relation between
 system configurations and objectives. In such cases a high level
 system simulation is the only way to have a picture of how system
@@ -18,17 +18,11 @@ of simulations.
 In these cases a Design Space Exploration (DSE) strategy is required,
 i.e. an algorithm that selects only a tractable subset of all possible
 configurations.  The final result of a design space exploration is a
-subset of the configurations called \emph{Pareto set} (\cite{pareto},
-see also \defR{pareto-set}). The corresponding values of the
-objectives for each configuration of the Pareto Set is called
-\emph{Pareto front}: it represents the trade-offs between objectives,
+subset of configurations called \emph{Pareto set} (\cite{pareto},
+see also \defR{pareto-set}). The set of the corresponding tuples of objective values is called \emph{Pareto front}: it represents the trade-off between objectives,
 i.e.  for each point of the Pareto front there is no other
 configuration performing better for all the objectives considered (see
-\figR{psos}). Of course this is only a first high-level system
-simulation, thus these few promising configurations will need to be
-further evaluated in a next step of the design flow using a more
-accurate low level simulation (e.g. register transfer level).
-
+\figR{psos}).
 %while providing, at the end, configurations that are close to the
 %optimum and that are worth evaluating, in a following step of the
 %design process, in a more thorough way.
@@ -40,7 +34,7 @@ algorithm that introduces the concept of \emph{interesting} and
 idea can be simplified as follows: at each iteration of the algorithm,
 the configuration space is divided in regions. A score is given to
 each region based on the \emph{innovation} provided by its
-configurations in the Pareto front, i.e. how different these configurations are, in terms of objectives, with respect to the ones already found previously. The regions with high score are considered the most \emph{interesting} and more simulations are distributed there rather than in the rest of the configuration space.
+configurations in the Pareto front, i.e. how different these configurations are, in terms of objective values, with respect to the ones previously found. The regions with high score are considered the most \emph{interesting} and more simulations are distributed there, rather than in the rest of the configuration space.
 Several geometrical transformations (splitting, merging etc.) are
 involved in the Parameter Space (aka configuration space), hence
 the name PS for the algorithm.
