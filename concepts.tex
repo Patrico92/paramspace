@@ -10,8 +10,8 @@ Then, we sketch the fundamental idea behind our algorithm. Finally, we
 provide a formal definition of the regions, of their properties and of
 the operations that will be performed on them by the algorithm.
 
-In this section and the following one, we will deliberately keep our formulation as general as possible, even if the focus of this paper is the embedded system design space exploration. The goal is to make the generality of PS emerge. We argue that it is a strong point for PS, as for genetic algorithms, since (i) it permits to apply it to a wide range of different problems and (ii) it can be effectually used when the embedded system design is particularly challenging and no much a-priori knowledge is available to the designer. As already pointed in \secL{related_work}, the generality of genetic algorithms has made them widely deployed with respect to the other approaches.
-Thanks to the generality of PS, we will not need to modify or adapt it in order to apply it to the case of embedded system design, as we will show in \secL{ee}. On the one hand, this legitimate our choice of keeping formulation general. On the other hand, more importantly, this confirms the capability of PS to automatically adapt to the problem under investigation, without any explicit intervention or knowledge of the designer, required, on the contrary, by~\cite{givargis_tvlsi02,santosh_hptr00,dellnitz2005covering} .
+In this section and the following one, we will deliberately keep our formulation as general as possible, even if the focus of this paper is the embedded system design space exploration. The goal is to make the generality of PS emerge. We argue that it is a strong point for PS, as for genetic algorithms, since (i) it permits to apply it to a wide range of different problems and (ii) it can be effectually used when the embedded system design is particularly challenging and no much a-priori knowledge is available to the designer. As already pointed in \secR{Related-work}, the generality of genetic algorithms has made them widely deployed with respect to the other approaches.
+Thanks to the generality of PS, we will not need to modify or adapt it in order to apply it to the case of embedded system design, as we will show in \secR{ee}. On the one hand, this legitimate our choice of keeping formulation general. On the other hand, more importantly, this confirms the capability of PS to automatically adapt to the problem under investigation, without any explicit intervention or knowledge of the designer, required, on the contrary, by~\cite{givargis_tvlsi02,santosh_hptr00,dellnitz2005covering} .
 
 \subsection{Pareto set and Pareto front}
 \secL{pareto}
@@ -28,7 +28,7 @@ configurations [$\mathcal{C}(S) = V_1 \times V_2 \times \ldots
 $\mathcal{C}(S)$ can really be mapped on $S$, but only a subset 
 is feasible. We call this subset {\em
 feasible configuration space} of $S$ and indicate it as
-$\mathcal{C}^*(S)$].
+$\mathcal{C}^*(S)$.
 
 Let $m$ be the number of objectives to be optimized (e.g. power,
 cost, performance, etc.). An {\em evaluation function}
@@ -71,10 +71,10 @@ that is the $v_{x} \in V_x$ which optimizes the objectives of the
 evaluation function $E$, is dependent upon the current value of $p_y$. 
 \end{definition}
 
-When a dependency is present between parameters, it could be
-misleading to use assumption about the ``meaning'' of
+When a dependency between parameters is present, it could be
+misleading to use assumptions about the ``meaning'' of
 parameters in order to intuitively choose an appropriate value that
-optimizes objectives.  It should be also pointed
+optimizes the objectives.  It should be also pointed
 out that it's often very difficult to identify dependencies using
 analytical techniques and often designers have to use different
 strategies to deal with such complexity, as seen
@@ -117,7 +117,7 @@ configurations with many ALUs and few registers. If $p_{1}$ is the
 parameter ``number of registers'' and $p_{2}$ is the parameter
 ``number of ALUs'', we can say that the region:
 \[
-R=\left\{ \left.\left(v_{1},v_{2}\right)\in P_{1}\times P_{2}\right|v_{1}<s_{1},v_{2}>s_{2}\right\} 
+R=\left\{ \left.\left(v_{1},v_{2}\right)\in V_{1}\times V_{2}\right|v_{1}<s_{1},v_{2}>s_{2}\right\} 
 \]
  (where $s_{1}$ and $s_{2}$ are some threshold values) is \emph{uninteresting}. This clearly shows that there are cases when, if a parameter lies in
 a certain range, there are ranges of the other one that are not worth being explored. Intuitively, the cartesian product of these ranges is an \emph{uninteresting region}.
@@ -140,7 +140,7 @@ because the way it fulfills the objectives is similar to the other
 already evaluated configurations. On the contrary, adding a new Pareto
 front point that is distant from previous ones is remarkable,
 since it let the experimenter discover potential performance that have not yet considered before.
-At each iteration, PS ``zooms in'' the most interesting regions while ``zooming out'' from the rest of configuration space. In order to implement this behavior algorithmically, at each iteration PS assigns the same number $N$ of simulations to each region. If a region $R$ is interesting, it is split in $k$ sub-regions before the next iteration starts. Therefore, in the next iteration, $N$ simulations are assigned to each sub-region. As a result, we are populating the original region $R$ with $k\cdot N$ simulations. On the contrary, uninteresting regions are merged, so that each one will receive less effort in the next iteration. In other words, ares of the configuration space that are more promising are split in small sub-regions, while the other ones are blended in big regions. As illustrated in \figR{small_and_big}, assigning $N$ simulations to each region makes small ones well populated while bigger ones sparsely explored.
+At each iteration, PS ``zooms in'' the most interesting regions while ``zooming out'' from the rest of configuration space. In order to implement this behavior algorithmically, at each iteration PS assigns the same number $N$ of simulations to each region. If a region $R$ is interesting, it is split in $k$ sub-regions before the next iteration starts. Therefore, in the next iteration, $N$ simulations are assigned to each sub-region. As a result, we are populating the original region $R$ with $k\cdot N$ simulations. On the contrary, uninteresting regions are merged, so that each one will receive less effort in the next iteration. In other words, areas of the configuration space that are more promising are split in small sub-regions, while the other ones are blended in big regions. As illustrated in \figR{small_and_big}, assigning $N$ simulations to each region makes small ones well populated while bigger ones sparsely explored.
 
 
 	\begin{figure}[t]
@@ -159,7 +159,7 @@ Since regions will be defined as cartesian products of parameter intervals, we n
 \begin{definition}[Parameter interval] Let $p_{i}$ be a parameter and $a_{i},b_{i}\in V_{i},a_{i}<b_{i}$.
 A $p_{i}$- interval is
 	\[
-	\left[a_{i}..b_{i}\right]=\left[a_{i},b_{i}\right]\cap P_{i}
+	\left[a_{i}..b_{i}\right]=\left[a_{i},b_{i}\right]\cap V_{i}
 	\]
 i.e. taking the interval $\left[a_{i}..b_{i}\right]$
 is the set of values of $V_{i}$ lying in $\left[a_{i},b_{i}\right]$)
@@ -215,7 +215,7 @@ Similarly $\left|R_{i}\right|$ is the number of configurations inside the region
 
 As already explained, we will split interesting regions and merge uninteresting ones. The region splitting and merging operations are defined starting from the corresponding operations defined on intervals.
 \begin{definition}[Splitting an interval]
-\defL{splitting-a-region}
+\defL{splitting-intervals}
 Given a $p_i$ interval $\left[a_{i}..b_{i}\right]$ with more than one element, i.e. $\left|\left[a_{i}..b_{i}\right]\right|>1$, the splitting operation produces as result two contiguous intervals $\left[a_{i}..c_{i}\right],\left[d_{i}..b_{i}\right]$
  such that
 	\begin{align}
@@ -234,7 +234,7 @@ cannot be split and $\psi \left[a_{i}..b_{i}\right]=\left[a_{i}..b_{i}\right]$.
 The interval split is illustrated in \figR{split}~(a). Note that, when splitting an interval, the resulting intervals must satisfy two conditions: (i) they must be contiguous and, merging them, the initial interval must be obtained; (ii) the point in which we cut the interval is not arbitrary, but it is close to the middle.
 
 \begin{definition}[Splitting a region]
-\label{pers02.def:Splitting-a-region}
+\defL{splitting-regions}
 Consider a region $R=\prod\left[a_{i}..b_{i}\right]$.The split operator $\psi$ divides it into a set of sub-regions obtained splitting each $p_i$-interval and combining the resulting sub-intervals with the cartesian product, as shown in \figR{split}~(b). Formally:
 	\begin{align}
 		\psi(R) = \left\{ \left.\prod\left[x_{i}..y_{i}\right]\right|\left[x_{i}..y_{i}\right]\in \psi\left[a_{i}..b_{i}\right]  \right\} 
@@ -278,12 +278,12 @@ We now formally describe the merging operations.
 Let $\left[a_{i}\dots b_{i}\right]$ and $\left[x_{i}..y_{i}\right]$ be two contiguous $p_i$-intervals. The merge operation applied to them produces a new $p_i$-interval of the following form:
 	\begin{align}
 		\mu	 \left( \begin{array}{l}
-				\left[a_{j}..y_{j}\right] \\
-				\left[x_{j}..b_{j}\right]
+				\left[a_{i}..y_{i}\right] \\
+				\left[x_{i}..b_{i}\right]
 		     \end{array} \right)
 		=\begin{cases}
-			\left[a_{j}..y_{j}\right] & \mbox{ if }b_{j}<x_{j}\\
-			\left[x_{j}..b_{j}\right] & \mbox{ if }y_{j}<a_{j}
+			\left[a_{i}..y_{i}\right] & \mbox{ if }b_{i}<x_{i}\\
+			\left[x_{i}..b_{i}\right] & \mbox{ if }y_{i}<a_{i}
 		\end{cases}
 	\end{align}
 

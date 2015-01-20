@@ -61,7 +61,7 @@ where the last equality can easily be proved.
 \item \label{pers02.enu:novelty_score_of_a_configuration}
 The test configurations that are dominated, i.e. do not belong to $\mathscr{P}_i$, are neglected, while an \emph{innovation score} is given to the other ones, computed on the base of their separation from the non-dominated configurations of the past eras. Recalling that $s$ is the separation (see \defR{separation}), the innovation score of a non-dominated test configuration $\mathbf{c}^*$ is defined as
 	\[
-	is\left(\mathbf{c}^*\right)=\min\left\{ \left.s\left(\mathbf{c}\rightarrow\mathbf{c} \right)\right|\mathbf{c}\in\mathscr{P}_{i-1}\right\} 
+	is\left(\mathbf{c}^*\right)=\min\left\{ \left.s\left(\mathbf{c}^*\rightarrow\mathbf{c} \right)\right|\mathbf{c}\in\mathscr{P}_{i-1}\right\} 
 	\]
 In other words, a configuration $\mathbf{c}^*$ is characterized by as much innovation
 as more separated it is from the configurations of the previous era.
@@ -100,7 +100,7 @@ as the sum of the innovation scores of its non-dominated test configurations:
 
 \item The goal of this step is preparing the regions that will compose the configuration space partition of the next era, i.e. $\mathscr{R}_{i+1}$. The following operations are performed:
 	\begin{enumerate}
-		\item Each high innovation region $R\in\mathscr{R}_{i,h}$ is split to obtain $\psi(R)$, as stated in \defR{splitting-a-region}. We use $\psi\left(\mathscr{R}_{i,h}\right)$ to denote the set of regions obtained as explained.
+		\item Each high innovation region $R\in\mathscr{R}_{i,h}$ is split to obtain $\psi(R)$, as stated in \defR{splitting-regions}. We use $\psi\left(\mathscr{R}_{i,h}\right)$ to denote the set of regions obtained as explained.
 		\item Low innovation regions are left unchanged.
 		\item No innovation regions are merged, two by two. To do so, pairs of no innovation contiguous regions $(R_1,R_2)$ are selected. We use $\mathscr{M}_i$ to represent the set of these pairs. This set is constructed such that pairs are independent, i.e. there cannot be two of them sharing a region. In other words, taking whatever $(R_1,R_2),(R_3,R_4) \in \mathscr{M}_i$, $R_i \neq R_j, \forall i,j\in\lbrace1,2,3,4\rbrace, i\neq j$. 
 We merge each pair of these regions, i.e. $\forall (R_1,R_2)\in\mathscr{M}_i$ we calculate $\mu(R_1,R_2)$, according to \defR{merging-regions}.
@@ -234,7 +234,7 @@ each iteration.
 On the other side, parameter $\alpha$ determines when a region is considered of high
 innovation. High values of $\alpha$ mean that a region will hardly be
 elected as high-innovation, yielding less splitting operations. This
-slows down zooming in on portions of configuration space and make the
+slows down zooming in on portions of configuration space and makes the
 distribution of the simulated configuration more uniform, as there are
 fewer small regions with a high test configuration concentration. The
 opposite happens when small values of $\alpha$ are used. In this
@@ -242,7 +242,7 @@ introductory work we are not explicitly focused on investigating how
 these parameters could be fine tuned, nevertheless
 we conducted some preliminary tests to confirm the relative stability
 of $PS$ with different choices and to select some ``reasonable'' average
-values to perform the design space exploration, as it will discussed
+values to perform the design space exploration, as we will discuss
 in~\secR{ee}.
 
 With regard to the performance of the proposed approach, we observe that the
@@ -303,7 +303,7 @@ Opposite to the ``Island  scheme'', a novel parallelization technique
 permitted by PS can consist of different instances of PS, each one
 running on the whole configuration space but having its own
 configuration space partition that separately evolves. Each PS
-instance independently performs the zoom-out and zoom-in in on
+instance independently performs the zoom-out and zoom-in on
 configuration space, splitting and merging its own regions. All PS
 instances share the indication of the configurations already tested,
 so that a configuration already tested by some PS instance, will not
