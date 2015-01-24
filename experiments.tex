@@ -7,7 +7,7 @@ embedded system design scenario,  since its properties
 are the one that suggested to the authors the concepts of Pareto-based
 innovation and region scoring system.
 
-In particular, we will use a parameterized Very Long Instruction
+In particular, we will use a parametrized Very Long Instruction
 Word (VLIW) architecture~\cite{kathail_tr00} as testbed. The philosophy
 behind a VLIW system makes this a natural choice for several reasons:
 \begin{itemize}
@@ -23,7 +23,7 @@ VLIW scenario perfectly suitable for investigating hardly predictable
 parameter interactions.
 \end{itemize}
 
-In this section, we will also briefly describe the parameterized platform used
+In this section, we will also briefly describe the parametrized platform used
 as testbed for the experiments, the general evaluation flow along with
 the high-level estimation models and applications used as benchmarks.
 
@@ -228,9 +228,6 @@ required to execute the exploration.
 %referring to a given number of generations/eras could be inaccurate
 %when a considerable number of configurations remain unaltered in the
 %current population (e.g. because of a local optimum)
-\comment{AA: Da 'on the other side' fin qui non ho capito cosa vuoi dire}.
-\comment{DAV: se non lo capisci vuol dire che o e' scritto male o e'
-inutile, per adesso lo tolgo.}
 
 The set of default algorithm tuning parameters used for both the
 genetic and PS approaches to perform the simulations are shown in
@@ -268,7 +265,7 @@ at~\cite{ps_results}.
 \end{table}
 
 \begin{figure}
-  \figLC{kimpact}{Impact of increased K values on Pareto fronts and distribution for the alloca\_test application. \comment{AA: non capisco cosa sia la figura a destra. Inoltre, io vedo sulle ascisse e le ordinate di entrambi i grafici, le stesse grandezze (Time vs Power), quindi mi aspetto di trovare esattamente lo stesso plot sia a destra che a sinistra}}
+  \figLC{kimpact}{Impact of increased K values on Pareto fronts and distribution for the alloca\_test application. }
   \begin{center}
     \includegraphics[width=0.45\textwidth]{pictures/alloca_K.eps} 
     \includegraphics[width=0.45\textwidth]{pictures/alloca_K_ALL.eps} 
@@ -448,8 +445,7 @@ time, respectively.
 
 \begin{figure}
   \figLC{dispersion}{(a)(b) Variation range obtained by PS and GA for
-  different benchmarks and average dispersion absolute dispersion (c).
-  \comment{AA: manca il titolo nella figura (c)} }
+  different benchmarks and average dispersion absolute dispersion (c). }
   \begin{center}
     \subfigure[]{\includegraphics[width=0.7\textwidth]{pictures/variation_power.eps} }
     \subfigure[]{\includegraphics[width=0.7\textwidth]{pictures/variation_etime.eps} }

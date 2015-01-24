@@ -1,7 +1,7 @@
 
 \section{PS algorithm}
 \secL{algorithm}
-In this section we present PS, the algorithm that we propose to perform the Design Space Exploration (DSE). As any other DSE algorithm, its input is the parameterized system $S$ and a benchmark application $b$, while the output is an approximation of the Pareto-optimal set $\mathcal{P}\left(S,b\right)$.   
+In this section we present PS, the algorithm that we propose to perform the Design Space Exploration (DSE). As any other DSE algorithm, its input is the parametrized system $S$ and a benchmark application $b$, while the output is an approximation of the Pareto-optimal set $\mathcal{P}\left(S,b\right)$.   
 PS is iterative and we will describe, separately, the initialization phase, the operations performed inside each iteration and the condition that triggers the termination.
 
 At a glance, at each iteration simulations are performed. Regions are classified based on the innovation introduced by their configurations in the Pareto-front so far calculated. The most interesting regions are split, so that each sub-region will receive evaluation effort in the next iteration. On the contrary, uninteresting regions are merged.
@@ -266,7 +266,7 @@ K \le N_{tot} \le K \times E_{tot}
 \]
 where $E_{tot}$ is the number of eras executed and assuming that at
 least $K$ evaluation should be performed in order to obtain the first
-pareto $\mathscr{P}_0$. 
+Pareto $\mathscr{P}_0$. 
 
 
 \subsection{On the parallelizability of PS}

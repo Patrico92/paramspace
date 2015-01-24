@@ -16,7 +16,7 @@ Thanks to the generality of PS, we will not need to modify or adapt it in order 
 \subsection{Pareto set and Pareto front}
 \secL{pareto}
 
-Let $S$ be a parameterized system with $n$ parameters. The generic
+Let $S$ be a parametrized system with $n$ parameters. The generic
 parameter $p_i, \ i \in \{1,2,\ldots,n\}$ can take any value in
 the set $V_i$. A {\em configuration} $\mathbf{c}$ of the system
 $S$ is a $n$-tuple $\langle v_1,v_2,\ldots,v_n \rangle$ in which
@@ -120,7 +120,7 @@ parameter ``number of registers'' and $p_{2}$ is the parameter
 R=\left\{ \left.\left(v_{1},v_{2}\right)\in V_{1}\times V_{2}\right|v_{1}<s_{1},v_{2}>s_{2}\right\} 
 \]
  (where $s_{1}$ and $s_{2}$ are some threshold values) is \emph{uninteresting}. This clearly shows that there are cases when, if a parameter lies in
-a certain range, there are ranges of the other one that are not worth being explored. Intuitively, the cartesian product of these ranges is an \emph{uninteresting region}.
+a certain range, there are ranges of the other one that are not worth being explored. Intuitively, the Cartesian product of these ranges is an \emph{uninteresting region}.
 
 The problem is that, in complex scenarios, not all the relations of this
 kind are known in advance. Some dependency may be hidden
@@ -155,7 +155,7 @@ At each iteration, PS ``zooms in'' the most interesting regions while ``zooming 
 \subsection{Formal definitions}
 We start by defining the parameter interval and the concept of interval contiguity. Using these definition we construct the region and define the region contiguity. Then we define the operations of splitting and merging regions. Finally, we provide the definition of separation.
 
-Since regions will be defined as cartesian products of parameter intervals, we need the following definition.
+Since regions will be defined as Cartesian products of parameter intervals, we need the following definition.
 \begin{definition}[Parameter interval] Let $p_{i}$ be a parameter and $a_{i},b_{i}\in V_{i},a_{i}<b_{i}$.
 A $p_{i}$- interval is
 	\[
@@ -184,8 +184,8 @@ to say $a<b$ or $a=b$ or $a>b$.
 The following definition of interval contiguity will be the base of the concept of region contiguity, used to define merging and splitting operations.
 \begin{definition}[Contiguous intervals]
 \label{pers02.def:Contiguous-intervals}
-Two intervals are contiguous iff they do not overlap and merging them results in a new interval. More formally, let $\left[a_{i}..b_{i}\right]$ and $\left[x_{i}..y_{i}\right]$
-be two $p_{i}$-intervals. They are said to be contiguous (see \figR{interval_and_region}(a) ) iff
+Two intervals are contiguous if and only if they do not overlap and merging them results in a new interval. More formally, let $\left[a_{i}..b_{i}\right]$ and $\left[x_{i}..y_{i}\right]$
+be two $p_{i}$-intervals. They are said to be contiguous (see \figR{interval_and_region}(a) ) if and only if
 \begin{align}\begin{array}{l}
 	\left[a_{i}..b_{i}\right]\cap\left[x_{i}..y_{i}\right]=\emptyset \mbox{      and} \\
 	\left[a_{i}..b_{i}\right]\cup\left[x_{i}..y_{i}\right]$ is a $p_{i}$-
@@ -194,7 +194,7 @@ interval or $\left[x_{i}..y_{i}\right]\cup\left[a_{i}..b_{i}\right]
 \end{definition}
 
 \begin{definition}[Region] 
-A region is a cartesian product of parameter intervals, as illustrated in \figR{interval_and_region} (b). More formally, if $p_1,\dots,p_n$ are the parameters of the system, and $\left[ a_{i}..b_{i} \right]$ is a $p_i$-interval, a region is a set of the following form:
+A region is a Cartesian product of parameter intervals, as illustrated in \figR{interval_and_region} (b). More formally, if $p_1,\dots,p_n$ are the parameters of the system, and $\left[ a_{i}..b_{i} \right]$ is a $p_i$-interval, a region is a set of the following form:
 \[
 R=\left[a_{1}..b_{1}\right]\times\dots\times\left[a_{n}..b_{n}\right]=\prod\left[a_{i}..b_{i}\right]
 \]
@@ -205,7 +205,7 @@ of these terms is related to the cardinality of regions.
 \begin{definition}[Interval and region comparison]
 A $p_{i}$-interval $\left[a_{i}..b_{i}\right]$
 is said to be bigger then another $p_{i}$-interval $\left[c_{i}..d_{i}\right]$
-iff 
+if and only if 
 $\left|\left[a_{i}..b_{i}\right]\right|>\left|\left[c_{i}..d_{i}\right]\right|$.
 Similarly, a region $R_{1}$ is said to be \emph{bigger }then $R_{2}$, if
 $\left|R_{1}\right|>\left|R_{2}\right|$
@@ -235,7 +235,7 @@ The interval split is illustrated in \figR{split}~(a). Note that, when splitting
 
 \begin{definition}[Splitting a region]
 \defL{splitting-regions}
-Consider a region $R=\prod\left[a_{i}..b_{i}\right]$.The split operator $\psi$ divides it into a set of sub-regions obtained splitting each $p_i$-interval and combining the resulting sub-intervals with the cartesian product, as shown in \figR{split}~(b). Formally:
+Consider a region $R=\prod\left[a_{i}..b_{i}\right]$.The split operator $\psi$ divides it into a set of sub-regions obtained splitting each $p_i$-interval and combining the resulting sub-intervals with the Cartesian product, as shown in \figR{split}~(b). Formally:
 	\begin{align}
 		\psi(R) = \left\{ \left.\prod\left[x_{i}..y_{i}\right]\right|\left[x_{i}..y_{i}\right]\in \psi\left[a_{i}..b_{i}\right]  \right\} 
 	\end{align}
@@ -256,7 +256,7 @@ Consider a region $R=\prod\left[a_{i}..b_{i}\right]$.The split operator $\psi$ d
 
 The merging operation will be defined only on region pairs that satisfy the conditions provided in the following definition.
 \begin{definition}[Contiguous regions]Let $R_{1}=\prod\left[a_{i}\dots b_{i}\right]$ and $R_{2}=\prod\left[x_{i}..y_{i}\right]$
-be two regions. They are said to be contiguous iff they do not overlap and, merging them, a new region can be obtained. Formally, $R_1$ and $R_2$ are contiguous iff there exists a $j$ such that:
+be two regions. They are said to be contiguous if and only if they do not overlap and, merging them, a new region can be obtained. Formally, $R_1$ and $R_2$ are contiguous if and only if there exists a $j$ such that:
 	\begin{align}\begin{array}{l}
 		\left[a_{i}..b_{i}\right]=\left[x_{i}..y_{i}\right]$
 	\mbox{ for } $i\neq j \mbox{      and} \\
@@ -265,7 +265,7 @@ be two regions. They are said to be contiguous iff they do not overlap and, merg
 \noindent We call $p_j$ the \emph{contiguity parameter} for the two regions.
 \end{definition}
 
-Examples of contiguous and non contiguous regions are given in \figR{contiguous_regions}. The two regions at the top are contiguous because their union can be expressed as the cartesian product of parameter intervals, thus they can be merged to obtain a new bigger region. The same also applies to the regions on the right. On the contrary, the two regions on the left (or of the two regions at the bottom) cannot be merged. 
+Examples of contiguous and non contiguous regions are given in \figR{contiguous_regions}. The two regions at the top are contiguous because their union can be expressed as the Cartesian product of parameter intervals, thus they can be merged to obtain a new bigger region. The same also applies to the regions on the right. On the contrary, the two regions on the left (or of the two regions at the bottom) cannot be merged. 
 
 	\begin{figure}[t]
 		\center
