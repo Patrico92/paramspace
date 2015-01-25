@@ -5,13 +5,13 @@
 In this section we provide the concepts and the formal
 definitions that we will use later to express PS, the algorithm we
 propose.  First, we give the definitions of Pareto set and Pareto
-front that lie on the basis of Design Space Exploration.
+front that are the basis of Design Space Exploration.
 Then, we sketch the fundamental idea behind our algorithm. Finally, we
-provide a formal definition of the regions, of their properties and of
-the operations that will be performed on them by the algorithm.
+provide a formal definition of the regions, their properties and
+the operations that the algorithm will perform on them.
 
 In this section and the following one, we will deliberately keep our formulation as general as possible, even if the focus of this paper is the embedded system design space exploration. The goal is to make the generality of PS emerge. We argue that it is a strong point for PS, as for genetic algorithms, since (i) it permits to apply it to a wide range of different problems and (ii) it can be effectually used when the embedded system design is particularly challenging and no much a-priori knowledge is available to the designer. As already pointed in \secR{Related-work}, the generality of genetic algorithms has made them widely deployed with respect to the other approaches.
-Thanks to the generality of PS, we will not need to modify or adapt it in order to apply it to the case of embedded system design, as we will show in \secR{ee}. On the one hand, this legitimate our choice of keeping formulation general. On the other hand, more importantly, this confirms the capability of PS to automatically adapt to the problem under investigation, without any explicit intervention or knowledge of the designer, required, on the contrary, by~\cite{givargis_tvlsi02,santosh_hptr00,dellnitz2005covering} .
+Thanks to the generality of PS, we will not need to modify or adapt it in order to apply it to the case of embedded system design, as we will show in \secR{ee}. On the one hand, this legitimate our choice of keeping our formulation general. On the other hand, more importantly, this confirms the capability of PS to automatically adapt to the problem under investigation, without any explicit intervention or knowledge of the designer, which is required, for example, by~\cite{givargis_tvlsi02,santosh_hptr00,dellnitz2005covering} .
 
 \subsection{Pareto set and Pareto front}
 \secL{pareto}
@@ -42,7 +42,7 @@ $\mathbf{c}'$ is said to {\em dominate} (or {\em eclipse})
 $\mathbf{c}''$, if, given $\mathbf{o}'=E(\mathbf{c}', b)$ and
 $\mathbf{o}''=E(\mathbf{c}'', b)$, it results that $\mathbf{o}'
 \leq \mathbf{o}''$ and $\mathbf{o}' \neq \mathbf{o}''$, where
-vector comparisons are interpreted component-wise and are true
+vector comparisons are component-wise and are true
 only if all of the individual comparisons are true ($o'_i \leq
 o''_i \ \forall \ i = 1,2,\ldots,m$). To indicate that 
 $\mathbf{c}'$ dominates $\mathbf{c}''$, we use the notation
@@ -59,35 +59,37 @@ that is, the set of configurations $\mathbf{c} \in
 The configurations belonging to the Pareto-optimal set are called \emph{Pareto-optimal configurations}, while the {\em Pareto-optimal front} (or, shortly, Pareto-front) is their image, i.e. the set:
 \[ \mathcal{P}_{F}(S,b) = \{ \mathbf{o} | \mathbf{o} = E(\mathbf{c},b), \mathbf{c} \in \mathcal{P}(S,b) \} \]
 
-Another fundamental concept, which adds further complexity to the
-problem of multi-objective design space exploration, is the following
+% AA: ho reso la seguente parte commento perche' mi sembra inutile e non capisco nemmeno io cosa volevo dire.
 
-\begin{definition}[Parameter dependency]
-\defL{dependency}
-Given a system $S$, an application $b \in \mathcal{B}$ and two parameters
-$p_x$ and $p_y$, $p_x$ is said to
-be dependent on another parameter $p_y$ if the optimal value of $p_x$,
-that is the $v_{x} \in V_x$ which optimizes the objectives of the
-evaluation function $E$, is dependent upon the current value of $p_y$. 
-\end{definition}
+%Another fundamental concept, which adds further complexity to the
+%problem of multi-objective design space exploration, is the following
 
-When a dependency between parameters is present, it could be
-misleading to use assumptions about the ``meaning'' of
-parameters in order to intuitively choose an appropriate value that
-optimizes the objectives.  It should be also pointed
-out that it's often very difficult to identify dependencies using
-analytical techniques and often designers have to use different
-strategies to deal with such complexity, as seen
-in~\secR{Related-work}. In this work we will often refer to
-hardware/software dependencies, denoting dependencies occurring
-between parameters belonging to the hardware and software categories,
-as defined in~\secR{designspace}.
+%\begin{definition}[Parameter dependency]
+%\defL{dependency}
+%Given a system $S$, an application $b \in \mathcal{B}$ and two parameters
+%$p_x$ and $p_y$, $p_x$ is said to
+%be dependent on another parameter $p_y$ if the optimal value of $p_x$,
+%that is the $v_{x} \in V_x$ which optimizes the objectives of the
+%evaluation function $E$, is dependent upon the current value of $p_y$. 
+%\end{definition}
+
+%When a dependency between parameters is present, it could be
+%misleading to use assumptions about the ``meaning'' of
+%parameters in order to intuitively choose an appropriate value that
+%optimizes the objectives.  It should be also pointed
+%out that it's often very difficult to identify dependencies using
+%analytical techniques and often designers have to use different
+%strategies to deal with such complexity, as seen
+%in~\secR{Related-work}. In this work we will often refer to
+%hardware/software dependencies, denoting dependencies occurring
+%between parameters belonging to the hardware and software categories,
+%as defined in~\secR{designspace}.
 
 The aim of a Design Space Exploration (DSE) strategy is to give a
 good approximation of the Pareto-optimal set for a system $S$ and an
 application $b$, simulating as few configurations as possible.
-As we will show later, at each iteration, PS calculates an approximation $\mathscr{P}_i$ of the Pareto-set that approaches it as iterations go on. The image of $\mathscr{P}_i$ is an approximation of the Pareto-front.
-The simulation effort is distributed more on the regions that provide configurations in $\mathscr{P}_i$ which introduce more \emph{innovation}, i.e. whose image in the objective space is more distant, thus ``more different'', from the previous Pareto-front approximation point.
+As we will show later, at each iteration $i$, PS calculates an approximation $\mathscr{P}_i$ of the Pareto-set that approaches it as iterations go on. The image of $\mathscr{P}_i$ is an approximation of the Pareto-front.
+The simulation effort is distributed more on the regions that provide configurations in $\mathscr{P}_i$ which introduce more \emph{innovation}, i.e. whose image in the objective space is more distant, thus ``more different'', from the previous Pareto-front approximation points.
 
 
 
@@ -106,10 +108,10 @@ The simulation effort is distributed more on the regions that provide configurat
 \subsection{Sketch of the Idea}
 \secL{sketch}
 
-In the design process, there are often a lot of ``local decisions'' in
+In the design process, there may be ``local decisions'' for
 which the designer can take advantage of well-known results or
 heuristics. For example, if we consider a highly parallel
-computer architecture in a configuration with very few registers, it is
+computer architecture in a configuration with few registers, it is
 well-known that increasing the number of ALUs does not bring tangible
 better performances but only cause an increase in area occupation. An
 intelligent exploration algorithm would not waste time evaluating
@@ -123,24 +125,22 @@ R=\left\{ \left.\left(v_{1},v_{2}\right)\in V_{1}\times V_{2}\right|v_{1}<s_{1},
 a certain range, there are ranges of the other one that are not worth being explored. Intuitively, the Cartesian product of these ranges is an \emph{uninteresting region}.
 
 The problem is that, in complex scenarios, not all the relations of this
-kind are known in advance. Some dependency may be hidden
-to the designer.
+kind are known in advance. Some dependency may be unknown.
 Therefore, as stated in \secR{Related-work},
 setting up an exploration trying to take into account as much dependencies
-as possible is a hard task that is destined to be incompletely
-accomplished. We need a methodology to ``automatically'' recognize
+as possible is practically unfeasible. We need a methodology to ``automatically'' recognize
 interesting or uninteresting regions without requiring a priori knowledge
 to the designer, that is what our algorithm does.
 
 We also consider, in measuring how much interesting a region is, the
 \emph{innovation} that it adds. If, during a design space exploration,
 a Pareto front approximation is temporarily calculated, adding a new Pareto front
-point near to the previous ones is not a considerable innovation,
+point near the previous ones is not a considerable innovation,
 because the way it fulfills the objectives is similar to the other
 already evaluated configurations. On the contrary, adding a new Pareto
 front point that is distant from previous ones is remarkable,
-since it let the experimenter discover potential performance that have not yet considered before.
-At each iteration, PS ``zooms in'' the most interesting regions while ``zooming out'' from the rest of configuration space. In order to implement this behavior algorithmically, at each iteration PS assigns the same number $N$ of simulations to each region. If a region $R$ is interesting, it is split in $k$ sub-regions before the next iteration starts. Therefore, in the next iteration, $N$ simulations are assigned to each sub-region. As a result, we are populating the original region $R$ with $k\cdot N$ simulations. On the contrary, uninteresting regions are merged, so that each one will receive less effort in the next iteration. In other words, areas of the configuration space that are more promising are split in small sub-regions, while the other ones are blended in big regions. As illustrated in \figR{small_and_big}, assigning $N$ simulations to each region makes small ones well populated while bigger ones sparsely explored.
+since it lets the experimenter discover potential performance that have not been considered yet.
+At each iteration, PS ``zooms in'' on the most interesting regions while ``zooming out'' from the rest of configuration space. In order to algorithmically implement this behavior, at each iteration PS assigns the same number $N$ of simulations to each region. If a region $R$ is interesting, it is split in $k$ sub-regions before the next iteration starts. Therefore, in the next iteration, $N$ simulations are assigned to each sub-region. As a result, we are populating the original region $R$ with $k\cdot N$ simulations. On the contrary, uninteresting regions are merged, so that each one will receive less effort in the next iteration. In other words, areas of the configuration space that are more promising are split in small sub-regions, while the other ones are blended in big regions. As illustrated in \figR{small_and_big}, assigning $N$ simulations to each region makes small ones well populated while bigger ones sparsely explored.
 
 
 	\begin{figure}[t]
@@ -148,12 +148,12 @@ At each iteration, PS ``zooms in'' the most interesting regions while ``zooming 
 	\includegraphics[width=0.5\columnwidth]{img/small_and_big}
 	\figLC{small_and_big}{In this example 5 configurations
 	are evaluated in a small region and in a bigger region. In can be
-	seen that smaller region is more crowded.}
+	seen that the small region is more crowded.}
 	\end{figure}
 
 
 \subsection{Formal definitions}
-We start by defining the parameter interval and the concept of interval contiguity. Using these definition we construct the region and define the region contiguity. Then we define the operations of splitting and merging regions. Finally, we provide the definition of separation.
+We start by defining the parameter interval and the concept of interval contiguity. Using these definitions, we construct the region and define the region contiguity. Then we define the operations of splitting and merging regions. Finally, we provide the definition of separation.
 
 Since regions will be defined as Cartesian products of parameter intervals, we need the following definition.
 \begin{definition}[Parameter interval] Let $p_{i}$ be a parameter and $a_{i},b_{i}\in V_{i},a_{i}<b_{i}$.
@@ -161,8 +161,7 @@ A $p_{i}$- interval is
 	\[
 	\left[a_{i}..b_{i}\right]=\left[a_{i},b_{i}\right]\cap V_{i}
 	\]
-i.e. taking the interval $\left[a_{i}..b_{i}\right]$
-is the set of values of $V_{i}$ lying in $\left[a_{i},b_{i}\right]$)
+i.e. $\left[a_{i}..b_{i}\right]$ is the set of values of $V_{i}$ lying in $\left[a_{i},b_{i}\right]$.
 \end{definition}
 
 
@@ -265,12 +264,12 @@ be two regions. They are said to be contiguous if and only if they do not overla
 \noindent We call $p_j$ the \emph{contiguity parameter} for the two regions.
 \end{definition}
 
-Examples of contiguous and non contiguous regions are given in \figR{contiguous_regions}. The two regions at the top are contiguous because their union can be expressed as the Cartesian product of parameter intervals, thus they can be merged to obtain a new bigger region. The same also applies to the regions on the right. On the contrary, the two regions on the left (or of the two regions at the bottom) cannot be merged. 
+Examples of contiguous and non contiguous regions are given in \figR{contiguous_regions}. The two regions at the top, for example, are contiguous because their union can be expressed as the Cartesian product of parameter intervals, and thus they can be merged to obtain a new bigger region. On the contrary, the two leftmost regions on the left are not contiguous. 
 
 	\begin{figure}[t]
 		\center
 		\includegraphics[width=0.8\columnwidth]{img/contiguous_regions}
-		\figLC{contiguous_regions}{Contiguous and non contiguous regions.}
+		\figLC{contiguous_regions}{Contiguous and non contiguous regions. The right figure represents the regions after merging operation $\mu$ is applied.}
 	\end{figure}
 
 We now formally describe the merging operations.
@@ -278,8 +277,8 @@ We now formally describe the merging operations.
 Let $\left[a_{i}\dots b_{i}\right]$ and $\left[x_{i}..y_{i}\right]$ be two contiguous $p_i$-intervals. The merge operation applied to them produces a new $p_i$-interval of the following form:
 	\begin{align}
 		\mu	 \left( \begin{array}{l}
-				\left[a_{i}..y_{i}\right] \\
-				\left[x_{i}..b_{i}\right]
+				\left[a_{i}..b_{i}\right] \\
+				\left[x_{i}..y_{i}\right]
 		     \end{array} \right)
 		=\begin{cases}
 			\left[a_{i}..y_{i}\right] & \mbox{ if }b_{i}<x_{i}\\
@@ -297,8 +296,8 @@ The merge operation $\mu$ applied to $R_1$ and $R_2$ produces a new region of th
 		\mu(R_1,R_2)=\prod_{i<j}\left[a_{i}..b_{i}\right]
 		\times
 		\mu	 \left( \begin{array}{l}
-				\left[a_{j}..y_{j}\right] \\
-				\left[x_{j}..b_{j}\right]
+				\left[a_{j}..b_{j}\right] \\
+				\left[x_{j}..y_{j}\right]
 		     \end{array} \right)
 		\times
 		\prod_{i>j}\left[a_{i}..b_{i}\right]

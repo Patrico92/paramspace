@@ -3,11 +3,8 @@
 
 The design of an embedded system requires different conflicting
 objectives (energy consumption, performance, area) to be fulfilled.
-The growing demand and reduced time-to-market of these systems are
-introducing even more challenges that designers have to
-face~\cite{wsts}.
-Real cases show how
-often no analytical results are known to predict the relation between
+In addition, it has to cope with an increasing demand and a reduced time-to-market~\cite{wsts}.
+In many real cases, no analytical results are known to predict the relation between
 system configurations and objectives. In such cases a high level
 system simulation is the only way to have a picture of how system
 parameters impact on the objectives.  A key problem is that the size
@@ -21,7 +18,7 @@ configurations.  The final result of a design space exploration is a
 subset of configurations called \emph{Pareto set} (\cite{pareto},
 see also \defR{pareto-set}). The set of the corresponding tuples of objective values is called \emph{Pareto front}: it represents the trade-off between objectives,
 i.e.  for each point of the Pareto front there is no other
-configuration performing better for all the objectives considered (see
+configuration performing better for all the objectives (see
 \figR{psos}).
 %while providing, at the end, configurations that are close to the
 %optimum and that are worth evaluating, in a following step of the
@@ -34,7 +31,7 @@ algorithm that introduces the concept of \emph{interesting} and
 idea can be simplified as follows: at each iteration of the algorithm,
 the configuration space is divided in regions. A score is given to
 each region based on the \emph{innovation} provided by its
-configurations in the Pareto front, i.e. how different these configurations are, in terms of objective values, with respect to the ones previously found. The regions with high score are considered the most \emph{interesting} and more simulations are distributed there, rather than in the rest of the configuration space.
+configurations in the Pareto front, i.e. how different these configurations are, in terms of objective values, with respect to the ones previously found. The regions with high score are considered the most \emph{interesting} and, at the next iteration, more configurations are simulated there, rather than in the rest of the configuration space.
 Several geometrical transformations (splitting, merging etc.) are
 involved in the Parameter Space (aka configuration space), hence
 the name PS for the algorithm.
@@ -44,11 +41,10 @@ algorithm mimics the attention shift in human beings. For example,
 authors in \cite{attention} models human attention as a single
 resource with a limited budget that must be distributed among tasks,
 preferring the task which the focus is on.  Authors in
-\cite{spatial_attention} describes the visual attention as a spotlight
-that focuses, each time, in a particular region of the visual space in
-order to process it more deeply. Similarly, PS focuses its
-``spotlight'' only to the interesting regions and explore them more
-thoroughly distributing the simulation budget on them.
+\cite{spatial_attention} describe the visual attention as a spotlight
+that focuses, each time, on a particular region of the visual space in
+order to deeply process it. Similarly, PS focuses its
+``spotlight'' only on the interesting regions and thoroughly explore them distributing the simulation budget on them.
 % Ispirzione: http://en.wikipedia.org/wiki/Attentional_shift
 In other words, with PS we propose a new perspective on the configuration space,
 where parameter interdependencies play the fundamental role of making
@@ -62,49 +58,38 @@ Then we give a theoretical formulation of the algorithm. In particular, in \secR
 Finally in \secR{ee} we show a case
 study involving the exploration of the hardware/software parameters of
 a Very Long Instruction Word (VLIW) architecture, performing a
-qualitative and quantitative comparison of PS against the state-of-art
+qualitative and quantitative comparison of PS against the state-of-the-art
 of multi-objective genetic based approaches.
 
 
 \section{Related work and Our Contribution}
 \secL{Related-work}
 Many different design space exploration algorithms have been proposed
-in literature.  What makes so complex the exploration of embedded
-systems is not only the huge size of parameter spaces involved,
-but also the tight interaction between parameters in relation to their
-effect on the objective to be optimized, which take the form of
-\emph{parameter dependencies} (see~\defR{dependency}). The 
-motivations of an exploration algorithm and how it deals with such
-complexity are often rather heuristic, have some form of arbitrariness and,
-to a large extend, intuition lies behind them.
+in literature. Exploring the design space of embedded systems is a difficult not only because of the huge size of the parameter space, but also due to the tight \emph{dependencies} (see~\defR{dependency}) between parameters, which impact the objectives.
+Due to this complexity, exploration algorithms are usually heuristic and, to a large extent, rely on simple intuitions rather then formal arguments.
 
-Some exploration strategies assume some kind of knowledge about the
-system parameters, their meaning and their impact on design
+Some exploration strategies assume some knowledge about the
+system parameters, their semantics and their impact on design
 objectives.  The \emph{Dependency analysis}, proposed in
 \cite{givargis_tvlsi02}, is meant to take advantage of the parameter
-dependencies. Starting from them, he can construct a ``dependency graph''
-and recognize clusters, i.e. subsets of strongly dependency-connected
-parameters. Each cluster is exhaustively evaluated and its ``local''
+dependencies. A ``dependency graph'' is constructed and clusters -- i.e. subsets of strongly dependency-connected parameters -- are recognized. Each cluster is exhaustively evaluated and its ``local''
 Pareto set is found. Then, all local Pareto sets are merged. In this
 way, a series of local exhaustive evaluations are performed instead of
 an exhaustive evaluation of all the possible configurations. Some
-problems arise: i) In real scenarios, it may be difficult to recognize
-really independent clusters of parameters, because there may be
-interdependencies among a large number of parameters. This may lead to
+problems arise: i) In real scenarios, parameter interdependencies may be so deep that it may be difficult to recognize independent clusters. This may lead to
 the need of an evaluation of almost all the possible configurations.
 ii) A designer may not have a precise and complete a-priori picture of
 the dependencies among parameters; for this reason the need of
 ``automated approaches for computing interdependencies'' is declared
 in the same paper.  These drawbacks are not present in PS,
 since, although it leverages dependencies as in
-\cite{givargis_tvlsi02}, it is able to detect them automatically, with
-no a-priori knowledge required. Moreover, our algorithm is able to
+\cite{givargis_tvlsi02}, it is able to detect them automatically, requiring no a-priori knowledge. Moreover, our algorithm is able to
 capture also ``local dependencies", i.e. dependencies that emerge only
 among certain ranges of parameters and may not hold when considering
 the entire ranges. This cannot be modeled in Dependency Analysis. 
 
 A preliminary estimation of hardware/software dependencies in order to
-reduce the design space is addressed in~\cite{Catania2008}, where
+reduce the exploration of the design space is addressed in~\cite{Catania2008}, where
 authors propose to deal with the software parameters separately,
 statistically testing their average effect on objectives before the
 actual exploration is performed. Also in~\cite{merging} authors
@@ -116,13 +101,12 @@ including the two classes of parameters in the design space without
 making any distinction between them from the algorithm's perspective.
 In fact, one of the purposes of the proposed PS algorithm is to avoid
 the need of any a priori knowledge about those dependencies, letting
-the algorithm itself to discover regions where interaction among
+the algorithm itself discover regions where interaction among
 parameters generates new Pareto-optimal points (see the PS scoring
 system described in the next sections).
 
 Abraham, Rau and Schreiber proposed in \cite{santosh_hptr00} to
-decompose the system under evaluation into components that interact
-minimally with each other. Pareto sets for each component are found
+decompose the system under evaluation into components that minimally interact with each other. Pareto sets for each component are found
 and, provided that ``monotonicity'' exists, the complete Pareto set is
 computed merging the component Pareto sets. Roughly speaking (see
 section 4 of the same paper for more details), monotonicity property
@@ -130,26 +114,26 @@ guarantees that the best system can be obtained as a composition of
 the best components. This approach would perfectly work if all the
 components were perfectly isolated, i.e., if there were no
 dependencies among them. But real scenarios rarely expose monotonicity
-property thus resulting in inaccuracies, as stated in the same paper.
+property, and thus inaccuracies may occur, as stated in the same paper.
 
 Other approaches, as \cite{fornaciari_codes01,palesi_iwsoc02}, are
-based on the concept of \emph{sensitivity analysis}, i.e. measuring of
+based on the concept of \emph{sensitivity analysis}, i.e. measuring
 how much the objective varies when varying each parameter.  Parameters
 are ordered based on their sensitivity. The first parameter (the most
 sensitive one) is varied, while keeping the other parameters fixed to
-arbitrary values, and its best value is found. The limited accuracy
+arbitrary values, and its best value is found. The same procedure is repeated for the second parameter and so on. The limited accuracy
 shown by these approaches can be explained by the limited and rigid
 exploration of the parameter space: after fixing the best first
 parameter value, there are no more chances to consider different
 values. It is worth noticing that this approach can not capture
 ``local sensitivity'', i.e. the objectives may be more sensitive to
 some ranges of a parameter and less sensitive to other ranges of the
-same parameter. Moreover it can not capture ``combined sensitivity'',
+same parameter. Moreover, it can not capture ``combined sensitivity'',
 i.e. the objectives may be more sensitive to a range of a parameter
 $p_{1}$, only when other parameters are within certain ranges, and
 less sensitive to the same range of $p_{1}$ when the other parameters
-are in different ranges. Otherwise, our algorithm can both capture
-local and combined sensitivity.
+are in different ranges. On the contrary, our algorithm can capture
+both local and combined sensitivity.
 
 Authors of \cite{dellnitz2005covering,dellnitz2009computation} propose
 three different methods for the numerical approximation of the Pareto
@@ -165,7 +149,7 @@ set. The size of these regions becomes smaller at each iteration so
 that the covering becomes tighter. A random set of test points are
 evaluated in each new region; only the regions containing
 non-dominated points will be considered in the next iteration.
-However, an important feature differentiates it from PS. In the Sampling algorithm only the
+An important feature differentiates it from PS. In the Sampling algorithm only the
 selected regions are examined, even though there is no guarantee that
 they contain all the Pareto points. As a consequence, the
 Sampling algorithm may erroneously and prematurely neglect some
@@ -177,31 +161,30 @@ find its other non-dominated points. From this behavior also comes
 another important difference. The Sampling algorithm of
 \cite{dellnitz2005covering} keeps reinforcing the analysis of the
 regions selected in the previous iterations. In other words, it keeps
-zooming in into the regions that have been considered ``interesting'',
+zooming in on the regions that have been considered ``interesting'',
 i.e. rich of non-dominated points, in the previous iterations. The
 philosophy behind our algorithm is different. A region, which has been
-considered interesting at a certain iterations, may be not in the
+considered interesting at certain iterations, may not be in the
 future, since it has been thoroughly analyzed. On the other hand, a
 region, initially uninteresting, may turn out to be interesting in the
 future, once all the other regions have been already exploited.
-Therefore, from an iteration to the next, our algorithm zoom in on
-regions that are currently interesting and zoom out from the
+Therefore, from an iteration to the next, our algorithm zooms in on
+regions that are currently interesting and zooms out from the
 uninteresting ones,  spanning in a broader and more dynamical way the
-configuration space. In addition, in the Sampling region only the
+configuration space. In addition, in the Sampling algorithm only the
 number of non-dominated points is accounted to see how interesting a
 region is. On the contrary, we also consider the \emph{innovation}, as
 already anticipated in the introduction.
 
 The most well documented and widespread class of algorithms adopted in the
-design space exploration of embedded systems is probably the Evolutionary
+design space exploration of embedded systems is represented by the Evolutionary
 Multi-objective Optimization Algorithms~\cite{coello_easmop}. For this
-reason, this is the class of algorithms that we will use for the
-experiments discussed in~\secR{ee}.
+reason, this is the class of algorithms that we will compare to ours in the experiments of~\secR{ee}.
 Evolutionary approaches have many advantages: they provide good accuracy, they are
 problem-independent and do not require any a-priori knowledge of the
 system. The strong point of these approaches is that they consist in an exploration that is sufficiently broad
 (the mutation avoids being rigidly restricted to limited parts of
-parameter space), and, at the same time, not too scattered as it is
+parameter space), and, at the same time, not too scattered, as it is
 guided by the performances of the already evaluated configurations.
 Different variants of these algorithms have been proposed in
 literature, including mixed approaches as in~\cite{Ascia2011382},
@@ -210,7 +193,7 @@ evolutionary exploration strategy, proposing a fuzzy-based technique
 to avoid the actual simulation of a certain number of configurations.
 In particular, in this work we will compare the proposed approach against a
 well known SPEA2 multi-objective genetic algorithm~\cite{knowles_techrep06}
-which is, at best of our knowledge, one of the most appropriate and
+which is, to the best of our knowledge, one of the most appropriate and
 tested for the particular scenario we are assuming.  We
 claim that the approach presented in this paper has most of the
 benefits of the evolutionary approaches, although the rationale is
