@@ -4,7 +4,7 @@
 In this section we present PS, the algorithm that we propose to perform the Design Space Exploration (DSE). As any other DSE algorithm, its input is the parametrized system $S$ and a benchmark application $b$, while the output is an approximation of the Pareto-optimal set $\mathcal{P}\left(S,b\right)$.   
 PS is iterative and we will describe, separately, the initialization phase, the operations performed inside each iteration and the condition that triggers the termination.
 
-At a glance, at each iteration simulations are performed. Regions are classified based on the innovation introduced by their configurations in the Pareto-front so far calculated. The most interesting regions are split, so that each sub-region will receive evaluation effort in the next iteration. On the contrary, uninteresting regions are merged.
+At a glance, at each iteration simulations are performed. Regions are classified based on the innovation introduced by their configurations in the Pareto-front so far calculated. The most interesting regions are split, so that each sub-region will receive more evaluation effort in the next iteration. On the contrary, uninteresting regions are merged.
 
 By a slightly abuse of notation, considering a subset $I$ of the configuration space, we will use  $\mathcal{P}(I,b)$ to denote the non-dominated feasible configurations in $I$, i.e.
 	\begin{align}
@@ -46,9 +46,9 @@ For $era_{i}$ with $i>0$ the following operations must be performed.
 \begin{enumerate}
 \item \label{pers02.enu:K}
 In each era $i$, a set $test_i$ of $K$ configurations will be evaluated. We call them \emph{test configurations} and selecting them is exactly the goal of this step.
-We select only \emph{new} configurations, i.e. the ones that have not been evaluated in past eras. In other words, $test_i$ must not contain $\bigcup_{j=0}^{i-1}test_{j}$.
+We select only \emph{new} configurations, i.e. the ones that have not been evaluated in past eras. In other words, $test_i$ must not overlap with $\bigcup_{j=0}^{i-1}test_{j}$.
 Since all regions $R$ in the configuration space partition $\mathcal{R}_{i}$ must be properly explored, we have to distribute the test configurations among all these regions. For this reason, $\frac{K}{\left|\mathcal{R}_{i}\right|}$ configurations are randomly extracted from the new configurations of each region $R\in\mathcal{R}_{i}$. We use $test_{R,i}$ to denote the set of the selected configurations and, obviously, $\bigcup_{R\in\mathcal{R}_{i}} test_{R,i} = test_i$.
- In case the new configurations in $R$ are less then $\frac{K}{\left|\mathcal{R}_{i}\right|}$, all of them are selected. In this case $test_{R,i}=R\setminus\bigcup_{j=0}^{i-1}test_{j}$, where  $\bigcup_{j=0}^{i-1}test_{j}$ is the set of the configurations already in the past.\footnote{Note that if such regions exist, the total number of evaluations in era $i$ will be less than $K$}
+ In case the new configurations in $R$ are less then $\frac{K}{\left|\mathcal{R}_{i}\right|}$, all of them are selected. In this case $test_{R,i}=R\setminus\bigcup_{j=0}^{i-1}test_{j}$, where  $\bigcup_{j=0}^{i-1}test_{j}$ is the set of the configurations already evaluated in the past.\footnote{Note that if such regions exist, the total number of evaluations in era $i$ will be less than $K$}
 \item All configurations on $test_{i}$ are simulated.
 \item The Pareto set $\mathscr{P}_{i}$ for $era_{i}$ is defined as the set of non-dominated configurations among the ones evaluated so far, i.e.
 	\[
@@ -69,7 +69,7 @@ as more separated it is from the configurations of the previous era.
 \item \label{enu:region_innovation_score} Every region $R\in\mathcal{R}_{i}$ is given an innovation score defined
 as the sum of the innovation scores of its non-dominated test configurations:
 	\[
-	is\left(R\right)=\sum\left\{ \left.is\left(\mathbf{c}\right)\right|\mathbf{c}\in\mathscr{P}_{i}\cap R\right\} 
+	is\left(R\right)=\sum\left\{ \left.is\left(\mathbf{c}\right)\right|\mathbf{c}\in\mathscr{P}_{i}\cap test_{R,i} \right\} 
 	\]
 
 \item The total innovation and average score for the entire era is calculated:
@@ -108,11 +108,11 @@ We stress that the regions that belong to each selected pair must be contiguous,
 	\end{enumerate}
 
 
-\item The set of regions $\mathcal{R}_{i+1}$ for the following era is composed of the sub-regions resulting from splitting operations ($\psi\left(\mathscr{R}_{i,h}\right)$), the low innovation regions unchanged $\mathcal{R}_{i,l}$, the result of the merging operations ($\mu(\mathscr{M}_i))$ and the no innovation regions that was not possible to merge $\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)$. Formally:
+\item The set of regions $\mathcal{R}_{i+1}$ for the following era is composed of the sub-regions resulting from splitting operations ($\psi\left(\mathscr{R}_{i,h}\right)$), the low innovation regions unchanged $\mathcal{R}_{i,l}$, the result of the merging operations ($\mu(\mathscr{M}_i))$ and the no innovation regions that was not possible to merge $\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathscr{M}_i }\left\{ R_{1},R_{2}\right\} \right)$. Formally:
 	\begin{align} 
 	\mathcal{R}_{i+1} \triangleq
 	\psi\left(\mathscr{R}_{i,h}\right) \cup \mathcal{R}_{i,l}\cup
-	\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)\cup \mu(\mathscr{M}_i)
+	\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathscr{M}_i }\left\{ R_{1},R_{2}\right\} \right)\cup \mu(\mathscr{M}_i)
 	\end{align}
 \end{enumerate}
 
@@ -149,7 +149,7 @@ We stress that the regions that belong to each selected pair must be contiguous,
 				\nl $is\left(\mathbf{c}^*\right) \Leftarrow \min\left\{ \left.s\left(\mathbf{c}\rightarrow\mathbf{c} \right)\right|\mathbf{c}\in\mathscr{P}_{i-1}\right\}$;\\
 				}
 			\nl \ForEach{$R\in\mathscr{R}_i$} {
-				\nl $is\left(R\right)=\sum\left\{ \left.is\left(\mathbf{c}\right)\right|\mathbf{c}\in\mathscr{P}_{i}\cap R\right\} $;
+				\nl $is\left(R\right)=\sum\left\{ \left.is\left(\mathbf{c}\right)\right|\mathbf{c}\in\mathscr{P}_{i}\cap test_{R,i} \right\} $;
 			}
 
 			\nl $is_{TOT,i}=\sum_{R\in\mathcal{R}_{i}}is\left(R\right)$ \\
@@ -179,24 +179,23 @@ The algorithm terminates at step $k$ if
 is_{TOT,k},is_{TOT,k-1},\dots,is_{TOT,k-\beta}\le\gamma\cdot is_{TOT,k-\left(\beta-1\right)}
 \]
  where $\beta$ and $\gamma$ are selected by the experimenter. 
-The algorithm terminates when in the last
-$\beta$ iterations not a great ``amount of innovation'' has been
-discovered. Therefore it is very probably that carrying on iterating
+In other words, the algorithm terminates if, in the last
+$\beta$ iterations, the ``amount of innovation'' has been
+small. Therefore, it is very probably that carrying on iterating
 will not considerably change the Pareto-front approximation already formed. 
 
 It is not recommended to chose $\beta=1$, because it is possible that the
 $k-1$-th and $k$-th Pareto front approximations are not very different but next ones could be. In other words,
 it is unsafe to terminate as soon as the Pareto front does not considerably change
-between two consecutive eras, thus a strategy taking into
-account the history of the Pareto fronts has been adopted in the
-proposed approach.
+between two consecutive eras. For this reason, we take into
+account the history of the Pareto fronts.
 
 A pseudo-code representation of PS algorithm is in Alg.\ref{alg:algo}.
 %!!! IN INGLESE E' PIU' CORRETTO DIRE: ``IT IS POSSIBLE THAT THE PARETO
 %FRONTS WERE NOT VERY DIFFERENT''? (CON ``WERE'' AL POSTO DI ``ARE'')
 
-\subsection{Exploration vs Exploitation in PS}
-The proposed algorithm has been designed in order to be inherently able to balance exploration and exploitation, which are ``two cornerstones of problem solving by search''~\cite{eiben1998evolutionary}. While a detailed survey on the exploration vs exploitation trade-off can be found in~\cite{vcrepinvsek2013exploration}, here we limitedly recall that \emph{exploration} is the capability of an algorithm to consider different parts of the configuration space, not being confined only to a limited subset and being trapped in local optima. Following the terminology of \cite{weise2012evolutionary}, if the exploration is not sufficiently wide, the algorithm suffers from \emph{premature convergence}, i.e. it starts to analyze only a narrow portion of the configuration space, thus ignoring potential Pareto configurations that are outside this portion. When premature convergence happens, there is insufficient \emph{diversity}~\cite{weise2012evolutionary}, i.e. all the provided solutions are similar.
+\subsection{Exploration vs. Exploitation in PS}
+The proposed algorithm has been designed in order to be inherently able to balance exploration and exploitation, which are ``two cornerstones of problem solving by search''~\cite{eiben1998evolutionary}. While a detailed survey on the exploration vs. exploitation trade-off can be found in~\cite{vcrepinvsek2013exploration}, here we limitedly recall that \emph{exploration} is the capability of an algorithm to consider different parts of the configuration space, not being confined only to a limited subset and being trapped in local optima. Following the terminology of \cite{weise2012evolutionary}, if the exploration is not sufficiently wide, the algorithm suffers from \emph{premature convergence}, i.e. it starts to analyze only a narrow portion of the configuration space, thus ignoring potential Pareto configurations that are outside this portion. When premature convergence happens, there is insufficient \emph{diversity}~\cite{weise2012evolutionary}, i.e. all the provided solutions are similar.
 On the other hand, \emph{exploitation} is the capability to recognize and densely analyze the parts of configuration space that have many Pareto configurations.
 
 While in genetic algorithms exploration and exploration are guaranteed by mutation, crossover and selection, in our algorithm these guarantees are provided for the following reasons:
