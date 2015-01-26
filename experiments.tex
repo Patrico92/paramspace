@@ -4,15 +4,15 @@ Although PS has been formally introduced and described as a general
 multi-objective optimization algorithm, in this work we will
 explicitly refer to the more restricted (but still very large)
 embedded system design scenario,  since its properties
-are the one that suggested to the authors the concepts of Pareto-based
+are the ones that suggested to the authors the concepts of Pareto-based
 innovation and region scoring system.
 
-In particular, we will use a parametrized Very Long Instruction
+In particular, we use a parametrized Very Long Instruction
 Word (VLIW) architecture~\cite{kathail_tr00} as testbed. The philosophy
 behind a VLIW system makes this a natural choice for several reasons:
 \begin{itemize}
 \item \emph{Multi-Objective trade-offs}: VLIW architectures allow designers
-to trade between power, energy and performances objectives, resulting
+to balance power, energy and performances objectives, resulting
 in extended Pareto sets which are an ideal ground for our testing
 purposes focused on parameter-space representation
 \item \emph{Software Compiler awareness}: code scheduling for the execution of
@@ -32,7 +32,7 @@ the high-level estimation models and applications used as benchmarks.
 Conceptually, system parameters can be classified in three main categories:
 \emph{processor}, \emph{memory sub-system} and \emph{compiler}. The
 first two categories are directly related to the physical
-implementation of the system, so parameters of those
+implementation of the system, and thus parameters of those
 classes are usually referred as ``hardware parameters''. On the other
 side, all the parameters affecting the behavior of the compiler
 are referred as ``software parameters'', being directly involved in
@@ -40,16 +40,16 @@ the process of generating the application executable running on the
 underlying hardware.
 
 Processor hardware parameters are directly related to the VLIW core
-and includes the size of the register files and the number of
+and include the size of the register files and the number of
 functional units of each type. On the software side, a set of the most
 impacting code compilation parameters has been selected.
-Table~\ref{tab:param} show the complete set of parameters included in
-the design space and their possible values. The total size of design
+Table~\ref{tab:param} shows the complete set of parameters included in
+the design space and their possible values. The total size of the design
 space, which grows with the product of parameter cardinalities, is
 about $1.33 \times 10^{14}$.
 
 
-As regards the class of benchmark being considered, a set applications representative of some common
+As regards the class of benchmark being considered, a set of applications representative of some common
 frequently running code kernels has been selected. Table~\ref{tab:bench} shows the set of applications
 along with a brief description.
 % IEEE table style
@@ -135,14 +135,14 @@ architectures for a specific application, one needs to simulate the
 architecture running the code of the application. To make
 architectural exploration possible both the compiler and the simulator
 have to be retargetable. The open source project Trimaran~\cite{trimaran_hp} provides these
-tools and together with estimation framework \ee~\cite{palpatti_estimedia03} has been
+tools and, together with the estimation framework \ee~\cite{palpatti_estimedia03}, has been
 adopted as a tested and flexible platform for carrying out the
-experiments described in the previous subsection.
+experiments.
 
 We will now show a functional scheme highlighting the main blocks of
 the \ee{} framework and the interface with the Trimaran tools. The
-input for the whole evaluation flow is the source of the application
-involved in the optimization and the configuration of the architecture
+input for the whole evaluation flow is the source file of an application
+benchmark and the configuration of the architecture
 being evaluated.  With reference to Figure~\ref{fig:evaluation_flow}
 this input is represented by the blocks \emph{App.c} and
 \emph{Config}.
@@ -206,12 +206,12 @@ for exploration) and accuracy of the reported Pareto Sets.  Note that,
 for the reasons described above, mono-objective approaches have been
 explicitly excluded from this analysis.  We also exclude other
 approaches (e.g.  dependency based~\cite{givargis_tvlsi02}) that make
-use of some a-priori knowledge about the role and meaning of each
+use of some a-priori knowledge about the role and the semantics of each
 parameter, since our aim is evaluate the capacity of focusing on
 interesting parameter regions without any external judgment or help
-based on heuristics.  In particular in this work when referring to
-genetic approach (or GA) we will denote the widely spread 
-\emph{SPEA}~\cite{zitzler_eurogen01} variant of the Multi-objective
+based on heuristics.  In this work, when referring to
+genetic approach (or GA), we consider the widely spread 
+\emph{SPEA2}~\cite{zitzler_eurogen01} variant of the Multi-objective
 Genetic Algorithm, remanding to
 works like~\cite{zitzler_ec00}~\cite{zitzler_tec03} for a detailed
 analysis on how it could differ from other genetic approaches and what
@@ -230,18 +230,18 @@ required to execute the exploration.
 %current population (e.g. because of a local optimum)
 
 The set of default algorithm tuning parameters used for both the
-genetic and PS approaches to perform the simulations are shown in
+genetic and PS approaches is shown in
 Table~\ref{tab:defaults}. Given the similarity, both in terms of
-meaning and functionality, of the parameter $K$ with the population size
+meaning and functionality, between the parameter $K$ and the population size
 of the genetic approach, they both have been set to the same values. As discussed
 when introducing the main PS algorithm concepts, a sensitivity analysis on the algorithm parameters is beyond the scope of this work. Nevertheless, we conducted several tests with
 different values of $K$, similar to the ones shown in
-Figure~\ref{fig:kimpact} which refers to the alloca\_test application
+Figure~\ref{fig:kimpact}, which refers to the alloca\_test application
 and a total budget of 500 configurations. We found that initially increasing values
-of $K$ seems to improve both Pareto (as in the picture on the left) and objective
-distribution (on the right), but after some threshold value the $K$ does
+of $K$ seems to improve both Pareto front (as in the picture on the left) and objective
+distribution (on the right), but, after some threshold value, $K$ does
 not seem to provide any benefit, even returning to slightly worse
-results for the last value of $K$ considered (100). Similar trends have been
+results for the last values of $K$ considered (100). Similar trends have been
 found for the other benchmarks (not included for space reasons),
 showing on average a value of $K$ around 30 as
 reasonable sweet spot for the objectives. A complete resource with the
@@ -276,16 +276,16 @@ at~\cite{ps_results}.
 
 \subsection{Evaluation metrics}
 \secL{metrics}
-A qualitative evaluation of Paretos is probably the simplest way for
-having a quick glance on algorithm behavior and results. However, in
-tests involving a comparison between different exploration strategies
+A qualitative evaluation of Paretos is probably the simplest way to
+have a quick glance on algorithm behavior and results. However, in
+tests involving a comparison between different exploration strategies,
 this approach could not help in capturing the whole picture, missing
 some important properties related to the distribution of the solutions
 found.
 In order to evaluate the Paretos from a quantitative point-of-view we
 will consider two metrics, namely, the \emph{variation range} and the
-\emph{average normalized absolute dispersion error}. Both of them permit to quantify the extent of the Pareto front that is an important factor to consider when evaluating the quality of a Pareto front. Indeed, authors in \cite{zitzler_ec00,weise2012evolutionary} observe that an exploration algorithm should preferably provide Pareto fronts whose objective function range is large. In other words, following the terminology of~\cite{weise2012evolutionary}, a \emph{uniform convergence} should be guaranteed.
-Pareto fronts with large objective function ranges permit to investigate in a broader way the potentials of the designed device. This is important, in general, since if only a narrow portion of the Pareto front is provided due to non-uniform convergence, the decision maker may neglect some important options~\cite{weise2012evolutionary}. Having a wide Pareto front becomes essential, in particular, when designing a device that may be required to satisfy different constraints. For example, the decision maker may want to design two different multi-purpose processors. The first design may adapt to situations in which the processor is used for real time elaboration (thus requiring low execution time) and is attached to the powerline (thus not having stringent power dissipation constraints). The second design, on the contrary, may fit situations in which the energy is provided by a battery (stringent power constraints) but only background computations are performed (long execution time is tolerable). These two processors may be successfully designed maintaining the same architecture, using different values for the design parameters. A wide Pareto front helps in achieving this goal.
+\emph{average normalized absolute dispersion error}. Both of them permit to quantify the extent of the Pareto front that is an important factor to consider when evaluating its quality. Indeed, authors of \cite{zitzler_ec00,weise2012evolutionary} observe that an exploration algorithm should preferably provide Pareto fronts whose objective function range is large. In other words, following the terminology of~\cite{weise2012evolutionary}, a \emph{uniform convergence} should be guaranteed.
+Pareto fronts with large objective function ranges permit to investigate in a broader way the potentials of the designed device. This is important, in general, since if only a narrow portion of the Pareto front is provided due to non-uniform convergence, the decision maker may neglect some important options~\cite{weise2012evolutionary}. Having a wide Pareto front becomes essential, in particular, when designing a device that may be required to satisfy different constraints. For example, the decision maker may want to design two different multi-purpose processors. The first design may adapt to situations in which the processor is used for real time elaboration (thus requiring low execution time) and is attached to the powerline (thus not having stringent power dissipation constraints). The second design, on the contrary, may fit situations in which the energy is provided by a battery (stringent power constraints) but only background computations are performed (long execution time is tolerable). These two processors may be successfully designed maintaining the same architecture and simply using different values for the design parameters. A wide Pareto front helps in achieving this goal.
 
 For a given objective, the \emph{variation range} represents the ratio
 between the maximum and the minimum value observed for that objective.
@@ -331,12 +331,12 @@ qualitative perspective, showing how Pareto curves compare when
 plotted on the bidimensional space of power and performance
 objectives. Next, we perform a quantitative
 analysis of the results in order to more accurately figure out in which
-features/properties the two approaches can differentiate.
+features/properties the two approaches differentiate.
 
 \figR{pareto_fronts_100} and \figR{pareto_fronts_500} show the
 resulting Pareto fronts for two scenarios of 100 and 500
-simulations budget respectively. The set of algorithm parameters involved and their
-values are the one previously shown in Table~\ref{tab:defaults}. It
+simulation budget, respectively. The set of algorithm parameters involved and their
+values are the ones previously shown in Table~\ref{tab:defaults}. It
 should be pointed out again that the number of generations (or eras)
 has been chosen so that only the given amount of different simulations is
 actually performed. Thus, when accounting these simulations only
@@ -400,31 +400,30 @@ unfeasible configurations.
 \end{figure}
 
 Low budget Pareto sets are shown in \figR{pareto_fronts_100}. Note
-that with a so small number of configuration being investigated the
+that with such a small number of configurations being investigated, the
 two sets are often overlapping, being also strongly dependent upon the
 application being considered.  These results are obtained in about 5
-eras and demonstrate that with a so limited budget PS can compete with
+eras and demonstrate that, with such a limited budget, PS can compete with
 genetic approach while even discovering very different Pareto fronts.
 Considering the extended simulation budget as depicted in
 \figR{pareto_fronts_500}, we can qualitatively observe that even if PS
-does not strictly outperforms genetic in terms of dominance, it shows
-in some cases largely Pareto in terms of extension. We can intuitively
+does not strictly outperforms GA in terms of dominance, it shows
+in some cases larger Pareto in terms of extension. We can intuitively
 relate this to the ``novelty-based'' score system, so that instead of
-focusing on getting better points inside a given range it tries to
+focusing on getting better points inside a given range PS tries to
 enlarge the range itself, resulting in less dense but more extended
 Paretos. Of course we cannot classify this different behavior as
 being strictly better or worse when compared to the genetic one: other
 design factors should be evaluated on a case-by-case basis, e.g. the
 desired granularity of the results, objective range constraints or
-estimated error of the models used.
+estimated error of the adopted models.
 
-To better evaluate results from a different perspective, we will
-adopted the two quantitative metrics of variation range and average absolute
-dispersion error, which have been described and motivated
+To better evaluate results from a different perspective, we
+adopt the \emph{variation range} and the \emph{average absolute
+dispersion error}, the two quantitative metrics described and motivated
 in~\secR{metrics}. In particular, a comparison between the variation
 ranges of both power dissipation and execution time, obtained by PS
-and GA for different benchmarks is shown in \figR{dispersion}(a) and
-(b) respectively.  As it can be observed, the PS exploration provides
+and GA for different benchmarks, is shown in \figR{dispersion}(a) and~(b), respectively.  As it can be observed, the PS exploration provides
 solutions which fall on a range that is, on average, wider than the
 one provided by a GA exploration for power dissipation and execution
 time, respectively.
@@ -457,9 +456,9 @@ time, respectively.
 errors for different benchmarks for PS and GA exploration.  As it can
 be observed, GA shows a tendency in discovering more uniformly
 dispersed points (i.e. higher values in the chart). These results,
-together with the variation ranges of \figR{dispersion}(a) and (b)
-confirm the of density vs. extension trade-offs when comparing PS and
-GA approaches. We highlight that PS shows a stronger \emph{uniform convergence} (discussed in \secR{metrics}), i.e. it provides a more extended Pareto front, avoiding the designer to neglect some important options, and offering a wider view of the potentiality of the designed device.
+together with the variation ranges of \figR{dispersion}(a) and~(b)
+confirm the density vs. extension trade-offs when comparing PS and
+GA approaches. We highlight that PS shows a stronger \emph{uniform convergence} (discussed in \secR{metrics}), i.e. it provides a more extended Pareto front, avoiding the designer to neglect some important options, and offering a wider view of the potentials of the designed device.
 
 Finally, it should be pointed out that the final output of PS
 execution is not only the Pareto-optimal set of configurations, but also

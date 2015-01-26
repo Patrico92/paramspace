@@ -168,7 +168,7 @@ We stress that the regions that belong to each selected pair must be contiguous,
 			\nl\\ // Prepare the configuration space partition for the next iteration \\
 			\nl $\mathcal{R}_{i+1} \triangleq
 	\psi\left(\mathscr{R}_{i,h}\right) \cup \mathcal{R}_{i,l}\cup
-	\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathcal{C}}\left\{ R_{1},R_{2}\right\} \right)\cup \mu(\mathscr{M}_i)$;\\
+	\left(\mathcal{R}_{i,n}\setminus\bigcup_{\left(R_{1},R_{2}\right)\in\mathscr{M}_i }\left\{ R_{1},R_{2}\right\} \right)\cup \mu(\mathscr{M}_i)$;\\
 		}
 	\nl $\tilde{\mathscr{P}} \Leftarrow \mathscr{P}_i$
 \end{algorithm}
@@ -195,14 +195,14 @@ A pseudo-code representation of PS algorithm is in Alg.\ref{alg:algo}.
 %FRONTS WERE NOT VERY DIFFERENT''? (CON ``WERE'' AL POSTO DI ``ARE'')
 
 \subsection{Exploration vs. Exploitation in PS}
-The proposed algorithm has been designed in order to be inherently able to balance exploration and exploitation, which are ``two cornerstones of problem solving by search''~\cite{eiben1998evolutionary}. While a detailed survey on the exploration vs. exploitation trade-off can be found in~\cite{vcrepinvsek2013exploration}, here we limitedly recall that \emph{exploration} is the capability of an algorithm to consider different parts of the configuration space, not being confined only to a limited subset and being trapped in local optima. Following the terminology of \cite{weise2012evolutionary}, if the exploration is not sufficiently wide, the algorithm suffers from \emph{premature convergence}, i.e. it starts to analyze only a narrow portion of the configuration space, thus ignoring potential Pareto configurations that are outside this portion. When premature convergence happens, there is insufficient \emph{diversity}~\cite{weise2012evolutionary}, i.e. all the provided solutions are similar.
+The proposed algorithm has been designed in order to be inherently able to balance exploration and exploitation, which are ``two cornerstones of problem solving by search''~\cite{eiben1998evolutionary}. While a detailed survey on the exploration vs. exploitation trade-off can be found in~\cite{vcrepinvsek2013exploration}, here we limitedly recall that \emph{exploration} is the capability of an algorithm to consider different parts of the configuration space, not being confined only to a limited subset, and thus not being trapped in local optima. Following the terminology of \cite{weise2012evolutionary}, if the exploration is not sufficiently wide, the algorithm suffers from \emph{premature convergence}, i.e. it starts to analyze only a narrow portion of the configuration space, thus ignoring potential Pareto configurations that are outside this portion. When premature convergence happens, there is insufficient \emph{diversity}~\cite{weise2012evolutionary}, i.e. all the provided solutions are similar.
 On the other hand, \emph{exploitation} is the capability to recognize and densely analyze the parts of configuration space that have many Pareto configurations.
 
-While in genetic algorithms exploration and exploration are guaranteed by mutation, crossover and selection, in our algorithm these guarantees are provided for the following reasons:
+While in genetic algorithms exploration and exploitation are guaranteed by mutation, crossover and selection, in our algorithm these guarantees are provided for the following reasons:
 	\begin{itemize}
-		\item Merging and splitting operation are dynamic processes. A portion
+		\item Merging and splitting operations are dynamic processes. A portion
 of the parameter space may be populated by a large number of small
-regions in some eras, and thus a large number of test configurations. However, after having been sufficiently explored, the innovation score of these regions may decrease, they may be merged and therefore that portion of configuration space may be covered by a small number of large regions in next eras. This is a desirable property of PS, since, after a number of eras of intense exploration of a configuration space part, this exploration may turn to be enough thorough and so it may be time for other parts to be minutely scanned. 
+regions in some eras, and thus a large number of test configurations. However, after having been sufficiently explored, the innovation score of these regions may decrease, they may be merged and therefore that portion of configuration space may be covered by a small number of large regions in next eras. This is a desirable property of PS, since, after a number of eras of intense exploration of a configuration space part, this exploration may turn out to be enough thorough and so it may be time for other parts to be minutely scanned. 
 PS dynamics can be summarized as follows: while eras alternate, PS zooms out from the configurations subspaces already sufficiently scanned in the past, whereas it zooms in on subspaces which provide novelty (guaranteeing exploitation), meaning that they have not been properly analyzed yet (this helps exploration). 
 		\item No portion of parameter space is neglected since, at each era, all the regions, even the least interesting ones, have the chance to be explored with new evaluated points (providing exploration), even though some regions are less densely explored than others.
 	\end{itemize}
@@ -211,30 +211,29 @@ To summarize, thanks to the above characteristics, PS is able to recognize the r
 
 %
 
-\subsection{Algorithm Parameters and Scalability} The parameters that
-completely determine the algorithm are the configurations budget for each
+\subsection{Algorithm Parameters and Scalability} The parameters that determine the algorithm are the configurations budget for each
 era $K$ and the threshold factor $\alpha$. From a functional point of
 view, $K$ is somewhat similar to the population size of a genetic
-approach, determining which configuration should be evaluated in the
+approach, determining how many configurations should be evaluated in the
 subsequent step of the algorithm. However, as seen in the
 previous subsection, the way this $K$ configurations are distributed
 across the parameters space is completely different.
 Authors of \cite{zitzler_ec00} found that
 increasing $K$ not necessarily has a considerable impact on the
 performance of the algorithm, and this holds also in our algorithm (see for example
-Figure~\ref{fig:kimpact} in Subsection~\ref{sec:comparison}).
-But while in the genetic approach $K$ must be sufficiently large
-in order to guarantee diversity of the Pareto set configurations, in
+Figure~\ref{fig:kimpact} and Subsection~\ref{sec:comparison}).
+Nonetheless, while in the genetic approach $K$ must be sufficiently large
+in order to guarantee the diversity of the Pareto set configurations, in
 our algorithm the diversity is not impacted by $K$ since, by
 construction, it is guaranteed by the way the configuration space is
-partitioned, independently from the number of configurations evaluated at
+partitioned, independently of the number of configurations evaluated at
 each iteration. 
 
 On the other side, parameter $\alpha$ determines when a region is considered of high
 innovation. High values of $\alpha$ mean that a region will hardly be
-elected as high-innovation, yielding less splitting operations. This
+elected as high-innovation, producing less splitting operations. This
 slows down zooming in on portions of configuration space and makes the
-distribution of the simulated configuration more uniform, as there are
+distribution of the simulated configurations more uniform, since there are
 fewer small regions with a high test configuration concentration. The
 opposite happens when small values of $\alpha$ are used. In this
 introductory work we are not explicitly focused on investigating how
@@ -244,8 +243,7 @@ of $PS$ with different choices and to select some ``reasonable'' average
 values to perform the design space exploration, as we will discuss
 in~\secR{ee}.
 
-With regard to the performance of the proposed approach, we observe that the
-performance of $PS$ is related to the total number of
+With regard to the performance of the proposed approach, we observe it is related to the total number of
 different configurations evaluated during the exploration. We can
 safely make such assumption, because the process of evaluating a new
 configuration is the time-dominating one among all the operations
@@ -287,13 +285,13 @@ Another possible approach is closer to the ``Island scheme'' for GA
 parallelization~\cite{Borkar14parallel}. The configuration space is
 initially divided in $n$ macro-regions, each one assigned to a
 different processing node, which autonomously performs all the PS
-steps, including merging and splitting, considering the assigned
+steps. When merging and splitting, each processing node consider the assigned
 macro-region as the entire parameter space. Note that, while the
 Island scheme for GA parallelization requires a migration operator,
 that is not easy to properly tune, we do not have special
 requirements. On the other hand, one of the macro-regions may begin to
 provide very low innovation at a certain era. In this case, dedicating
-to it the same number $K$ of test function as the other macro-regions
+to it the same number $K$ of test functions as to the other macro-regions
 is inefficient. To solve this problem, the number of test functions
 assigned to each macro-region should be periodically renegotiated, in
 favor of the macro-regions providing most innovation.
@@ -307,17 +305,17 @@ configuration space, splitting and merging its own regions. All PS
 instances share the indication of the configurations already tested,
 so that a configuration already tested by some PS instance, will not
 be tested again by some other PS instance. In addition, PS instances
-share the set of non-dominated configuration. Therefore, when a PS
+share the set of non-dominated configurations. Therefore, when a PS
 instance evaluates the innovation score of its regions (steps
 \ref{pers02.enu:novelty_score_of_a_configuration} and
-\ref{enu:region_innovation_score} of \secR{steps}), it considers the
+\ref{enu:region_innovation_score} of \secR{steps}), it considers also the
 solutions found by the other PS instances. In this way, the
 configuration space is spanned in parallel by multiple PS instances,
-but, although autonomous, they are not isolated; on the contrary, they
+that, although autonomous, are not isolated; on the contrary, they
 continuously exchange information and influence each other, thanks to
-sharing the already simulated configurations and the non-dominated
-one. Otherwise stated, all the PS instances (independently but
-jointly) contribute at the formation of the Pareto-set.
+the sharing of the the set of already simulated configurations and the set of non-dominated
+ones. Otherwise stated, all the PS instances (independently but
+jointly) contribute to the formation of the Pareto-set.
 
 We defer the evaluation of these different proposals to our future
 research, the aim of this section being just to show that our
