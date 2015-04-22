@@ -407,7 +407,7 @@ genetic approach while even discovering very different Pareto fronts.
 Considering the extended simulation budget as depicted in
 \figR{pareto_fronts_500}, we can qualitatively observe that even if PS
 does not strictly outperforms GA in terms of dominance, it shows
-in some cases larger Pareto fronts in terms of extension. We can intuitively
+in some cases Pareto fronts whose extension is larger. We can intuitively
 relate this to the ``novelty-based'' score system, so that instead of
 focusing on getting better points inside a given range PS tries to
 enlarge the range itself, resulting in less dense but more extended
