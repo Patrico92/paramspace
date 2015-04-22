@@ -1,0 +1,63 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: paper.aux
+The style file: ACM-Reference-Format-Journals.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: bibliography.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--empty publisher in palesi_iwsoc02
+Warning--page numbers missing in both pages and numpages fields in palesi_iwsoc02
+Warning--empty publisher in palpatti_estimedia03
+Warning--page numbers missing in both pages and numpages fields in Borkar14parallel
+Warning--page numbers missing in both pages and numpages fields in Cantu-Paz98asurvey
+Warning--empty address in coello_easmop
+Warning--empty publisher in fornaciari_codes01
+Warning--empty address in attention
+Warning--empty chapter and pages in attention
+Warning--empty chapter and pages in pareto
+Warning--empty address in merging
+Warning--unusual to have number, but no volume, for spatial_attention
+Warning--empty publisher in zitzler_eurogen01
+You've used 27 entries,
+            5290 wiz_defined-function locations,
+            1402 strings with 19678 characters,
+and the built_in function-call counts, 26421 in all, are:
+= -- 3595
+> -- 1033
+< -- 6
++ -- 313
+- -- 383
+* -- 1730
+:= -- 2880
+add.period$ -- 141
+call.type$ -- 27
+change.case$ -- 182
+chr.to.int$ -- 27
+cite$ -- 40
+duplicate$ -- 2076
+empty$ -- 1495
+format.name$ -- 421
+if$ -- 6500
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 78
+newline$ -- 257
+num.names$ -- 202
+pop$ -- 781
+preamble$ -- 1
+purify$ -- 316
+quote$ -- 0
+skip$ -- 587
+stack$ -- 0
+substring$ -- 1993
+swap$ -- 202
+text.length$ -- 107
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 360
+warning$ -- 13
+while$ -- 168
+width$ -- 0
+write$ -- 506
+(There were 13 warnings)

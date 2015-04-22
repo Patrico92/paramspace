@@ -147,7 +147,7 @@ At each iteration, PS ``zooms in'' on the most interesting regions while ``zoomi
 	\center
 	\includegraphics[width=0.5\columnwidth]{img/small_and_big}
 	\figLC{small_and_big}{In this example 5 configurations
-	are evaluated in a small region and in a bigger region. It can be
+	are evaluated in a small region and in a bigger region. In can be
 	seen that the small region is more crowded.}
 	\end{figure}
 

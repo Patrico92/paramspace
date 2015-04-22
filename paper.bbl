@@ -1,0 +1,323 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{00}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{{\tt DOI:}\penalty0{#1}\ }
+  \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       #1{#1}          \fi
+
+\bibitem[\protect\citeauthoryear{Abraham, Rau, and Schreiber}{Abraham
+  et~al\mbox{.}}{2000}]%
+        {santosh_hptr00}
+{Santosh~G. Abraham}, {B.~Ramakrishna Rau}, {and} {Robert Schreiber}. 2000.
+\newblock {\em Fast Design Space Exploration Through Validity and Quality
+  Filtering of Subsystem Designs}.
+\newblock {T}echnical {R}eport HPL-2000-98. HP Laboratories Palo Alto.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ascia, Catania, Nuovo, Palesi, and
+  Patti}{Ascia et~al\mbox{.}}{2011}]%
+        {Ascia2011382}
+{Giuseppe Ascia}, {Vincenzo Catania}, {Alessandro G.~Di Nuovo}, {Maurizio
+  Palesi}, {and} {Davide Patti}. 2011.
+\newblock \showarticletitle{Performance evaluation of efficient multi-objective
+  evolutionary algorithms for design space exploration of embedded computer
+  systems}.
+\newblock {\em Applied Soft Computing\/} {11}, 1 (2011), 382 -- 398.
+\newblock
+\showISSN{1568-4946}
+\showDOI{%
+\url{http://dx.doi.org/10.1016/j.asoc.2009.11.029}}
+
+
+\bibitem[\protect\citeauthoryear{Ascia, Catania, and Palesi}{Ascia
+  et~al\mbox{.}}{2002}]%
+        {palesi_iwsoc02}
+{Giuseppe Ascia}, {Vincenzo Catania}, {and} {Maurizio Palesi}. 2002.
+\newblock \showarticletitle{Tuning Methodologies for Parameterized Systems
+  Design}. In {\em International Workshop on System-on-Chip for Real-Time
+  Applications}. Banff, Canada.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Ascia, Catania, Palesi, and Patti}{Ascia
+  et~al\mbox{.}}{2003}]%
+        {palpatti_estimedia03}
+{Giuseppe Ascia}, {Vincenzo Catania}, {Maurizio Palesi}, {and} {Davide Patti}.
+  2003.
+\newblock \showarticletitle{{EPIC-Explorer}: A Parameterized {VLIW}-based
+  Platform Framework for Design Space Exploration}. In {\em First Workshop on
+  Embedded Systems for Real-Time Multimedia (ESTIMedia)}. Newport Beach,
+  California, USA, 65--72.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Borkar and Mahajan}{Borkar and
+  Mahajan}{2014}]%
+        {Borkar14parallel}
+{P.S. Borkar} {and} {A.R. Mahajan}. 2014.
+\newblock \showarticletitle{Types and applications of Parallel Genetic
+  Algorithm}.
+\newblock {\em Internation Journal of Advanced Research in Computer Science and
+  Software Engineering\/} {4}, 4 (2014).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Cantú-Paz}{Cantú-Paz}{1998}]%
+        {Cantu-Paz98asurvey}
+{Erick Cantú-Paz}. 1998.
+\newblock \showarticletitle{A Survey of Parallel Genetic Algorithms}.
+\newblock {\em Calculateurs Paralleles\/}  {10} (1998).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Catania, Araldo, and Patti}{Catania
+  et~al\mbox{.}}{2014}]%
+        {ps_results}
+{Vincenzo Catania}, {Andrea Araldo}, {and} {Davide Patti}. 2014.
+\newblock Complete results of Paramspace tests.
+\newblock   (2014).
+\newblock
+\showURL{%
+\url{http://ricerca.dieei.unict.it/PS_TEST/}}
+
+
+\bibitem[\protect\citeauthoryear{Catania, Palesi, and Patti}{Catania
+  et~al\mbox{.}}{2008}]%
+        {Catania2008}
+{Vincenzo Catania}, {Maurizio Palesi}, {and} {Davide Patti}. 2008.
+\newblock \showarticletitle{Reducing Complexity of Multiobjective Design Space
+  Exploration in VLIW-based Embedded Systems}.
+\newblock {\em ACM Trans. Archit. Code Optim.\/} {5}, 2, Article 11 (Sept.
+  2008), 33 pages.
+\newblock
+\showISSN{1544-3566}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/1400112.1400116}}
+
+
+\bibitem[\protect\citeauthoryear{Coello, Veldhuizen, and Lamont}{Coello
+  et~al\mbox{.}}{2002}]%
+        {coello_easmop}
+{Carlos A.~Coello Coello}, {David A.~Van Veldhuizen}, {and} {Gary~B. Lamont}.
+  2002.
+\newblock {\em Evolutionary Algorithms for Solving Multi-Objective Problems}.
+  Vol.~5.
+\newblock Kluwer Academic Publishers.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{{\v{C}}repin{\v{s}}ek, Liu, and
+  Mernik}{{\v{C}}repin{\v{s}}ek et~al\mbox{.}}{2013}]%
+        {vcrepinvsek2013exploration}
+{Matej {\v{C}}repin{\v{s}}ek}, {Shih-Hsi Liu}, {and} {Marjan Mernik}. 2013.
+\newblock \showarticletitle{Exploration and exploitation in evolutionary
+  algorithms: a survey}.
+\newblock {\em ACM Computing Surveys (CSUR)\/} {45}, 3 (2013), 35.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dellnitz, Sch{\"u}tze, and
+  Hestermeyer}{Dellnitz et~al\mbox{.}}{2005}]%
+        {dellnitz2005covering}
+{Michael Dellnitz}, {Oliver Sch{\"u}tze}, {and} {Thorsten Hestermeyer}. 2005.
+\newblock \showarticletitle{Covering Pareto sets by multilevel subdivision
+  techniques}.
+\newblock {\em Journal of optimization theory and applications\/} {124}, 1
+  (2005), 113--136.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Dellnitz and Witting}{Dellnitz and
+  Witting}{2009}]%
+        {dellnitz2009computation}
+{M Dellnitz} {and} {K Witting}. 2009.
+\newblock \showarticletitle{Computation of robust Pareto points}.
+\newblock {\em International Journal of Computing Science and Mathematics\/}
+  {2}, 3 (2009), 243--266.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Eiben and Schippers}{Eiben and
+  Schippers}{1998}]%
+        {eiben1998evolutionary}
+{Agoston~E Eiben} {and} {CA Schippers}. 1998.
+\newblock \showarticletitle{On evolutionary exploration and exploitation}.
+\newblock {\em Fundamenta Informaticae\/} {35}, 1 (1998), 35--50.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Fornaciari, Sciuto, Silvano, and
+  Zaccaria}{Fornaciari et~al\mbox{.}}{2001}]%
+        {fornaciari_codes01}
+{William Fornaciari}, {Donatella Sciuto}, {Cristina Silvano}, {and} {Vittorio
+  Zaccaria}. 2001.
+\newblock \showarticletitle{A Design Framework to Efficiently Explore
+  Energy-Delay Tradeoffs}. In {\em 9th. International Symposium on
+  Hardware/Software Co-Design}. Copenhagen, Denmark, 260--265.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Givargis, Vahid, and Henkel}{Givargis
+  et~al\mbox{.}}{2002}]%
+        {givargis_tvlsi02}
+{Tony Givargis}, {Frank Vahid}, {and} {J{\"o}rg Henkel}. 2002.
+\newblock \showarticletitle{System-Level Exploration for {P}areto-Optimal
+  Configurations in Parameterized {S}ystem-on-a-{C}hip}.
+\newblock {\em {IEEE} Transactions on Very Large Scale Integration Systems\/}
+  {10}, 2 (Aug. 2002), 416--422.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kahneman}{Kahneman}{1973}]%
+        {attention}
+{D. Kahneman}. 1973.
+\newblock {\em Attention and Effort}.
+\newblock Prentice-Hall.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Kathail, Schlansker, and Rau}{Kathail
+  et~al\mbox{.}}{2000}]%
+        {kathail_tr00}
+{Vinod Kathail}, {Michael~S. Schlansker}, {and} {B.~Ramakrishna Rau}. 2000.
+\newblock {\em {HPL-PD} Architecture Specification: Version 1.0}.
+\newblock {T}echnical {R}eport. Compiler and Architecture Research HP
+  Laboratories Palo Alto HPL-93-80.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Knowles, Thiele, and Zitzler}{Knowles
+  et~al\mbox{.}}{2006}]%
+        {knowles_techrep06}
+{Joshua Knowles}, {Lothar Thiele}, {and} {Eckart Zitzler}. 2006.
+\newblock {\em A tutorial on the performance assessment of stochastive
+  multiobjective optimizers}.
+\newblock {T}echnical {R}eport 214. Computer Engineering and Networks
+  Laboratory, {ETH} Zurich.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Pareto}{Pareto}{1896}]%
+        {pareto}
+{Vilfredo Pareto}. 1896.
+\newblock {\em Cours D'Economie Politique}. Vol. I--II.
+\newblock F. Rouge, Lausanne.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Patti, Palesi, and Catania}{Patti
+  et~al\mbox{.}}{2014}]%
+        {merging}
+{Davide Patti}, {Maurizio Palesi}, {and} {Vincenzo Catania}. 2014.
+\newblock \showarticletitle{Merging Compilation and Microarchitectural
+  Configuration Spaces for Performance/Power Optimization in VLIW-Based
+  Systems}.
+\newblock In {\em Modern Trends and Techniques in Computer Science}, {Radek
+  Silhavy}, {Roman Senkerik}, {Zuzana~Kominkova Oplatkova}, {Petr Silhavy},
+  {and} {Zdenka Prokopova} (Eds.). Advances in Intelligent Systems and
+  Computing, Vol. 285. Springer International Publishing, 203--212.
+\newblock
+\showISBNx{978-3-319-06739-1}
+\showDOI{%
+\url{http://dx.doi.org/10.1007/978-3-319-06740-7_18}}
+
+
+\bibitem[\protect\citeauthoryear{Sperling and Weichselgartner}{Sperling and
+  Weichselgartner}{1995}]%
+        {spatial_attention}
+{G. Sperling} {and} {E. Weichselgartner}. 1995.
+\newblock \showarticletitle{Episodic Theory of the Dynamics of Spatial
+  Attention}.
+\newblock {\em Psycological Review\/} 102 (1995), 503--532.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Trimaran}{Trimaran}{2010}]%
+        {trimaran_hp}
+Trimaran 2010.
+\newblock An Infrastructure for Research in Instruction-Level Parallelism.
+\newblock \url{http://www.trimaran.org/}.   (2010).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Weise, Chiong, and Tang}{Weise
+  et~al\mbox{.}}{2012}]%
+        {weise2012evolutionary}
+{Thomas Weise}, {Raymond Chiong}, {and} {Ke Tang}. 2012.
+\newblock \showarticletitle{Evolutionary optimization: Pitfalls and booby
+  traps}.
+\newblock {\em Journal of Computer Science and Technology\/} {27}, 5 (2012),
+  907--936.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{WSTS}{WSTS}{2013}]%
+        {wsts}
+WSTS 2013.
+\newblock World Semiconductor Trade Statistics Bluebook.
+\newblock \url{http://www.wsts.org/}.   (2013).
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zitzler, Deb, and Thiele}{Zitzler
+  et~al\mbox{.}}{2000}]%
+        {zitzler_ec00}
+{Eckart Zitzler}, {Kalyanmoy Deb}, {and} {Lothar Thiele}. 2000.
+\newblock \showarticletitle{Comparison of Multiobjective Evolutionary
+  Algorithms: Empirical Results}.
+\newblock {\em Evolutionary Computation\/} {8}, 2 (2000), 173--195.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zitzler, Laumanns, and Thiele}{Zitzler
+  et~al\mbox{.}}{2001}]%
+        {zitzler_eurogen01}
+{Eckart Zitzler}, {Marco Laumanns}, {and} {Lothar Thiele}. 2001.
+\newblock \showarticletitle{{SPEA2}: Improving the Performance of the Strength
+  Pareto Evolutionary Algorithm}. In {\em {EUROGEN} 2001. Evolutionary Methods
+  for Design, Optimization and Control with Applications to Industrial
+  Problems}. Athens, Greece, 95--100.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Zitzler, Thiele, Laumanns, Fonseca, and
+  da~Fonseca}{Zitzler et~al\mbox{.}}{2003}]%
+        {zitzler_tec03}
+{Eckart Zitzler}, {Lothar Thiele}, {Marco Laumanns}, {Carlos~M. Fonseca}, {and}
+  {Viviane~Grunert da Fonseca}. 2003.
+\newblock \showarticletitle{Performance Assessment of Multiobjective
+  Optimizers: An Analysis and Review}.
+\newblock {\em IEEE Transactions on Evolutionary Computation\/} {7}, 2 (April
+  2003), 117--132.
+\newblock
+
+
+\end{thebibliography}
